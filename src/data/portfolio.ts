@@ -95,35 +95,6 @@ export const spokenLanguages: { name: string; level: string }[] = [
   { name: "Thai", level: "Basic" },
 ];
 
-// How I work on projects — shown as numbered steps
-export const process: { step: string; detail: string }[] = [
-  {
-    step: "Understand",
-    detail:
-      "Start from the real requirements — who uses it, what the business needs, and what 'done' looks like.",
-  },
-  {
-    step: "Design",
-    detail:
-      "Sketch the user flow and UI, then model the data: tables, relationships, and the APIs between them.",
-  },
-  {
-    step: "Build",
-    detail:
-      "Develop end to end — database, backend logic and APIs, then the interface — in small, working pieces.",
-  },
-  {
-    step: "Test & refine",
-    detail:
-      "Check each feature against the requirements, fix issues, and polish the experience before release.",
-  },
-  {
-    step: "Ship & improve",
-    detail:
-      "Deploy live, gather feedback, and keep iterating, following the software development lifecycle.",
-  },
-];
-
 export const experience: Experience[] = [
   {
     company: "Tamarind Community",

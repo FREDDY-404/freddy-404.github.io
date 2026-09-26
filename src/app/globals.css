@@ -1,43 +1,42 @@
 @import "tailwindcss";
 
-/* Sunset-pop palette: purple→magenta→orange sky, cream stickers, ink outlines */
+/* Sunflower-field palette: red-orange sunset, cloud white, meadow green, seed brown */
 :root {
-  --sky-1: #4a1f78;
-  --sky-2: #9b2f96;
-  --sky-3: #d9448f;
-  --sky-4: #ef6f73;
-  --sky-5: #ffb27a;
-  --cream: #fff7e8;
-  --ink: #221238;
-  --ink-muted: #5f4c78;
-  --pink: #ff4fa3;
-  --pink-deep: #d6247a;
-  --yellow: #ffd23f;
-  --cyan: #2ec4f1;
-  --red: #ff5a4f;
-  --violet: #7b4dff;
-  --green: #4cc76a;
+  --sky-top: #d9381e;
+  --sky-mid: #ee5a24;
+  --sky-low: #f5892e;
+  --horizon: #f9b44a;
+  --sun: #ffc93c;
+  --petal: #f7b500;
+  --seed: #4a2c12;
+  --cloud: #fffaf0;
+  --cream: #fff1c9;
+  --ink: #2a1a0e;
+  --ink-muted: #6b5236;
+  --leaf: #2f7a3b;
+  --meadow: #2c5a2e;
+  --meadow-light: #4d8a45;
+  --cap: #1f8a5b;
 }
 
 @theme inline {
-  --color-sky-1: var(--sky-1);
-  --color-sky-2: var(--sky-2);
-  --color-sky-3: var(--sky-3);
-  --color-sky-4: var(--sky-4);
-  --color-sky-5: var(--sky-5);
+  --color-sky-top: var(--sky-top);
+  --color-sky-mid: var(--sky-mid);
+  --color-sky-low: var(--sky-low);
+  --color-horizon: var(--horizon);
+  --color-sun: var(--sun);
+  --color-petal: var(--petal);
+  --color-seed: var(--seed);
+  --color-cloud: var(--cloud);
   --color-cream: var(--cream);
   --color-ink: var(--ink);
   --color-ink-muted: var(--ink-muted);
-  --color-pink: var(--pink);
-  --color-pink-deep: var(--pink-deep);
-  --color-yellow: var(--yellow);
-  --color-cyan: var(--cyan);
-  --color-red: var(--red);
-  --color-violet: var(--violet);
-  --color-green: var(--green);
-  --font-sans: var(--font-geist-sans);
-  --font-display: var(--font-lilita);
-  --font-type: var(--font-fredoka);
+  --color-leaf: var(--leaf);
+  --color-meadow: var(--meadow);
+  --color-meadow-light: var(--meadow-light);
+  --color-cap: var(--cap);
+  --font-sans: var(--font-nunito);
+  --font-display: var(--font-shrikhand);
 }
 
 html {
@@ -46,83 +45,81 @@ html {
 }
 
 body {
-  background-color: var(--sky-2);
-  color: var(--cream);
+  background-color: var(--meadow);
+  color: var(--ink);
 }
 
-/* The whole page is one sunset you scroll down through */
-.sunset {
+.sunset-sky {
   background-image: linear-gradient(
     180deg,
-    var(--sky-1) 0%,
-    var(--sky-2) 10%,
-    var(--sky-3) 32%,
-    var(--sky-4) 70%,
-    var(--sky-5) 100%
+    var(--sky-top) 0%,
+    var(--sky-mid) 35%,
+    var(--sky-low) 65%,
+    var(--horizon) 100%
   );
 }
 
-/* Cream sticker card with a bold outline and hard offset shadow */
-.pop-card {
-  background: var(--cream);
+.meadow {
+  background-image: linear-gradient(180deg, var(--meadow) 0%, #36693a 40%, var(--meadow-light) 100%);
+}
+
+/* Cloud-white card */
+.cloud-card {
+  background: var(--cloud);
   color: var(--ink);
-  border: 3px solid var(--ink);
-  border-radius: 28px;
-  box-shadow: 8px 8px 0 var(--ink);
+  border-radius: 2rem;
+  box-shadow:
+    0 2px 0 rgb(255 255 255 / 0.8) inset,
+    0 18px 40px -18px rgb(20 40 15 / 0.55);
 }
 
-/* Candy-colored letters with an ink outline and hard shadow */
-.candy-word > span {
-  -webkit-text-stroke: 2.5px var(--ink);
-  paint-order: stroke fill;
-  text-shadow: 4px 4px 0 var(--ink);
-}
-
-/* Cream display text with an ink drop shadow, for headings on the sky */
+/* Big title on the sky: cream with a warm painted shadow */
 .sky-title {
-  color: var(--cream);
-  text-shadow: 4px 4px 0 var(--ink);
+  color: var(--cloud);
+  text-shadow: 3px 4px 0 rgb(74 44 18 / 0.55);
 }
 
-/* ── Sky scene animations ─────────────────────────────── */
+/* ── Scene animations ─────────────────────────────── */
 @keyframes cloud-drift {
-  from { transform: translateX(-40vw); }
-  to { transform: translateX(110vw); }
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(40px); }
 }
 .cloud {
-  animation: cloud-drift linear infinite;
-  will-change: transform;
+  animation: cloud-drift ease-in-out infinite;
 }
 
-@keyframes ring-pulse {
-  0% { transform: scale(0.6); opacity: 0; }
-  20% { opacity: 1; }
-  100% { transform: scale(1.35); opacity: 0; }
+@keyframes bee-fly {
+  0% { transform: translate(0, 0) rotate(-4deg); }
+  25% { transform: translate(46px, -22px) rotate(6deg); }
+  50% { transform: translate(90px, 4px) rotate(-2deg); }
+  75% { transform: translate(38px, 26px) rotate(4deg); }
+  100% { transform: translate(0, 0) rotate(-4deg); }
 }
-.ring {
+.bee {
+  animation: bee-fly ease-in-out infinite;
+}
+
+@keyframes flap {
+  from { transform: scaleY(1); }
+  to { transform: scaleY(0.45); }
+}
+.wing {
   transform-box: fill-box;
-  transform-origin: center;
-  animation: ring-pulse 3.6s ease-out infinite;
+  transform-origin: 50% 100%;
+  animation: flap 0.09s ease-in-out infinite alternate;
 }
 
-@keyframes cap-float {
-  0%, 100% { transform: translateY(0) rotate(var(--r, -12deg)); }
-  50% { transform: translateY(-18px) rotate(calc(var(--r, -12deg) + 14deg)); }
+@keyframes sway {
+  0%, 100% { transform: rotate(-1.5deg); }
+  50% { transform: rotate(1.5deg); }
 }
-.cap {
-  animation: cap-float ease-in-out infinite;
-}
-
-@keyframes twinkle {
-  0%, 100% { transform: scale(0.4); opacity: 0.2; }
-  50% { transform: scale(1); opacity: 1; }
-}
-.sparkle {
-  animation: twinkle 2.8s ease-in-out infinite;
+.sway {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: sway 5s ease-in-out infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .cloud, .ring, .cap, .sparkle { animation: none; }
-  .ring { opacity: 1; }
+  .cloud, .bee, .wing, .sway { animation: none; }
 }

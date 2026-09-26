@@ -1,21 +1,16 @@
 import type { Metadata } from "next";
-import { Fredoka, Geist, Lilita_One } from "next/font/google";
+import { Nunito, Shrikhand } from "next/font/google";
 import { profile } from "@/data/portfolio";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const nunito = Nunito({
+  variable: "--font-nunito",
   subsets: ["latin"],
 });
 
-const lilita = Lilita_One({
-  variable: "--font-lilita",
+const shrikhand = Shrikhand({
+  variable: "--font-shrikhand",
   weight: "400",
-  subsets: ["latin"],
-});
-
-const fredoka = Fredoka({
-  variable: "--font-fredoka",
   subsets: ["latin"],
 });
 
@@ -28,7 +23,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${lilita.variable} ${fredoka.variable} h-full antialiased`}
+      className={`${nunito.variable} ${shrikhand.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col font-sans">{children}</body>
     </html>
