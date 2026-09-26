@@ -3,6 +3,7 @@ import {
   education,
   experience,
   profile,
+  process,
   projects,
   skills,
   spokenLanguages,
@@ -13,8 +14,9 @@ import { LaunchRings, Sky } from "@/components/sky";
 
 const nav = [
   { id: "about", label: "About" },
-  { id: "projects", label: "Tracklist" },
-  { id: "certificates", label: "Diplomas" },
+  { id: "process", label: "How I work" },
+  { id: "projects", label: "Projects" },
+  { id: "certificates", label: "Certificates" },
   { id: "education", label: "Education" },
   { id: "contact", label: "Contact" },
 ].filter((n) => n.id !== "certificates" || certificates.length > 0);
@@ -108,13 +110,13 @@ export default function Home() {
           {/* Portrait sticker */}
           <div className="relative mx-auto w-60 sm:w-full">
             <LaunchRings className="absolute -right-10 -top-24 w-44 sm:-right-16 sm:-top-28 sm:w-56" />
-            <div className="relative aspect-3/4 -rotate-3 overflow-hidden rounded-[28px] border-4 border-ink bg-cream shadow-[10px_10px_0_var(--pink-deep)]">
+            <div className="relative aspect-3/4 -rotate-3 overflow-hidden rounded-[28px] border-4 border-ink bg-[radial-gradient(circle_at_50%_38%,var(--yellow)_0%,var(--sky-5)_28%,var(--pink)_62%,var(--violet)_100%)] shadow-[10px_10px_0_var(--pink-deep)]">
               {profile.avatar ? (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
                   src={asset(profile.avatar)}
                   alt={profile.name}
-                  className="h-full w-full object-cover object-[center_35%]"
+                  className="absolute bottom-0 left-1/2 h-[92%] w-auto max-w-none -translate-x-1/2 object-contain object-bottom"
                 />
               ) : (
                 <div className="grid h-full place-items-center bg-linear-to-b from-pink to-violet">
@@ -139,7 +141,7 @@ export default function Home() {
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-4">
               <a href="#projects" className={`${btn} bg-yellow`}>
-                ▶ Play tracklist
+                View projects
               </a>
               {profile.resumeUrl && (
                 <a href={asset(profile.resumeUrl)} className={`${btn} bg-cream`}>
@@ -229,12 +231,31 @@ export default function Home() {
           )}
         </Section>
 
-        <Section id="projects" side={`${projects.length} tracks`} title="Tracklist" color="bg-cyan">
+        <Section id="process" side="Process" title="How I work" color="bg-yellow">
+          <ol className="grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
+            {process.map((p, i) => (
+              <li
+                key={p.step}
+                className="relative rounded-3xl border-3 border-ink bg-white p-5 shadow-[4px_4px_0_var(--ink)]"
+              >
+                <span
+                  className={`grid size-10 place-items-center rounded-full border-3 border-ink font-display text-lg text-ink ${CANDY[i % CANDY.length]}`}
+                >
+                  {i + 1}
+                </span>
+                <h3 className="mt-3 font-display text-2xl leading-tight text-ink">{p.step}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-ink/75">{p.detail}</p>
+              </li>
+            ))}
+          </ol>
+        </Section>
+
+        <Section id="projects" side={`${projects.length} projects`} title="Projects" color="bg-cyan">
           <Projects projects={projects} />
         </Section>
 
         {certificates.length > 0 && (
-          <Section id="certificates" side="With honors" title="Diplomas" color="bg-green">
+          <Section id="certificates" side={`${certificates.length} earned`} title="Certificates" color="bg-green">
             <p className="-mt-4 mb-8 font-type text-ink-muted">Certificates earned along the way.</p>
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {certificates.map((c, i) => (
@@ -326,7 +347,7 @@ export default function Home() {
         <section id="contact" className="py-14 sm:py-20">
           <div className="grid items-center gap-10 sm:grid-cols-[1fr_auto]">
             <div>
-              <Sticker color="bg-pink">Bonus track</Sticker>
+              <Sticker color="bg-pink">Get in touch</Sticker>
               <h2 className="sky-title mt-5 font-display text-6xl leading-[0.95] sm:text-8xl">
                 Let&apos;s make
                 <br />
@@ -335,11 +356,13 @@ export default function Home() {
               <p className="mt-6 max-w-md font-type text-lg text-ink">
                 Open to full-time AI and full-stack developer roles, and freelance projects. Drop me a line.
               </p>
-              <p className="mt-6">
-                <a href={`mailto:${profile.email}`} className={`${btn} inline-block bg-cream normal-case`}>
-                  {profile.email}
-                </a>
-              </p>
+              <div className="mt-6 flex flex-col items-start gap-3">
+                {[profile.email, profile.workEmail].map((e) => (
+                  <a key={e} href={`mailto:${e}`} className={`${btn.replace("uppercase tracking-wider", "")} bg-cream`}>
+                    {e}
+                  </a>
+                ))}
+              </div>
               <div className="mt-6 flex flex-wrap gap-3">
                 {profile.socials.map((s, i) => (
                   <a
@@ -370,7 +393,7 @@ export default function Home() {
       </main>
 
       <footer className="border-t-3 border-ink bg-sky-1 py-6 text-center font-type text-sm text-cream/80">
-        © {new Date().getFullYear()} {profile.name} · All tracks written &amp; produced by {profile.name}
+        © {new Date().getFullYear()} {profile.name} · Designed &amp; built by {profile.name}
       </footer>
     </div>
   );

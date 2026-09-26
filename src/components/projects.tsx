@@ -28,11 +28,11 @@ export function Projects({ projects }: { projects: Project[] }) {
   return (
     <>
       <div className="mb-8 flex flex-wrap gap-2">
-        {chip("All tracks", null)}
+        {chip("All", null)}
         {tags.map((t) => chip(t, t))}
       </div>
 
-      {/* Tracklist */}
+      {/* Project list */}
       <ol className="divide-y-3 divide-dashed divide-ink/15">
         {shown.map((p) => {
           const n = projects.indexOf(p) + 1;
@@ -53,7 +53,7 @@ export function Projects({ projects }: { projects: Project[] }) {
                   <span className="block font-display text-2xl text-ink group-hover:text-pink-deep sm:text-3xl">
                     {p.title}
                   </span>
-                  <span className="font-type text-sm text-ink-muted">feat. {p.role}</span>
+                  <span className="font-type text-sm text-ink-muted">{p.role}</span>
                 </span>
                 <span className="flex items-center gap-3 font-type text-sm text-ink-muted">
                   <span className="hidden sm:inline">{p.period}</span>

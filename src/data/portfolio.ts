@@ -52,7 +52,8 @@ export const profile = {
     "I work end to end with TypeScript, JavaScript, Python, SQL, Node.js, React, Next.js, Supabase, and PostgreSQL — shipping live products like an e-commerce store and an IoT security dashboard. I'm most excited about bringing AI into practical web applications that are reliable, well-structured, and easy to use.",
   ],
   email: "min778128572@gmail.com",
-  avatar: "/avatar.jpg",
+  workEmail: "freddy@tamarind.tech",
+  avatar: "/avatar.webp", // background removed
   resumeUrl: "", // e.g. "/resume.pdf" (put the file in /public)
   socials: [
     { label: "GitHub", href: "https://github.com/FREDDY-404" },
@@ -92,6 +93,35 @@ export const spokenLanguages: { name: string; level: string }[] = [
   { name: "Burmese", level: "Native" },
   { name: "English", level: "Intermediate · CEFR B1" },
   { name: "Thai", level: "Basic" },
+];
+
+// How I work on projects — shown as numbered steps
+export const process: { step: string; detail: string }[] = [
+  {
+    step: "Understand",
+    detail:
+      "Start from the real requirements — who uses it, what the business needs, and what 'done' looks like.",
+  },
+  {
+    step: "Design",
+    detail:
+      "Sketch the user flow and UI, then model the data: tables, relationships, and the APIs between them.",
+  },
+  {
+    step: "Build",
+    detail:
+      "Develop end to end — database, backend logic and APIs, then the interface — in small, working pieces.",
+  },
+  {
+    step: "Test & refine",
+    detail:
+      "Check each feature against the requirements, fix issues, and polish the experience before release.",
+  },
+  {
+    step: "Ship & improve",
+    detail:
+      "Deploy live, gather feedback, and keep iterating, following the software development lifecycle.",
+  },
 ];
 
 export const experience: Experience[] = [
