@@ -43,13 +43,13 @@ export type Experience = {
 
 export const profile = {
   name: "Min Khant Kyaw",
-  title: "Back-End Developer",
+  title: "AI & Full-Stack Developer",
   location: "Bangkok, Thailand",
   tagline:
-    "Software Engineering student building reliable backend systems, APIs, and scalable web applications.",
+    "I build full-stack web apps and AI-powered features — from the database and API to the interface people use.",
   about: [
-    "I'm a Software Engineering student pursuing a BSc in Computing at the University of Sunderland, with hands-on experience in backend development, database management, full-stack web development, and AI-related development.",
-    "I build web applications with TypeScript, JavaScript, Python, SQL, Node.js, React, Next.js, Supabase, and PostgreSQL — and I'm most interested in the parts users never see: dependable backends, clean APIs, and well-designed databases.",
+    "I'm an AI and full-stack developer and a Software Engineering student pursuing a BSc in Computing at the University of Sunderland. As a Junior AI Developer Intern at Tamarind Community, I worked across frontend, database, and AI-related development inside a real team.",
+    "I work end to end with TypeScript, JavaScript, Python, SQL, Node.js, React, Next.js, Supabase, and PostgreSQL — shipping live products like an e-commerce store and an IoT security dashboard. I'm most excited about bringing AI into practical web applications that are reliable, well-structured, and easy to use.",
   ],
   email: "min778128572@gmail.com",
   avatar: "/avatar.jpg",
@@ -65,6 +65,10 @@ export const profile = {
 
 export const skills: { group: string; items: string[] }[] = [
   {
+    group: "AI",
+    items: ["AI Development", "Python", "Graph Data Modeling"],
+  },
+  {
     group: "Languages",
     items: ["TypeScript", "JavaScript", "Python", "Java", "SQL", "HTML", "CSS"],
   },
@@ -76,9 +80,7 @@ export const skills: { group: string; items: string[] }[] = [
   {
     group: "Other",
     items: [
-      "AI Development",
       "UI/UX Design",
-      "Graph Data Modeling",
       "SDLC",
       "Microsoft Office",
       "Meta Business Suite",

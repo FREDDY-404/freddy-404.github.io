@@ -335,7 +335,7 @@ export default function Home() {
                 <span className="bloody-word">a hit</span>.
               </h2>
               <p className="mt-6 max-w-md font-type text-bone/90">
-                Open to full-time backend and full-stack developer roles, and freelance projects. Drop me a line.
+                Open to full-time AI and full-stack developer roles, and freelance projects. Drop me a line.
               </p>
               <p className="mt-6 font-type text-xl">
                 <a

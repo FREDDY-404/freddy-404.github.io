@@ -1,6 +1,6 @@
 # Min Khant Kyaw — Portfolio
 
-Personal portfolio of Min Khant Kyaw, Back-End Developer and Software Engineering student in Bangkok.
+Personal portfolio of Min Khant Kyaw, AI & Full-Stack Developer and Software Engineering student in Bangkok.
 
 Built with Next.js, React, TypeScript, and Tailwind CSS, styled after a noir album cover with animated liquid drips.
 
