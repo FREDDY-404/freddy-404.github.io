@@ -7,8 +7,8 @@ import {
   skills,
   spokenLanguages,
 } from "@/data/portfolio";
-import { ArrowDown, ArrowUpRight, MailIcon, MapPin, Star, socialIcon } from "@/components/icons";
-import { AlbumCover } from "@/components/album-cover";
+import { ArrowDown, ArrowUpRight, MailIcon, Star, socialIcon } from "@/components/icons";
+import { ProfileCard } from "@/components/profile-card";
 import { Nav } from "@/components/nav";
 import { Projects } from "@/components/projects";
 
@@ -83,26 +83,15 @@ export default function Home() {
         }
       />
 
-      {/* ── Hero: red backdrop, giant yellow name, profile as a record sleeve ── */}
+      {/* ── Hero: red backdrop, giant yellow name, profile card ── */}
       <section id="top" className="grain overflow-hidden bg-red">
         <div className="relative z-10 mx-auto max-w-6xl px-5 pt-10">
           <h1 className="title-yellow text-center text-[clamp(3.5rem,11.5vw,9.5rem)]">{profile.name}</h1>
 
-          <div className="mt-6 grid items-end gap-0 md:grid-cols-[1fr_1fr] md:gap-8">
-            <div className="pb-4 md:pb-20">
-              <p className="inline-flex items-center gap-2 rounded-full bg-night/85 px-3 py-1 text-sm text-text">
-                <span className="relative flex size-2">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-blue-soft opacity-70" />
-                  <span className="relative inline-flex size-2 rounded-full bg-blue-soft" />
-                </span>
-                Available for work
-              </p>
-              <p className="mt-6 font-display text-3xl tracking-wide text-white uppercase sm:text-4xl">{profile.title}</p>
+          <div className="mt-8 grid items-center gap-10 pb-14 md:grid-cols-[1fr_1fr] md:gap-8 md:pb-16">
+            <div>
+              <p className="font-display text-3xl tracking-wide text-white uppercase sm:text-4xl">{profile.title}</p>
               <p className="mt-4 max-w-md text-lg leading-relaxed text-white">{profile.tagline}</p>
-              <p className="mt-4 inline-flex items-center gap-1.5 text-sm text-white/85">
-                <MapPin />
-                {profile.location}
-              </p>
 
               <div className="mt-8 flex flex-wrap items-center gap-3">
                 <a href="#projects" className={btnYellow}>
@@ -113,30 +102,18 @@ export default function Home() {
                   <MailIcon />
                   Get in touch
                 </a>
-                <div className="ml-1 flex items-center gap-1">
-                  {profile.socials.map((s) => (
-                    <a
-                      key={s.href}
-                      href={s.href}
-                      target="_blank"
-                      rel="noreferrer"
-                      aria-label={s.label}
-                      className="grid size-10 place-items-center rounded-lg text-white/85 transition-colors hover:bg-white/10 hover:text-white"
-                    >
-                      {socialIcon(s.label, "size-5")}
-                    </a>
-                  ))}
-                </div>
               </div>
             </div>
 
-            <div className="pb-14 md:pb-16">
-              <AlbumCover
+            <div>
+              <ProfileCard
                 photo={profile.avatar}
-                artist={profile.name}
+                name={profile.name}
                 title={profile.title}
                 location={profile.location}
-                sticker="Available for work"
+                stack={["TypeScript", "Next.js", "React", "Node.js", "Supabase", "PostgreSQL"]}
+                email={mailTo(profile.email)}
+                socials={profile.socials}
               />
             </div>
           </div>
