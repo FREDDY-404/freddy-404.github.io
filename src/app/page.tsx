@@ -344,16 +344,6 @@ export default function Home() {
                   {profile.email}
                 </a>
               </p>
-              {profile.phone && (
-                <p className="mt-3 font-type text-lg">
-                  <a
-                    href={`tel:${profile.phone.replace(/\s/g, "")}`}
-                    className="border-b border-bone/50 hover:border-bone"
-                  >
-                    {profile.phone}
-                  </a>
-                </p>
-              )}
               <div className="mt-6 flex flex-wrap gap-5 font-type text-sm uppercase tracking-widest">
                 {profile.socials.map((s) => (
                   <a

@@ -52,7 +52,6 @@ export const profile = {
     "I build web applications with TypeScript, JavaScript, Python, SQL, Node.js, React, Next.js, Supabase, and PostgreSQL — and I'm most interested in the parts users never see: dependable backends, clean APIs, and well-designed databases.",
   ],
   email: "min778128572@gmail.com",
-  phone: "+66 62 898 0042",
   avatar: "/avatar.jpg",
   resumeUrl: "", // e.g. "/resume.pdf" (put the file in /public)
   socials: [
