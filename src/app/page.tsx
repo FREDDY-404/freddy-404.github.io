@@ -269,17 +269,6 @@ export default function Home() {
                   >
                     {i + 1}
                   </span>
-                  {c.image && (
-                    <a href={asset(c.image)} target="_blank" rel="noreferrer" className="mb-4 block">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        src={asset(c.image)}
-                        alt={`${c.name} certificate`}
-                        loading="lazy"
-                        className="aspect-4/3 w-full rounded-xl border-2 border-ink bg-cream object-contain p-1"
-                      />
-                    </a>
-                  )}
                   <h3 className="font-display text-2xl leading-tight">{c.name}</h3>
                   <dl className="mt-3 space-y-1 font-type text-sm">
                     <div className="flex gap-2">

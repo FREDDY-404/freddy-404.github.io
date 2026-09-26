@@ -226,19 +226,16 @@ export const certificates: Certificate[] = [
     date: "Sep 2026",
     credentialId: "4a74ccb1-6dab-4cd8-aa84-f6fd24e730d3",
     url: "https://graphacademy.neo4j.com/c/4a74ccb1-6dab-4cd8-aa84-f6fd24e730d3/",
-    image: "/certs/neo4j-graph-data-modeling.jpg",
   },
   {
     name: "UX/UI Basic to Advanced Course",
     issuer: "Technortal School of IT",
     // date: "Mon YYYY", // TODO: add when you completed it
-    image: "/certs/technortal-uxui.jpg",
   },
   {
     name: "General English — Level 6 (CEFR B1)",
     issuer: "International House Yangon–Mandalay",
     date: "Aug 2025",
-    image: "/certs/ih-general-english-b1.jpg",
   },
 ];
 
