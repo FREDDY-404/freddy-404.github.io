@@ -79,16 +79,6 @@ body {
   box-shadow: 0 0 0 1px var(--blue), 0 18px 50px -12px rgb(59 75 255 / 0.45);
 }
 
-/* Photo in blue light; true colour on hover/focus */
-.blue-lit {
-  filter: url(#blue-light);
-  transition: filter 0.4s ease;
-}
-.blue-lit-wrap:hover .blue-lit,
-.blue-lit-wrap:focus-within .blue-lit {
-  filter: none;
-}
-
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { transition: none !important; animation: none !important; }

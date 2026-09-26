@@ -7,8 +7,8 @@ import {
   skills,
   spokenLanguages,
 } from "@/data/portfolio";
-import { asset } from "@/lib/asset";
 import { ArrowDown, ArrowUpRight, MailIcon, MapPin, Star, socialIcon } from "@/components/icons";
+import { AlbumCover } from "@/components/album-cover";
 import { Nav } from "@/components/nav";
 import { Projects } from "@/components/projects";
 
@@ -64,17 +64,6 @@ export default function Home() {
 
   return (
     <div className="flex min-h-full flex-1 flex-col">
-      {/* Blue-light duotone: shadows → deep navy, mids → electric blue, highlights → pale blue */}
-      <svg aria-hidden className="absolute size-0">
-        <filter id="blue-light" colorInterpolationFilters="sRGB">
-          <feColorMatrix type="saturate" values="0" />
-          <feComponentTransfer>
-            <feFuncR type="table" tableValues="0.03 0.14 0.6" />
-            <feFuncG type="table" tableValues="0.03 0.2 0.72" />
-            <feFuncB type="table" tableValues="0.14 0.95 1" />
-          </feComponentTransfer>
-        </filter>
-      </svg>
 
       <a
         href="#main"
@@ -94,7 +83,7 @@ export default function Home() {
         }
       />
 
-      {/* ── Hero: red backdrop, giant yellow name, blue-lit portrait ── */}
+      {/* ── Hero: red backdrop, giant yellow name, profile as a record sleeve ── */}
       <section id="top" className="grain overflow-hidden bg-red">
         <div className="relative z-10 mx-auto max-w-6xl px-5 pt-10">
           <h1 className="title-yellow text-center text-[clamp(3.5rem,11.5vw,9.5rem)]">{profile.name}</h1>
@@ -141,16 +130,15 @@ export default function Home() {
               </div>
             </div>
 
-            {profile.avatar && (
-              <div className="blue-lit-wrap relative mx-auto -mt-6 w-full max-w-xs self-end sm:max-w-md md:mt-0" tabIndex={0} aria-label={`${profile.name} — hover to see in colour`}>
-                <div
-                  aria-hidden
-                  className="absolute inset-x-6 bottom-0 h-3/4 rounded-t-full bg-[radial-gradient(ellipse_at_50%_70%,rgb(59_75_255/0.55),transparent_70%)] blur-2xl"
-                />
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={asset(profile.avatar)} alt={profile.name} className="blue-lit relative block w-full" />
-              </div>
-            )}
+            <div className="pb-14 md:pb-16">
+              <AlbumCover
+                photo={profile.avatar}
+                artist={profile.name}
+                title={profile.title}
+                location={profile.location}
+                sticker="Available for work"
+              />
+            </div>
           </div>
         </div>
       </section>
