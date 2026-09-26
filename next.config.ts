@@ -1,7 +1,8 @@
 import type { NextConfig } from "next";
 
-// GitHub Pages serves this repo under /portfolio; local dev stays at /
-const basePath = process.env.GITHUB_PAGES === "true" ? "/portfolio" : "";
+// Served from the root of https://freddy-404.github.io, so no base path is needed.
+// If the repo is ever renamed (e.g. to "portfolio"), set basePath to "/portfolio".
+const basePath = "";
 
 const nextConfig: NextConfig = {
   output: "export",
