@@ -1,115 +1,81 @@
 @import "tailwindcss";
 
-/* Cartoon-comic palette: sky blue, paper cream, mustard, boom orange, black ink */
+/* Neutral professional palette with a single indigo accent; follows the OS theme */
 :root {
-  --sky: #86c5e6;
-  --sky-deep: #5aa9d6;
-  --paper: #f7f0dc;
-  --paper-2: #efe4c6;
-  --ink: #16130f;
-  --ink-muted: #5b5346;
-  --mustard: #f2c53d;
-  --olive: #b5a654;
-  --boom: #ec5a2a;
-  --red: #d8342a;
-  --grass: #6fae57;
+  color-scheme: light;
+  --bg: #fafaf9;
+  --surface: #ffffff;
+  --surface-2: #f4f4f5;
+  --border: #e4e4e7;
+  --fg: #18181b;
+  --muted: #52525b;
+  --subtle: #71717a;
+  --accent: #4f46e5;
+  --accent-hover: #4338ca;
+  --accent-fg: #ffffff;
+  --accent-soft: #eef2ff;
+  --success: #16a34a;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --bg: #09090b;
+    --surface: #111113;
+    --surface-2: #18181b;
+    --border: #27272a;
+    --fg: #fafafa;
+    --muted: #a1a1aa;
+    --subtle: #8b8b94;
+    --accent: #818cf8;
+    --accent-hover: #a5b4fc;
+    --accent-fg: #0b0b12;
+    --accent-soft: #1e1b4b;
+    --success: #4ade80;
+  }
 }
 
 @theme inline {
-  --color-sky: var(--sky);
-  --color-sky-deep: var(--sky-deep);
-  --color-paper: var(--paper);
-  --color-paper-2: var(--paper-2);
-  --color-ink: var(--ink);
-  --color-ink-muted: var(--ink-muted);
-  --color-mustard: var(--mustard);
-  --color-olive: var(--olive);
-  --color-boom: var(--boom);
-  --color-red: var(--red);
-  --color-grass: var(--grass);
-  --font-sans: var(--font-nunito);
-  --font-display: var(--font-luckiest);
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-border: var(--border);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-subtle: var(--subtle);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-fg: var(--accent-fg);
+  --color-accent-soft: var(--accent-soft);
+  --color-success: var(--success);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
 }
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 5.5rem;
+  scroll-padding-top: 5rem;
 }
 
 body {
-  background-color: var(--sky);
-  color: var(--ink);
+  background-color: var(--bg);
+  color: var(--fg);
 }
 
-/* Comic panel: paper, thick ink border, hard shadow */
-.panel {
-  background: var(--paper);
-  border: 3px solid var(--ink);
-  border-radius: 6px;
-  box-shadow: 6px 6px 0 var(--ink);
-}
-
-/* Printed halftone dots */
-.halftone {
-  background-image: radial-gradient(rgb(22 19 15 / 0.16) 1.2px, transparent 1.5px);
-  background-size: 10px 10px;
-}
-
-/* Chunky cartoon lettering: mustard fill, thick ink outline, drop shadow */
-.cartoon-title {
-  color: var(--mustard);
-  -webkit-text-stroke: 7px var(--ink);
-  paint-order: stroke fill;
-  text-shadow: 5px 6px 0 var(--ink);
-  letter-spacing: 0.02em;
-}
-.cartoon-title-sm {
-  -webkit-text-stroke: 4px var(--ink);
-  paint-order: stroke fill;
-  text-shadow: 3px 4px 0 var(--ink);
-}
-
-/* Visible keyboard focus everywhere */
 :focus-visible {
-  outline: 3px solid var(--boom);
+  outline: 2px solid var(--accent);
   outline-offset: 3px;
-  border-radius: 4px;
+  border-radius: 6px;
 }
 
-/* ── Scene animations ─────────────────────────────── */
-@keyframes cloud-bob {
-  0%, 100% { transform: translate(0, 0); }
-  50% { transform: translate(24px, -6px); }
-}
-.cloud {
-  animation: cloud-bob ease-in-out infinite;
-}
-
-@keyframes fly-across {
-  from { transform: translateX(-60vw); }
-  to { transform: translateX(120vw); }
-}
-.plane {
-  animation: fly-across 28s linear infinite;
-}
-
-@keyframes plane-bob {
-  0%, 100% { transform: translateY(0) rotate(-2deg); }
-  50% { transform: translateY(-10px) rotate(2deg); }
-}
-.plane-bob {
-  animation: plane-bob 3s ease-in-out infinite;
-}
-
-@keyframes spin-slow {
-  to { transform: rotate(360deg); }
-}
-.burst-spin {
-  animation: spin-slow 60s linear infinite;
+/* Faint dot grid behind the hero */
+.dot-grid {
+  background-image: radial-gradient(color-mix(in srgb, var(--fg) 9%, transparent) 1px, transparent 1px);
+  background-size: 22px 22px;
+  mask-image: radial-gradient(ellipse at 50% 30%, black 30%, transparent 75%);
 }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .cloud, .plane, .plane-bob, .burst-spin { animation: none; }
-  .plane { transform: translateX(8vw); }
+  *, *::before, *::after { transition: none !important; animation: none !important; }
 }
