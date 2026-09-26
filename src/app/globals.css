@@ -1,28 +1,43 @@
 @import "tailwindcss";
 
-/* Album-noir palette: blood-red ground, black frames, bone-white type */
+/* Sunset-pop palette: purple→magenta→orange sky, cream stickers, ink outlines */
 :root {
-  color-scheme: dark;
-  --blood: #a10d11;
-  --blood-deep: #5e0508;
-  --blood-bright: #d4161b;
-  --ink: #0b0a0a;
-  --ink-soft: #161313;
-  --bone: #f0e5cf;
-  --bone-muted: #b9ab96;
+  --sky-1: #4a1f78;
+  --sky-2: #9b2f96;
+  --sky-3: #d9448f;
+  --sky-4: #ef6f73;
+  --sky-5: #ffb27a;
+  --cream: #fff7e8;
+  --ink: #221238;
+  --ink-muted: #5f4c78;
+  --pink: #ff4fa3;
+  --pink-deep: #d6247a;
+  --yellow: #ffd23f;
+  --cyan: #2ec4f1;
+  --red: #ff5a4f;
+  --violet: #7b4dff;
+  --green: #4cc76a;
 }
 
 @theme inline {
-  --color-blood: var(--blood);
-  --color-blood-deep: var(--blood-deep);
-  --color-blood-bright: var(--blood-bright);
+  --color-sky-1: var(--sky-1);
+  --color-sky-2: var(--sky-2);
+  --color-sky-3: var(--sky-3);
+  --color-sky-4: var(--sky-4);
+  --color-sky-5: var(--sky-5);
+  --color-cream: var(--cream);
   --color-ink: var(--ink);
-  --color-ink-soft: var(--ink-soft);
-  --color-bone: var(--bone);
-  --color-bone-muted: var(--bone-muted);
+  --color-ink-muted: var(--ink-muted);
+  --color-pink: var(--pink);
+  --color-pink-deep: var(--pink-deep);
+  --color-yellow: var(--yellow);
+  --color-cyan: var(--cyan);
+  --color-red: var(--red);
+  --color-violet: var(--violet);
+  --color-green: var(--green);
   --font-sans: var(--font-geist-sans);
-  --font-display: var(--font-anton);
-  --font-type: var(--font-typewriter);
+  --font-display: var(--font-lilita);
+  --font-type: var(--font-fredoka);
 }
 
 html {
@@ -31,52 +46,83 @@ html {
 }
 
 body {
-  background-color: var(--blood);
-  color: var(--bone);
+  background-color: var(--sky-2);
+  color: var(--cream);
 }
 
-/* Film grain over the red, like the printed sleeve */
-.grain {
-  position: relative;
-  isolation: isolate;
-}
-.grain::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  opacity: 0.35;
-  mix-blend-mode: multiply;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
-}
-
-/* Vignette toward the edges of the red */
-.vignette {
-  background-image: radial-gradient(
-    ellipse at 40% 30%,
-    var(--blood-bright) 0%,
-    var(--blood) 45%,
-    var(--blood-deep) 100%
+/* The whole page is one sunset you scroll down through */
+.sunset {
+  background-image: linear-gradient(
+    180deg,
+    var(--sky-1) 0%,
+    var(--sky-2) 10%,
+    var(--sky-3) 32%,
+    var(--sky-4) 70%,
+    var(--sky-5) 100%
   );
 }
 
-/* Black frame with a thin red rule inside, like the photo panel on the cover */
-.noir-frame {
-  background: var(--ink);
-  box-shadow:
-    inset 0 0 0 6px var(--ink),
-    inset 0 0 0 7px color-mix(in srgb, var(--blood-bright) 70%, transparent),
-    0 30px 60px -20px rgb(0 0 0 / 0.6);
+/* Cream sticker card with a bold outline and hard offset shadow */
+.pop-card {
+  background: var(--cream);
+  color: var(--ink);
+  border: 3px solid var(--ink);
+  border-radius: 28px;
+  box-shadow: 8px 8px 0 var(--ink);
 }
 
-/* Distressed title word: red fill with a bone outline */
-.bloody-word {
-  color: var(--blood-bright);
-  -webkit-text-stroke: 1.5px var(--bone);
-  text-shadow: 3px 3px 0 var(--ink);
+/* Candy-colored letters with an ink outline and hard shadow */
+.candy-word > span {
+  -webkit-text-stroke: 2.5px var(--ink);
+  paint-order: stroke fill;
+  text-shadow: 4px 4px 0 var(--ink);
+}
+
+/* Cream display text with an ink drop shadow, for headings on the sky */
+.sky-title {
+  color: var(--cream);
+  text-shadow: 4px 4px 0 var(--ink);
+}
+
+/* ── Sky scene animations ─────────────────────────────── */
+@keyframes cloud-drift {
+  from { transform: translateX(-40vw); }
+  to { transform: translateX(110vw); }
+}
+.cloud {
+  animation: cloud-drift linear infinite;
+  will-change: transform;
+}
+
+@keyframes ring-pulse {
+  0% { transform: scale(0.6); opacity: 0; }
+  20% { opacity: 1; }
+  100% { transform: scale(1.35); opacity: 0; }
+}
+.ring {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: ring-pulse 3.6s ease-out infinite;
+}
+
+@keyframes cap-float {
+  0%, 100% { transform: translateY(0) rotate(var(--r, -12deg)); }
+  50% { transform: translateY(-18px) rotate(calc(var(--r, -12deg) + 14deg)); }
+}
+.cap {
+  animation: cap-float ease-in-out infinite;
+}
+
+@keyframes twinkle {
+  0%, 100% { transform: scale(0.4); opacity: 0.2; }
+  50% { transform: scale(1); opacity: 1; }
+}
+.sparkle {
+  animation: twinkle 2.8s ease-in-out infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+  .cloud, .ring, .cap, .sparkle { animation: none; }
+  .ring { opacity: 1; }
 }

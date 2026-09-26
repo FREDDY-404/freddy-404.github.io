@@ -4,6 +4,8 @@ import { useState } from "react";
 import { asset } from "@/lib/asset";
 import type { Project } from "@/data/portfolio";
 
+const TRACK_COLORS = ["bg-yellow", "bg-pink", "bg-cyan", "bg-green", "bg-violet text-cream", "bg-red"];
+
 export function Projects({ projects }: { projects: Project[] }) {
   const tags = Array.from(new Set(projects.flatMap((p) => p.tags)));
   const [active, setActive] = useState<string | null>(null);
@@ -14,10 +16,9 @@ export function Projects({ projects }: { projects: Project[] }) {
     <button
       key={label}
       onClick={() => setActive(value)}
-      className={`border px-3 py-1 font-type text-xs uppercase tracking-wider transition-colors ${
-        active === value
-          ? "border-bone bg-bone text-ink"
-          : "border-bone/30 text-bone-muted hover:border-bone hover:text-bone"
+      aria-pressed={active === value}
+      className={`cursor-pointer rounded-full border-2 border-ink px-3 py-1 font-type text-xs font-medium transition-colors ${
+        active === value ? "bg-ink text-cream" : "bg-white text-ink hover:bg-yellow"
       }`}
     >
       {label}
@@ -32,7 +33,7 @@ export function Projects({ projects }: { projects: Project[] }) {
       </div>
 
       {/* Tracklist */}
-      <ol className="divide-y divide-bone/10 border-y border-bone/10">
+      <ol className="divide-y-3 divide-dashed divide-ink/15">
         {shown.map((p) => {
           const n = projects.indexOf(p) + 1;
           const isOpen = open === p.title;
@@ -41,33 +42,39 @@ export function Projects({ projects }: { projects: Project[] }) {
               <button
                 onClick={() => setOpen(isOpen ? null : p.title)}
                 aria-expanded={isOpen}
-                className="group grid w-full grid-cols-[2.5rem_1fr_auto] items-baseline gap-4 py-5 text-left"
+                className="group grid w-full cursor-pointer grid-cols-[3rem_1fr_auto] items-center gap-4 py-5 text-left"
               >
-                <span className="font-type text-sm text-blood-bright">
+                <span
+                  className={`grid size-11 place-items-center rounded-full border-3 border-ink font-display text-lg text-ink transition-transform group-hover:-rotate-12 ${TRACK_COLORS[(n - 1) % TRACK_COLORS.length]}`}
+                >
                   {String(n).padStart(2, "0")}
                 </span>
                 <span>
-                  <span className="block font-display text-2xl uppercase tracking-wide group-hover:text-blood-bright sm:text-3xl">
+                  <span className="block font-display text-2xl text-ink group-hover:text-pink-deep sm:text-3xl">
                     {p.title}
                   </span>
-                  <span className="font-type text-xs uppercase tracking-wider text-bone-muted">
-                    feat. {p.role}
-                  </span>
+                  <span className="font-type text-sm text-ink-muted">feat. {p.role}</span>
                 </span>
-                <span className="font-type text-sm text-bone-muted">
-                  {p.period} <span aria-hidden>{isOpen ? "−" : "+"}</span>
+                <span className="flex items-center gap-3 font-type text-sm text-ink-muted">
+                  <span className="hidden sm:inline">{p.period}</span>
+                  <span
+                    aria-hidden
+                    className="grid size-8 place-items-center rounded-full border-2 border-ink bg-white text-lg leading-none text-ink"
+                  >
+                    {isOpen ? "−" : "+"}
+                  </span>
                 </span>
               </button>
 
               {isOpen && (
-                <div className="grid gap-6 pb-8 pl-14 sm:grid-cols-[1fr_auto]">
+                <div className="grid gap-6 pb-8 sm:grid-cols-[1fr_auto] sm:pl-16">
                   <div>
-                    <p className="max-w-prose leading-relaxed text-bone/85">{p.summary}</p>
+                    <p className="max-w-prose leading-relaxed text-ink/85">{p.summary}</p>
                     {p.highlights && (
-                      <ul className="mt-4 space-y-1.5 text-sm text-bone-muted">
+                      <ul className="mt-4 space-y-1.5 text-sm text-ink/75">
                         {p.highlights.map((h) => (
                           <li key={h} className="flex gap-2">
-                            <span className="text-blood-bright">▸</span>
+                            <span className="text-pink">★</span>
                             {h}
                           </li>
                         ))}
@@ -77,21 +84,21 @@ export function Projects({ projects }: { projects: Project[] }) {
                       {p.tags.map((t) => (
                         <span
                           key={t}
-                          className="bg-blood px-2 py-0.5 font-type text-[11px] uppercase tracking-wider text-bone"
+                          className="rounded-full bg-ink px-2.5 py-0.5 font-type text-xs font-medium text-cream"
                         >
                           {t}
                         </span>
                       ))}
                     </div>
-                    {p.links && (
-                      <div className="mt-5 flex gap-5 font-type text-sm uppercase tracking-wider">
-                        {p.links.map((l) => (
+                    {p.links && p.links.length > 0 && (
+                      <div className="mt-5 flex flex-wrap gap-3">
+                        {p.links.map((l, i) => (
                           <a
                             key={l.href}
                             href={l.href}
                             target="_blank"
                             rel="noreferrer"
-                            className="border-b border-blood-bright hover:text-blood-bright"
+                            className={`rounded-full border-2 border-ink px-4 py-1.5 font-type text-sm font-semibold text-ink shadow-[3px_3px_0_var(--ink)] transition-transform hover:-translate-y-0.5 ${i === 0 ? "bg-yellow" : "bg-white"}`}
                           >
                             {l.label} ↗
                           </a>
@@ -104,7 +111,7 @@ export function Projects({ projects }: { projects: Project[] }) {
                       href={p.links?.[0]?.href ?? asset(p.image)}
                       target="_blank"
                       rel="noreferrer"
-                      className="noir-frame block w-full max-w-xs self-start p-1.75 transition-transform hover:-rotate-1"
+                      className="block w-full max-w-xs self-start overflow-hidden rounded-2xl border-3 border-ink shadow-[5px_5px_0_var(--pink-deep)] transition-transform hover:-rotate-1"
                     >
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Anton, Geist, Special_Elite } from "next/font/google";
+import { Fredoka, Geist, Lilita_One } from "next/font/google";
 import { profile } from "@/data/portfolio";
 import "./globals.css";
 
@@ -8,15 +8,14 @@ const geistSans = Geist({
   subsets: ["latin"],
 });
 
-const anton = Anton({
-  variable: "--font-anton",
+const lilita = Lilita_One({
+  variable: "--font-lilita",
   weight: "400",
   subsets: ["latin"],
 });
 
-const typewriter = Special_Elite({
-  variable: "--font-typewriter",
-  weight: "400",
+const fredoka = Fredoka({
+  variable: "--font-fredoka",
   subsets: ["latin"],
 });
 
@@ -29,7 +28,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${anton.variable} ${typewriter.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${lilita.variable} ${fredoka.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col font-sans">{children}</body>
     </html>
