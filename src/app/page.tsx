@@ -297,7 +297,7 @@ export default function Home() {
               <Burst className="absolute -top-14 -left-10 size-28 rotate-12 sm:size-36" />
               <h2 className="cartoon-title relative font-display text-5xl leading-none sm:text-7xl">Let&apos;s talk!</h2>
               <p className="relative mx-auto mt-5 max-w-lg text-lg font-semibold">
-                Open to full-time AI and full-stack developer roles, and freelance projects. I usually reply within a day.
+                Open to full-time full-stack developer roles, and freelance projects. I usually reply within a day.
               </p>
               <a href={mailTo(profile.email)} className={`${btn} relative mt-8 bg-mustard px-9 py-4 text-xl`}>
                 <MailIcon className="size-6" />

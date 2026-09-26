@@ -43,13 +43,13 @@ export type Experience = {
 
 export const profile = {
   name: "Min Khant Kyaw",
-  title: "AI & Full-Stack Developer",
+  title: "Full-Stack Developer",
   location: "Bangkok, Thailand",
   tagline:
-    "I build full-stack web apps and AI-powered features — from the database and API to the interface people use.",
+    "I build full-stack web apps end to end — from the database and API to the interface people use.",
   about: [
-    "I'm an AI and full-stack developer and a Software Engineering student pursuing a BSc in Computing at the University of Sunderland. As a Junior AI Developer Intern at Tamarind Community, I worked across frontend, database, and AI-related development inside a real team.",
-    "I work end to end with TypeScript, JavaScript, Python, SQL, Node.js, React, Next.js, Supabase, and PostgreSQL — shipping live products like an e-commerce store and an IoT security dashboard. I'm most excited about bringing AI into practical web applications that are reliable, well-structured, and easy to use.",
+    "I'm a full-stack developer and a Software Engineering student pursuing a BSc in Computing at the University of Sunderland. During my internship at Tamarind Community, I worked on frontend components, databases, and integration between application parts inside a real development team.",
+    "I work end to end with TypeScript, JavaScript, Python, SQL, Node.js, React, Next.js, Supabase, and PostgreSQL — shipping live products like an e-commerce store and an IoT security dashboard. I care about web applications that are reliable, well-structured, and easy to use.",
   ],
   email: "min778128572@gmail.com",
   workEmail: "freddy@tamarind.tech",
@@ -66,16 +66,12 @@ export const profile = {
 
 export const skills: { group: string; items: string[] }[] = [
   {
-    group: "AI",
-    items: ["AI Development", "Python", "Graph Data Modeling"],
-  },
-  {
     group: "Languages",
     items: ["TypeScript", "JavaScript", "Python", "Java", "SQL", "HTML", "CSS"],
   },
   {
     group: "Backend & Database",
-    items: ["Node.js", "PostgreSQL", "Supabase", "Redis", "REST APIs", "Database Management"],
+    items: ["Node.js", "PostgreSQL", "Supabase", "Redis", "REST APIs", "Database Management", "Graph Data Modeling"],
   },
   { group: "Frontend", items: ["React", "Next.js", "Tailwind CSS"] },
   {
