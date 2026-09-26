@@ -186,7 +186,7 @@ export function Sky() {
       {CLOUDS.map((c, i) => (
         <div
           key={i}
-          className="cloud absolute"
+          className="cloud absolute hidden sm:block"
           style={{ left: `${c.left}%`, top: `${c.top}%`, width: c.w, animationDuration: `${c.dur}s`, animationDelay: `${c.delay}s` }}
         >
           <Cloud />
@@ -196,7 +196,7 @@ export function Sky() {
       {BEES.map((b, i) => (
         <div
           key={i}
-          className="bee absolute z-10"
+          className="bee absolute z-10 hidden sm:block"
           style={{ left: `${b.left}%`, top: `${b.top}%`, width: b.size, animationDuration: `${b.dur}s`, animationDelay: `${b.delay}s` }}
         >
           <Bee flip={b.flip} />

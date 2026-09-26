@@ -81,7 +81,7 @@ export default function Home() {
         <Hills className="absolute inset-x-0 bottom-0 h-[42%] w-full" />
 
         <div className="relative mx-auto grid max-w-5xl gap-6 px-5 pt-12 md:grid-cols-2 md:gap-10 md:pt-16">
-          <div className="relative z-20 self-center md:order-2 md:pb-40">
+          <div className="relative z-20 self-center md:order-2 md:pb-48">
             <Pill>{profile.title}</Pill>
             <h1 className="sky-title mt-4 font-display text-6xl leading-[1.05] sm:text-7xl">
               Built to <span className="text-sun">bloom.</span>
@@ -103,13 +103,19 @@ export default function Home() {
           </div>
 
           {profile.avatar && (
-            <div className="relative z-10 self-end md:order-1">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={asset(profile.avatar)}
-                alt={profile.name}
-                className="mx-auto w-[min(420px,85%)] drop-shadow-[0_12px_18px_rgba(60,20,5,0.35)]"
-              />
+            /* Framed portrait, raised above the sunflower field */
+            <div className="relative z-30 self-center pb-44 md:order-1 md:pb-48">
+              <div className="mx-auto w-[min(320px,80%)] -rotate-2 rounded-[2rem] bg-cloud p-3 shadow-[0_24px_40px_-16px_rgba(60,20,5,0.55)]">
+                <div className="relative aspect-4/5 overflow-hidden rounded-[1.5rem] bg-[radial-gradient(circle_at_50%_35%,var(--sun)_0%,var(--horizon)_35%,var(--sky-low)_65%,var(--sky-mid)_100%)]">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={asset(profile.avatar)}
+                    alt={profile.name}
+                    className="absolute bottom-0 left-1/2 h-[94%] w-auto max-w-none -translate-x-1/2"
+                  />
+                </div>
+                <p className="pt-2 pb-0.5 text-center font-display text-lg text-ink">{profile.location}</p>
+              </div>
             </div>
           )}
         </div>
