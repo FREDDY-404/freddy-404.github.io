@@ -56,3 +56,9 @@ export const socialIcon = (label: string, className?: string) =>
   ) : (
     <ArrowUpRight className={className} />
   );
+
+export const Star = ({ className = "size-4" }: P) => (
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden className={className}>
+    <path d="M12 1.5 14.6 9.4 23 12l-8.4 2.6L12 22.5l-2.6-7.9L1 12l8.4-2.6Z" />
+  </svg>
+);

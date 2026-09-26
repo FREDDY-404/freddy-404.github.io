@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Jost } from "next/font/google";
+import { Anton, Geist } from "next/font/google";
 import { profile } from "@/data/portfolio";
 import "./globals.css";
 
@@ -8,8 +8,9 @@ const geistSans = Geist({
   subsets: ["latin"],
 });
 
-const jost = Jost({
-  variable: "--font-jost",
+const anton = Anton({
+  variable: "--font-anton",
+  weight: "400",
   subsets: ["latin"],
 });
 
@@ -22,7 +23,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${jost.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${anton.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col font-sans">{children}</body>
     </html>

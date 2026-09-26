@@ -30,9 +30,9 @@ export function Nav({
   }, [items]);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-white/10 bg-frame/90 backdrop-blur-md">
+    <header className="sticky top-0 z-40 border-b border-white/10 bg-night/85 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-5">
-        <a href="#top" className="cover-title shrink-0 text-sm text-on-frame">
+        <a href="#top" className="shrink-0 font-display text-xl tracking-wide text-yellow uppercase">
           {name}
         </a>
         <nav aria-label="Sections" className="flex gap-1 overflow-x-auto">
@@ -41,10 +41,8 @@ export function Nav({
               key={n.id}
               href={`#${n.id}`}
               aria-current={active === n.id ? "true" : undefined}
-              className={`whitespace-nowrap border-b-2 px-3 py-1.5 text-sm transition-colors ${
-                active === n.id
-                  ? "border-on-frame text-on-frame"
-                  : "border-transparent text-on-frame-muted hover:text-on-frame"
+              className={`whitespace-nowrap rounded-md px-3 py-1.5 text-sm transition-colors ${
+                active === n.id ? "bg-blue text-white" : "text-muted hover:text-text"
               }`}
             >
               {n.label}
