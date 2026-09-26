@@ -24,6 +24,19 @@ const btnPrimary =
 const btnSecondary =
   "inline-block rounded-full bg-cloud px-6 py-3 font-bold text-ink shadow-[0_6px_0_rgb(74_44_18/0.35)] transition-transform hover:-translate-y-0.5 active:translate-y-1 active:shadow-[0_2px_0_rgb(74_44_18/0.35)]";
 
+// Opens the visitor's email app with a message to me, subject pre-filled
+const mailTo = (email: string) =>
+  `mailto:${email}?subject=${encodeURIComponent("Hello from your portfolio")}&body=${encodeURIComponent("Hi Min Khant Kyaw,\n\n")}`;
+
+function MailIcon({ className = "size-5" }: { className?: string }) {
+  return (
+    <svg aria-hidden viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+      <rect x="3" y="5" width="18" height="14" rx="2" />
+      <path d="m3 7 9 6 9-6" />
+    </svg>
+  );
+}
+
 function Pill({ children, className = "bg-cream text-ink" }: { children: React.ReactNode; className?: string }) {
   return (
     <span className={`inline-block rounded-full px-3 py-1 text-sm font-bold ${className}`}>{children}</span>
@@ -72,6 +85,13 @@ export default function Home() {
               </a>
             ))}
           </nav>
+          <a
+            href={mailTo(profile.email)}
+            className="hidden shrink-0 items-center gap-2 rounded-full bg-sun px-4 py-2 text-sm font-extrabold text-ink transition-transform hover:-translate-y-0.5 md:inline-flex"
+          >
+            <MailIcon className="size-4" />
+            Get in touch
+          </a>
         </div>
       </header>
 
@@ -96,8 +116,9 @@ export default function Home() {
                   Résumé
                 </a>
               )}
-              <a href="#contact" className={btnSecondary}>
-                Contact
+              <a href={mailTo(profile.email)} className={`${btnSecondary} inline-flex items-center gap-2`}>
+                <MailIcon />
+                Get in touch
               </a>
             </div>
           </div>
@@ -276,9 +297,17 @@ export default function Home() {
           <p className="mx-auto mt-4 max-w-md text-lg font-semibold text-cloud/90">
             Open to full-time AI and full-stack developer roles, and freelance projects. Drop me a line.
           </p>
-          <div className="mt-8 flex flex-col items-center gap-3">
+          <a
+            href={mailTo(profile.email)}
+            className="mt-8 inline-flex items-center gap-3 rounded-full bg-sun px-9 py-4 text-xl font-extrabold text-ink shadow-[0_7px_0_#b98200] transition-transform hover:-translate-y-0.5 active:translate-y-1 active:shadow-[0_2px_0_#b98200]"
+          >
+            <MailIcon className="size-6" />
+            Get in touch
+          </a>
+          <p className="mt-6 text-sm font-bold uppercase tracking-[0.15em] text-cloud/70">or email me directly</p>
+          <div className="mt-3 flex flex-col items-center gap-3">
             {[profile.email, profile.workEmail].map((e) => (
-              <a key={e} href={`mailto:${e}`} className={`${btnSecondary} break-all`}>
+              <a key={e} href={mailTo(e)} className={`${btnSecondary} break-all`}>
                 {e}
               </a>
             ))}
