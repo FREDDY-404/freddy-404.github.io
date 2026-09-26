@@ -7,6 +7,7 @@ import {
   skills,
   spokenLanguages,
 } from "@/data/portfolio";
+import { asset } from "@/lib/asset";
 import { Drips } from "@/components/drips";
 import { Projects } from "@/components/projects";
 
@@ -90,7 +91,7 @@ export default function Home() {
             {profile.avatar ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img
-                src={profile.avatar}
+                src={asset(profile.avatar)}
                 alt={profile.name}
                 className="absolute inset-1.75 h-[calc(100%-14px)] w-[calc(100%-14px)] object-cover object-[center_35%] contrast-105 saturate-110"
               />
@@ -132,7 +133,7 @@ export default function Home() {
               </a>
               {profile.resumeUrl && (
                 <a
-                  href={profile.resumeUrl}
+                  href={asset(profile.resumeUrl)}
                   className="border border-bone/60 px-5 py-3 font-type text-sm uppercase tracking-widest hover:border-bone hover:bg-bone hover:text-ink"
                 >
                   Résumé
@@ -248,10 +249,10 @@ export default function Home() {
                   Evidence #{String(i + 1).padStart(2, "0")}
                 </p>
                 {c.image && (
-                  <a href={c.image} target="_blank" rel="noreferrer" className="mb-4 block">
+                  <a href={asset(c.image)} target="_blank" rel="noreferrer" className="mb-4 block">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
-                      src={c.image}
+                      src={asset(c.image)}
                       alt={`${c.name} certificate`}
                       loading="lazy"
                       className="aspect-4/3 w-full bg-ink object-contain p-1 ring-1 ring-ink/20"

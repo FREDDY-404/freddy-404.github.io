@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { asset } from "@/lib/asset";
 import type { Project } from "@/data/portfolio";
 
 export function Projects({ projects }: { projects: Project[] }) {
@@ -100,14 +101,14 @@ export function Projects({ projects }: { projects: Project[] }) {
                   </div>
                   {p.image && (
                     <a
-                      href={p.links?.[0]?.href ?? p.image}
+                      href={p.links?.[0]?.href ?? asset(p.image)}
                       target="_blank"
                       rel="noreferrer"
                       className="noir-frame block w-full max-w-xs self-start p-1.75 transition-transform hover:-rotate-1"
                     >
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
-                        src={p.image}
+                        src={asset(p.image)}
                         alt={`Screenshot of ${p.title}`}
                         loading="lazy"
                         className="aspect-video w-full object-cover object-top"
