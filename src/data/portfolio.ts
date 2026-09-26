@@ -14,8 +14,10 @@ export type Project = {
   highlights?: string[];
   tags: string[];
   links?: Link[];
-  image?: string;
+  art: ProjectArt; // which illustration the project card uses
 };
+
+export type ProjectArt = "store" | "lock" | "coffee" | "shield" | "plant";
 
 export type Certificate = {
   name: string;
@@ -121,7 +123,7 @@ export const projects: Project[] = [
     ],
     tags: ["TypeScript", "Next.js", "React", "Supabase"],
     links: [{ label: "Visit site", href: "https://keuri.online" }],
-    image: "/projects/keuri.jpg",
+    art: "store",
   },
   {
     title: "2FA Smart Door Lock",
@@ -139,7 +141,7 @@ export const projects: Project[] = [
       { label: "Visit site", href: "https://smartdoor-mmcom.online" },
       { label: "Code", href: "https://github.com/FREDDY-404/smartdoor" },
     ],
-    image: "/projects/smartdoor.jpg",
+    art: "lock",
   },
   {
     title: "Code & Coffee Game",
@@ -154,7 +156,7 @@ export const projects: Project[] = [
     ],
     tags: ["JavaScript", "HTML", "CSS", "Game", "Vercel"],
     links: [{ label: "Play game", href: "https://code-coffee-game.vercel.app" }],
-    image: "/projects/code-coffee.jpg",
+    art: "coffee",
   },
   {
     title: "Myan Shield",
@@ -169,6 +171,7 @@ export const projects: Project[] = [
     ],
     tags: ["React", "TypeScript", "Node.js", "PostgreSQL", "Redis 7", "MinIO", "Mailpit", "Nginx", "Tailwind CSS"],
     links: [],
+    art: "shield",
   },
   {
     title: "Uri Plant Shop",
@@ -183,6 +186,7 @@ export const projects: Project[] = [
     ],
     tags: ["Full-Stack", "Database", "SDLC"],
     links: [],
+    art: "plant",
   },
 ];
 

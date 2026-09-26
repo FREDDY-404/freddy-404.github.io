@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { asset } from "@/lib/asset";
+import { ProjectCover } from "@/components/project-art";
 import { ArrowUpRight, Star } from "@/components/icons";
 import type { Project } from "@/data/portfolio";
 
@@ -53,45 +53,33 @@ export function Projects({ projects }: { projects: Project[] }) {
                 featured ? "md:col-span-2 md:grid md:grid-cols-[1.3fr_1fr]" : ""
               }`}
             >
-              <div className="relative aspect-video overflow-hidden bg-night-3 md:aspect-auto md:min-h-64">
-                {p.image ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    src={asset(p.image)}
-                    alt={`Screenshot of ${p.title}`}
-                    loading="lazy"
-                    className="absolute inset-0 h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
-                  />
-                ) : (
-                  <div className="absolute inset-0 bg-red">
-                    <div className="grain grid h-full place-items-center">
-                      <span className="title-yellow relative z-10 px-6 text-center text-4xl">{p.title}</span>
-                    </div>
-                  </div>
-                )}
-                {featured && (
-                  <span className="absolute top-3 left-3 rounded-full bg-yellow px-3 py-1 text-xs font-semibold text-night">
-                    Featured
-                  </span>
-                )}
+              {/* Original cover art for the project (decorative; the text below carries the content) */}
+              <div
+                aria-hidden
+                className={`relative overflow-hidden transition-transform duration-500 ${
+                  featured ? "aspect-4/3 md:aspect-auto md:min-h-96" : "aspect-4/3"
+                }`}
+              >
+                <div className="absolute inset-0 transition-transform duration-500 group-hover:scale-[1.03]">
+                  <ProjectCover art={p.art} title={p.title} index={n - 1} period={p.period} featured={featured} />
+                </div>
               </div>
 
               <div className="flex flex-1 flex-col p-6">
-                <div className="flex items-center gap-2 text-xs text-subtle">
-                  <span className="font-display text-base tracking-wide text-red">{String(n).padStart(2, "0")}</span>
-                  <span aria-hidden>·</span>
-                  <span>{p.period}</span>
-                  {live && (
-                    <>
-                      <span aria-hidden>·</span>
+                {(live || featured) && (
+                  <div className="mb-2 flex items-center gap-3 text-xs">
+                    {featured && (
+                      <span className="rounded-full bg-yellow px-2.5 py-0.5 font-semibold text-night">Featured</span>
+                    )}
+                    {live && (
                       <span className="inline-flex items-center gap-1.5 text-blue-soft">
                         <span className="size-1.5 rounded-full bg-blue-soft shadow-[0_0_8px_var(--blue)]" />
                         Live
                       </span>
-                    </>
-                  )}
-                </div>
-                <h3 className="mt-2 font-display text-3xl tracking-wide uppercase">{p.title}</h3>
+                    )}
+                  </div>
+                )}
+                <h3 className="font-display text-3xl tracking-wide uppercase">{p.title}</h3>
                 <p className="mt-0.5 text-sm text-yellow">{p.role}</p>
                 <p className="mt-3 leading-relaxed text-muted">{p.summary}</p>
 
