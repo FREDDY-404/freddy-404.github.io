@@ -170,6 +170,21 @@ export const projects: Project[] = [
     tags: ["Full-Stack", "Database", "SDLC"],
     links: [],
   },
+  {
+    title: "Code & Coffee Game",
+    role: "Developer · Workshop game",
+    period: "Game",
+    summary:
+      "A browser game for coding classes and workshops, run on one projector with phones or one laptop per team.",
+    highlights: [
+      "Programming Charades: one player acts out a language logo, their partner types the name",
+      "Team Debug Wars: teams solve random debugging questions one round at a time",
+      "Live scoreboard tracking charades score, rounds played, accuracy, and answers",
+    ],
+    tags: ["JavaScript", "HTML", "CSS", "Game", "Vercel"],
+    links: [{ label: "Play game", href: "https://code-coffee-game.vercel.app" }],
+    image: "/projects/code-coffee.jpg",
+  },
 ];
 
 export const certificates: Certificate[] = [
