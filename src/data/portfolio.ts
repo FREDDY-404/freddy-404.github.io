@@ -128,20 +128,6 @@ export const projects: Project[] = [
     image: "/projects/keuri.jpg",
   },
   {
-    title: "Myan Shield",
-    role: "Backend & Frontend Developer · Team project",
-    period: "Team",
-    summary:
-      "A smoke detection system built as a team. I developed the user-facing application and the communication between it and the backend services.",
-    highlights: [
-      "Built the user interface with React, TypeScript, and Tailwind CSS",
-      "Implemented API calls and backend communication with Node.js services",
-      "Worked in a stack of PostgreSQL, Redis 7, MinIO, Mailpit, and Nginx",
-    ],
-    tags: ["React", "TypeScript", "Node.js", "PostgreSQL", "Redis 7", "MinIO", "Mailpit", "Nginx", "Tailwind CSS"],
-    links: [],
-  },
-  {
     title: "2FA Smart Door Lock",
     role: "IoT Developer · University project",
     period: "6 months",
@@ -160,20 +146,6 @@ export const projects: Project[] = [
     image: "/projects/smartdoor.jpg",
   },
   {
-    title: "Uri Plant Shop",
-    role: "Full-Stack Developer · University project",
-    period: "2 months",
-    summary:
-      "A plant-shop e-commerce website with frontend, backend, and database functionality.",
-    highlights: [
-      "Implemented frontend and backend functionality",
-      "Worked with databases and application logic",
-      "Applied software development lifecycle practices throughout",
-    ],
-    tags: ["Full-Stack", "Database", "SDLC"],
-    links: [],
-  },
-  {
     title: "Code & Coffee Game",
     role: "Developer · Workshop game",
     period: "Game",
@@ -187,6 +159,34 @@ export const projects: Project[] = [
     tags: ["JavaScript", "HTML", "CSS", "Game", "Vercel"],
     links: [{ label: "Play game", href: "https://code-coffee-game.vercel.app" }],
     image: "/projects/code-coffee.jpg",
+  },
+  {
+    title: "Myan Shield",
+    role: "Backend & Frontend Developer · Team project",
+    period: "Team",
+    summary:
+      "A smoke detection system built as a team. I developed the user-facing application and the communication between it and the backend services.",
+    highlights: [
+      "Built the user interface with React, TypeScript, and Tailwind CSS",
+      "Implemented API calls and backend communication with Node.js services",
+      "Worked in a stack of PostgreSQL, Redis 7, MinIO, Mailpit, and Nginx",
+    ],
+    tags: ["React", "TypeScript", "Node.js", "PostgreSQL", "Redis 7", "MinIO", "Mailpit", "Nginx", "Tailwind CSS"],
+    links: [],
+  },
+  {
+    title: "Uri Plant Shop",
+    role: "Full-Stack Developer · University project",
+    period: "2 months",
+    summary:
+      "A plant-shop e-commerce website with frontend, backend, and database functionality.",
+    highlights: [
+      "Implemented frontend and backend functionality",
+      "Worked with databases and application logic",
+      "Applied software development lifecycle practices throughout",
+    ],
+    tags: ["Full-Stack", "Database", "SDLC"],
+    links: [],
   },
 ];
 

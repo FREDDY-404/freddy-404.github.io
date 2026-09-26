@@ -8,321 +8,328 @@ import {
   spokenLanguages,
 } from "@/data/portfolio";
 import { asset } from "@/lib/asset";
+import { Burst, ComicSky, InkCloud } from "@/components/comic";
+import { Nav } from "@/components/nav";
 import { Projects } from "@/components/projects";
-import { Hills, Sky, Sunflowers, SunflowerIcon } from "@/components/scene";
 
 const nav = [
+  { id: "projects", label: "Work" },
   { id: "about", label: "About" },
-  { id: "projects", label: "Projects" },
   { id: "certificates", label: "Certificates" },
   { id: "education", label: "Education" },
   { id: "contact", label: "Contact" },
 ].filter((n) => n.id !== "certificates" || certificates.length > 0);
 
-const btnPrimary =
-  "inline-block rounded-full bg-cap px-6 py-3 font-bold text-cloud shadow-[0_6px_0_#145c3c] transition-transform hover:-translate-y-0.5 active:translate-y-1 active:shadow-[0_2px_0_#145c3c]";
-const btnSecondary =
-  "inline-block rounded-full bg-cloud px-6 py-3 font-bold text-ink shadow-[0_6px_0_rgb(74_44_18/0.35)] transition-transform hover:-translate-y-0.5 active:translate-y-1 active:shadow-[0_2px_0_rgb(74_44_18/0.35)]";
-
 // Opens the visitor's email app with a message to me, subject pre-filled
 const mailTo = (email: string) =>
   `mailto:${email}?subject=${encodeURIComponent("Hello from your portfolio")}&body=${encodeURIComponent("Hi Min Khant Kyaw,\n\n")}`;
 
+const btn =
+  "inline-flex items-center gap-2 rounded-full border-3 border-ink px-6 py-3 font-extrabold shadow-[4px_4px_0_var(--ink)] transition-transform hover:-translate-y-0.5 active:translate-y-0.5 active:shadow-[1px_1px_0_var(--ink)]";
+
 function MailIcon({ className = "size-5" }: { className?: string }) {
   return (
-    <svg aria-hidden viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <svg aria-hidden viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" className={className}>
       <rect x="3" y="5" width="18" height="14" rx="2" />
       <path d="m3 7 9 6 9-6" />
     </svg>
   );
 }
 
-function Pill({ children, className = "bg-cream text-ink" }: { children: React.ReactNode; className?: string }) {
-  return (
-    <span className={`inline-block rounded-full px-3 py-1 text-sm font-bold ${className}`}>{children}</span>
-  );
-}
-
+/* Section: yellow comic caption box as the heading, content below */
 function Section({
   id,
-  eyebrow,
   title,
+  kicker,
   children,
 }: {
   id: string;
-  eyebrow: string;
   title: string;
+  kicker?: string;
   children: React.ReactNode;
 }) {
   return (
-    <section id={id} className="py-8 sm:py-10">
-      <div className="cloud-card p-6 sm:p-10">
-        <div className="mb-8 flex items-center gap-4">
-          <SunflowerIcon className="size-12 shrink-0 sm:size-14" />
-          <div>
-            <p className="text-sm font-extrabold uppercase tracking-[0.15em] text-leaf">{eyebrow}</p>
-            <h2 className="font-display text-4xl leading-tight text-ink sm:text-5xl">{title}</h2>
-          </div>
-        </div>
-        {children}
+    <section id={id} className="py-12 sm:py-16">
+      <div className="mb-8 flex flex-wrap items-end gap-x-4 gap-y-2">
+        <h2 className="-rotate-1 rounded-md border-3 border-ink bg-mustard px-4 py-1.5 font-display text-4xl leading-none tracking-wide shadow-[5px_5px_0_var(--ink)] sm:text-5xl">
+          {title}
+        </h2>
+        {kicker && <p className="pb-1 text-lg font-bold text-ink">{kicker}</p>}
       </div>
+      {children}
     </section>
   );
 }
 
 export default function Home() {
+  const liveCount = projects.filter((p) => p.links?.length).length;
+  const [first, ...rest] = profile.name.toUpperCase().split(" ");
+
+  const stats = [
+    { value: projects.length, label: "Projects" },
+    { value: liveCount, label: "Live sites" },
+    { value: certificates.length, label: "Certificates" },
+  ];
+
   return (
-    <div className="meadow flex min-h-full flex-1 flex-col">
-      <header className="sticky top-0 z-40 bg-sky-top/90 backdrop-blur">
-        <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-5 py-3">
-          <a href="#top" className="font-display text-xl text-cloud">
-            {profile.name}
-          </a>
-          <nav className="flex gap-4 overflow-x-auto text-sm font-bold text-cloud/90 sm:gap-6">
-            {nav.map((n) => (
-              <a key={n.id} href={`#${n.id}`} className="whitespace-nowrap hover:text-sun">
-                {n.label}
-              </a>
-            ))}
-          </nav>
-          <a
-            href={mailTo(profile.email)}
-            className="hidden shrink-0 items-center gap-2 rounded-full bg-sun px-4 py-2 text-sm font-extrabold text-ink transition-transform hover:-translate-y-0.5 md:inline-flex"
-          >
+    <div className="flex min-h-full flex-1 flex-col">
+      <a
+        href="#main"
+        className="sr-only z-50 rounded-md bg-ink px-4 py-2 font-bold text-mustard focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
+      >
+        Skip to content
+      </a>
+
+      <Nav
+        name={profile.name}
+        items={nav}
+        cta={
+          <a href={mailTo(profile.email)} className={`${btn} bg-mustard px-4 py-2 text-sm shadow-[3px_3px_0_var(--ink)]`}>
             <MailIcon className="size-4" />
             Get in touch
           </a>
-        </div>
-      </header>
+        }
+      />
 
-      {/* Hero — standing in the sunflower field */}
-      <section id="top" className="sunset-sky relative overflow-hidden">
-        <Sky />
-        <Hills className="absolute inset-x-0 bottom-0 h-[42%] w-full" />
+      {/* ── Hero ─────────────────────────────── */}
+      <section id="top" className="relative overflow-hidden border-b-3 border-ink bg-sky">
+        <ComicSky />
+        <div className="relative mx-auto grid max-w-6xl items-center gap-10 px-5 pt-24 pb-14 md:grid-cols-[1.15fr_1fr] md:pt-28 md:pb-20">
+          <div>
+            {/* speech bubble status */}
+            <p className="relative inline-flex items-center gap-2 rounded-2xl border-3 border-ink bg-paper px-4 py-2 text-sm font-extrabold shadow-[3px_3px_0_var(--ink)]">
+              <span className="relative flex size-2.5">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-grass opacity-75 motion-reduce:animate-none" />
+                <span className="relative inline-flex size-2.5 rounded-full bg-grass" />
+              </span>
+              Open to work · {profile.location}
+              <span aria-hidden className="absolute -bottom-3 left-6 size-4 rotate-45 border-r-3 border-b-3 border-ink bg-paper" />
+            </p>
 
-        <div className="relative mx-auto grid max-w-5xl gap-6 px-5 pt-12 md:grid-cols-2 md:gap-10 md:pt-16">
-          <div className="relative z-20 self-center md:order-2 md:pb-48">
-            <Pill>{profile.title}</Pill>
-            <h1 className="sky-title mt-4 font-display text-6xl leading-[1.05] sm:text-7xl">
-              Built to <span className="text-sun">bloom.</span>
+            <h1 className="cartoon-title mt-7 font-display text-6xl leading-[0.95] sm:text-8xl">
+              {first}
+              <br />
+              {rest.join(" ")}
             </h1>
-            <p className="mt-5 max-w-md text-lg font-semibold leading-relaxed text-ink">{profile.tagline}</p>
+
+            <p className="mt-5 inline-block -rotate-1 rounded-md border-3 border-ink bg-paper px-3 py-1 font-display text-xl tracking-wide sm:text-2xl">
+              {profile.title}
+            </p>
+            <p className="mt-5 max-w-lg text-lg font-semibold leading-relaxed">{profile.tagline}</p>
+
             <div className="mt-7 flex flex-wrap gap-4">
-              <a href="#projects" className={btnPrimary}>
-                View projects
+              <a href="#projects" className={`${btn} bg-mustard`}>
+                See my work ↓
               </a>
-              {profile.resumeUrl && (
-                <a href={asset(profile.resumeUrl)} className={btnSecondary}>
-                  Résumé
-                </a>
-              )}
-              <a href={mailTo(profile.email)} className={`${btnSecondary} inline-flex items-center gap-2`}>
+              <a href={mailTo(profile.email)} className={`${btn} bg-paper`}>
                 <MailIcon />
                 Get in touch
               </a>
             </div>
+
+            <dl className="mt-9 grid max-w-md grid-cols-3 gap-3">
+              {stats.map((s) => (
+                <div key={s.label} className="panel px-3 py-2.5 text-center shadow-[4px_4px_0_var(--ink)]">
+                  <dt className="sr-only">{s.label}</dt>
+                  <dd className="font-display text-4xl leading-none">{s.value}</dd>
+                  <dd className="mt-1 text-xs font-extrabold uppercase tracking-wide text-ink-muted">{s.label}</dd>
+                </div>
+              ))}
+            </dl>
           </div>
 
-          {profile.avatar && (
-            /* Framed portrait, raised above the sunflower field */
-            <div className="relative z-30 self-center pb-44 md:order-1 md:pb-48">
-              <div className="mx-auto w-[min(320px,80%)] -rotate-2 rounded-[2rem] bg-cloud p-3 shadow-[0_24px_40px_-16px_rgba(60,20,5,0.55)]">
-                <div className="relative aspect-4/5 overflow-hidden rounded-[1.5rem] bg-[radial-gradient(circle_at_50%_35%,var(--sun)_0%,var(--horizon)_35%,var(--sky-low)_65%,var(--sky-mid)_100%)]">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
+          {/* Portrait on an explosion burst */}
+          <div className="relative mx-auto w-full max-w-[17rem] sm:max-w-sm">
+            <Burst className="burst-spin absolute inset-[-18%] h-[136%] w-[136%]" />
+            <div className="panel relative rotate-2 overflow-hidden p-2.5">
+              <div className="halftone relative aspect-4/5 overflow-hidden rounded-sm border-3 border-ink bg-sky">
+                {profile.avatar && (
+                  // eslint-disable-next-line @next/next/no-img-element
                   <img
                     src={asset(profile.avatar)}
                     alt={profile.name}
                     className="absolute bottom-0 left-1/2 h-[94%] w-auto max-w-none -translate-x-1/2"
                   />
-                </div>
-                <p className="pt-2 pb-0.5 text-center font-display text-lg text-ink">{profile.location}</p>
+                )}
               </div>
             </div>
-          )}
+            <InkCloud className="absolute -bottom-8 -left-10 w-40 sm:w-48" />
+          </div>
         </div>
-
-        <Sunflowers className="absolute inset-x-0 bottom-0 z-20 h-40 w-full sm:h-52" />
       </section>
 
-      <main className="mx-auto w-full max-w-5xl flex-1 px-5 pt-6">
-        <Section id="about" eyebrow="Hello there" title="About">
-          <div className="grid gap-10 md:grid-cols-[1.4fr_1fr]">
-            <div className="space-y-4 text-lg leading-relaxed text-ink/90">
-              {profile.about.map((p, i) => (
-                <p key={i}>{p}</p>
-              ))}
-            </div>
-            <div className="space-y-6">
-              {skills.map((s, gi) => (
-                <div key={s.group}>
-                  <h3 className="mb-2 text-sm font-extrabold uppercase tracking-wider text-leaf">{s.group}</h3>
-                  <div className="flex flex-wrap gap-1.5">
-                    {s.items.map((it) => (
-                      <span
-                        key={it}
-                        className={`rounded-full px-3 py-1 text-sm font-semibold ${gi === 0 ? "bg-sun text-ink" : "bg-cream text-ink"}`}
-                      >
-                        {it}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              ))}
-              <div>
-                <h3 className="mb-2 text-sm font-extrabold uppercase tracking-wider text-leaf">Spoken languages</h3>
-                <ul className="space-y-1.5">
-                  {spokenLanguages.map((l) => (
-                    <li key={l.name} className="flex justify-between border-b border-ink/10 pb-1.5">
-                      <span className="font-bold">{l.name}</span>
-                      <span className="text-sm text-ink-muted">{l.level}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </div>
+      <main id="main" className="halftone flex-1 bg-sky">
+        <div className="mx-auto max-w-6xl px-5">
+          {/* ── Work ─────────────────────────────── */}
+          <Section id="projects" title="Selected work" kicker={`${projects.length} projects · ${liveCount} live`}>
+            <Projects projects={projects} />
+          </Section>
 
-          {experience.length > 0 && (
-            <div className="mt-12 border-t border-ink/10 pt-8">
-              <h3 className="mb-5 text-sm font-extrabold uppercase tracking-wider text-leaf">Experience</h3>
-              <ol className="space-y-6 border-l-4 border-sun pl-6">
+          {/* ── About ─────────────────────────────── */}
+          <Section id="about" title="About me">
+            <div className="grid gap-7 lg:grid-cols-[1.35fr_1fr]">
+              <div className="panel p-6 sm:p-8">
+                <div className="space-y-4 text-lg leading-relaxed">
+                  {profile.about.map((p, i) => (
+                    <p key={i}>{p}</p>
+                  ))}
+                </div>
+
                 {experience.map((e) => (
-                  <li key={e.company + e.title} className="relative">
-                    <span className="absolute -left-8.5 top-1 size-5 rounded-full border-4 border-cloud bg-cap" />
-                    <div className="flex flex-wrap items-baseline justify-between gap-2">
-                      <p className="text-xl font-extrabold text-ink">
-                        {e.title} <span className="font-semibold text-ink-muted">· {e.company}</span>
-                      </p>
-                      <p className="text-sm font-semibold text-ink-muted">{e.period}</p>
+                  <div key={e.company + e.title} className="mt-8 rounded-md border-3 border-ink bg-paper-2 p-5">
+                    <p className="text-xs font-extrabold uppercase tracking-widest text-boom">Experience</p>
+                    <div className="mt-1 flex flex-wrap items-baseline justify-between gap-2">
+                      <h3 className="font-display text-2xl tracking-wide">{e.title}</h3>
+                      <span className="text-sm font-bold text-ink-muted">{e.period}</span>
                     </div>
-                    <p className="mt-1 text-ink/85">{e.summary}</p>
+                    <p className="font-extrabold">{e.company}</p>
                     {e.highlights && (
-                      <ul className="mt-3 space-y-1.5 text-ink/80">
+                      <ul className="mt-3 space-y-1.5 text-ink/85">
                         {e.highlights.map((h) => (
                           <li key={h} className="flex gap-2">
-                            <span className="text-petal">✿</span>
+                            <span className="text-boom">★</span>
                             {h}
                           </li>
                         ))}
                       </ul>
                     )}
-                  </li>
+                  </div>
                 ))}
-              </ol>
-            </div>
-          )}
-        </Section>
+              </div>
 
-        <Section id="projects" eyebrow={`${projects.length} projects`} title="Projects">
-          <Projects projects={projects} />
-        </Section>
-
-        {certificates.length > 0 && (
-          <Section id="certificates" eyebrow={`${certificates.length} earned`} title="Certificates">
-            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {certificates.map((c) => (
-                <article key={c.name} className="flex flex-col overflow-hidden rounded-3xl bg-cream">
-                  <div className="h-2 bg-linear-to-r from-sky-mid via-petal to-cap" />
-                  <div className="flex flex-1 flex-col p-5">
-                    <h3 className="text-xl font-extrabold leading-snug">{c.name}</h3>
-                    <dl className="mt-3 space-y-1 text-sm">
-                      <div className="flex gap-2">
-                        <dt className="w-14 shrink-0 text-ink-muted">Issuer</dt>
-                        <dd className="font-semibold">{c.issuer}</dd>
+              <div className="panel p-6 sm:p-8">
+                <h3 className="font-display text-2xl tracking-wide">Toolbox</h3>
+                <div className="mt-4 space-y-5">
+                  {skills.map((s, gi) => (
+                    <div key={s.group}>
+                      <p className="mb-2 text-xs font-extrabold uppercase tracking-widest text-ink-muted">{s.group}</p>
+                      <div className="flex flex-wrap gap-1.5">
+                        {s.items.map((it) => (
+                          <span
+                            key={it}
+                            className={`rounded-full border-2 border-ink px-3 py-1 text-sm font-bold ${gi === 0 ? "bg-mustard" : "bg-paper"}`}
+                          >
+                            {it}
+                          </span>
+                        ))}
                       </div>
-                      {c.date && (
-                        <div className="flex gap-2">
-                          <dt className="w-14 shrink-0 text-ink-muted">Date</dt>
-                          <dd className="font-semibold">{c.date}</dd>
-                        </div>
-                      )}
-                      {c.credentialId && (
-                        <div className="flex gap-2">
-                          <dt className="w-14 shrink-0 text-ink-muted">ID</dt>
-                          <dd className="break-all text-xs">{c.credentialId}</dd>
-                        </div>
-                      )}
-                    </dl>
+                    </div>
+                  ))}
+                  <div>
+                    <p className="mb-2 text-xs font-extrabold uppercase tracking-widest text-ink-muted">Spoken languages</p>
+                    <ul className="space-y-1.5">
+                      {spokenLanguages.map((l) => (
+                        <li key={l.name} className="flex justify-between border-b-2 border-dashed border-ink/20 pb-1.5">
+                          <span className="font-extrabold">{l.name}</span>
+                          <span className="text-sm font-semibold text-ink-muted">{l.level}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Section>
+
+          {/* ── Certificates ─────────────────────────────── */}
+          {certificates.length > 0 && (
+            <Section id="certificates" title="Certificates" kicker={`${certificates.length} earned`}>
+              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                {certificates.map((c, i) => (
+                  <article key={c.name} className="panel relative flex flex-col p-6">
+                    <span
+                      aria-hidden
+                      className="absolute -top-4 -right-3 grid size-11 rotate-12 place-items-center rounded-full border-3 border-ink bg-boom font-display text-lg text-paper"
+                    >
+                      ★
+                    </span>
+                    <p className="text-xs font-extrabold uppercase tracking-widest text-ink-muted">
+                      Certificate #{String(i + 1).padStart(2, "0")}
+                    </p>
+                    <h3 className="mt-2 font-display text-2xl leading-tight tracking-wide">{c.name}</h3>
+                    <p className="mt-2 font-extrabold">{c.issuer}</p>
+                    {c.date && <p className="text-sm font-semibold text-ink-muted">{c.date}</p>}
+                    {c.credentialId && <p className="mt-2 break-all text-xs text-ink-muted">ID {c.credentialId}</p>}
                     {c.url && (
                       <a
                         href={c.url}
                         target="_blank"
                         rel="noreferrer"
-                        className="mt-auto self-start pt-5 font-bold text-cap underline underline-offset-4 hover:text-leaf"
+                        className="mt-auto self-start pt-5 font-extrabold underline decoration-3 underline-offset-4 hover:text-boom"
                       >
                         Verify credential ↗
                       </a>
                     )}
-                  </div>
-                </article>
-              ))}
-            </div>
-          </Section>
-        )}
+                  </article>
+                ))}
+              </div>
+            </Section>
+          )}
 
-        <Section id="education" eyebrow="Where I grew" title="Education">
-          <ol className="space-y-8">
-            {education.map((e) => (
-              <li
-                key={e.school + e.degree}
-                className="grid gap-2 border-b border-ink/10 pb-8 last:border-0 last:pb-0 sm:grid-cols-[10rem_1fr] sm:gap-6"
-              >
-                <div className="sm:pt-1">
-                  <Pill className="bg-sun text-ink">{e.period}</Pill>
-                </div>
-                <div>
-                  <h3 className="text-2xl font-extrabold">{e.degree}</h3>
-                  <p className="font-semibold text-ink-muted">{e.school}</p>
+          {/* ── Education ─────────────────────────────── */}
+          <Section id="education" title="Education">
+            <div className="grid gap-6 md:grid-cols-2">
+              {education.map((e) => (
+                <article key={e.school + e.degree} className="panel p-6">
+                  <span className="inline-block rounded-full border-2 border-ink bg-mustard px-3 py-0.5 text-sm font-extrabold">
+                    {e.period}
+                  </span>
+                  <h3 className="mt-3 font-display text-3xl leading-tight tracking-wide">{e.degree}</h3>
+                  <p className="font-extrabold text-ink-muted">{e.school}</p>
                   {e.details && (
-                    <ul className="mt-2 space-y-1 text-ink/80">
+                    <ul className="mt-3 space-y-1 text-ink/85">
                       {e.details.map((d) => (
                         <li key={d} className="flex gap-2">
-                          <span className="text-petal">✿</span>
+                          <span className="text-boom">★</span>
                           {d}
                         </li>
                       ))}
                     </ul>
                   )}
-                </div>
-              </li>
-            ))}
-          </ol>
-        </Section>
+                </article>
+              ))}
+            </div>
+          </Section>
 
-        <section id="contact" className="py-14 text-center sm:py-20">
-          <SunflowerIcon className="mx-auto size-20" />
-          <h2 className="mt-4 font-display text-5xl leading-tight text-cloud sm:text-6xl">
-            Let&apos;s grow <span className="text-sun">something.</span>
-          </h2>
-          <p className="mx-auto mt-4 max-w-md text-lg font-semibold text-cloud/90">
-            Open to full-time AI and full-stack developer roles, and freelance projects. Drop me a line.
-          </p>
-          <a
-            href={mailTo(profile.email)}
-            className="mt-8 inline-flex items-center gap-3 rounded-full bg-sun px-9 py-4 text-xl font-extrabold text-ink shadow-[0_7px_0_#b98200] transition-transform hover:-translate-y-0.5 active:translate-y-1 active:shadow-[0_2px_0_#b98200]"
-          >
-            <MailIcon className="size-6" />
-            Get in touch
-          </a>
-          <p className="mt-6 text-sm font-bold uppercase tracking-[0.15em] text-cloud/70">or email me directly</p>
-          <div className="mt-3 flex flex-col items-center gap-3">
-            {[profile.email, profile.workEmail].map((e) => (
-              <a key={e} href={mailTo(e)} className={`${btnSecondary} break-all`}>
-                {e}
+          {/* ── Contact ─────────────────────────────── */}
+          <section id="contact" className="py-14 sm:py-20">
+            <div className="panel relative mx-auto max-w-3xl overflow-visible px-6 py-12 text-center sm:px-12">
+              <Burst className="absolute -top-14 -left-10 size-28 rotate-12 sm:size-36" />
+              <h2 className="cartoon-title relative font-display text-5xl leading-none sm:text-7xl">Let&apos;s talk!</h2>
+              <p className="relative mx-auto mt-5 max-w-lg text-lg font-semibold">
+                Open to full-time AI and full-stack developer roles, and freelance projects. I usually reply within a day.
+              </p>
+              <a href={mailTo(profile.email)} className={`${btn} relative mt-8 bg-mustard px-9 py-4 text-xl`}>
+                <MailIcon className="size-6" />
+                Get in touch
               </a>
-            ))}
-          </div>
-          <div className="mt-6 flex flex-wrap justify-center gap-3">
-            {profile.socials.map((s) => (
-              <a key={s.href} href={s.href} target="_blank" rel="noreferrer" className={btnPrimary}>
-                {s.label} ↗
-              </a>
-            ))}
-          </div>
-        </section>
+              <p className="mt-7 text-xs font-extrabold uppercase tracking-widest text-ink-muted">or reach me directly</p>
+              <div className="mt-3 flex flex-wrap justify-center gap-3">
+                {[profile.email, profile.workEmail].map((e) => (
+                  <a key={e} href={mailTo(e)} className="rounded-full border-2 border-ink bg-paper-2 px-4 py-2 font-bold break-all hover:bg-mustard">
+                    {e}
+                  </a>
+                ))}
+              </div>
+              <div className="mt-3 flex flex-wrap justify-center gap-3">
+                {profile.socials.map((s) => (
+                  <a
+                    key={s.href}
+                    href={s.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="rounded-full border-2 border-ink bg-sky px-4 py-2 font-extrabold hover:bg-mustard"
+                  >
+                    {s.label} ↗
+                  </a>
+                ))}
+              </div>
+            </div>
+          </section>
+        </div>
       </main>
 
-      <footer className="bg-[#1f4222] py-6 text-center text-sm font-semibold text-cloud/80">
+      <footer className="border-t-3 border-ink bg-ink py-6 text-center text-sm font-bold text-paper/80">
         © {new Date().getFullYear()} {profile.name} · Designed &amp; built by {profile.name}
       </footer>
     </div>
