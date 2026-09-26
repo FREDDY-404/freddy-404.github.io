@@ -22,9 +22,7 @@ export function Projects({ projects }: { projects: Project[] }) {
         onClick={() => setActive(value)}
         aria-pressed={on}
         className={`cursor-pointer rounded-full border px-3.5 py-1.5 text-sm transition-colors ${
-          on
-            ? "border-fg bg-fg text-bg"
-            : "border-border bg-surface text-muted hover:border-subtle hover:text-fg"
+          on ? "border-fg bg-fg text-white" : "border-border bg-surface/70 text-muted hover:border-subtle hover:text-fg"
         }`}
       >
         {label}
@@ -48,46 +46,48 @@ export function Projects({ projects }: { projects: Project[] }) {
           // With an odd count, the first card spans the row as a featured project
           const featured = i === 0 && shown.length % 2 === 1 && shown.length > 1;
           const live = p.links && p.links.length > 0;
+          const n = projects.indexOf(p) + 1;
           return (
             <article
               key={p.title}
-              className={`group flex flex-col overflow-hidden rounded-2xl border border-border bg-surface transition-shadow hover:shadow-[0_12px_40px_-18px_rgb(0_0_0/0.25)] ${
+              className={`case group relative flex flex-col overflow-hidden p-2 transition-transform hover:-translate-y-1 ${
                 featured ? "md:col-span-2 md:grid md:grid-cols-[1.3fr_1fr]" : ""
               }`}
             >
-              <div
-                className={`relative aspect-video overflow-hidden border-border bg-surface-2 ${
-                  featured ? "border-b md:aspect-auto md:min-h-80 md:border-r md:border-b-0" : "border-b"
-                }`}
-              >
+              <div className="relative aspect-video overflow-hidden rounded-lg border border-border bg-surface-2 md:aspect-auto md:min-h-64">
                 {p.image ? (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img
                     src={asset(p.image)}
                     alt={`Screenshot of ${p.title}`}
                     loading="lazy"
-                    className="absolute inset-0 h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.02]"
+                    className="absolute inset-0 h-full w-full object-cover object-top"
                   />
                 ) : (
-                  <div className="grid h-full place-items-center bg-linear-to-br from-accent-soft to-surface-2">
-                    <span className="font-mono text-sm tracking-wide text-subtle">{p.title}</span>
-                  </div>
+                  <div className="iridescent absolute inset-0 opacity-35" />
+                )}
+                {!p.image && (
+                  <span className="absolute inset-0 grid place-items-center font-mono text-xs tracking-[0.3em] text-fg/60 uppercase">
+                    {p.title}
+                  </span>
                 )}
                 {featured && (
-                  <span className="absolute top-3 left-3 rounded-full bg-fg px-2.5 py-1 text-xs font-medium text-bg">
-                    Featured
+                  <span className="absolute top-3 right-0">
+                    <span className="tape inline-block px-4 py-1 font-marker text-sm">featured</span>
                   </span>
                 )}
               </div>
 
-              <div className="flex flex-1 flex-col p-6">
-                <div className="flex items-center gap-2 font-mono text-xs text-subtle">
+              <div className="flex flex-1 flex-col p-4 sm:p-5">
+                <div className="flex items-center gap-2 font-mono text-[11px] tracking-[0.15em] text-subtle uppercase">
+                  <span>Track {String(n).padStart(2, "0")}</span>
+                  <span aria-hidden>·</span>
                   <span>{p.period}</span>
                   {live && (
                     <>
                       <span aria-hidden>·</span>
-                      <span className="inline-flex items-center gap-1.5 text-success">
-                        <span className="size-1.5 rounded-full bg-success" />
+                      <span className="inline-flex items-center gap-1.5 text-tape-deep">
+                        <span className="size-1.5 rounded-full bg-tape" />
                         Live
                       </span>
                     </>
@@ -99,7 +99,7 @@ export function Projects({ projects }: { projects: Project[] }) {
 
                 <ul className="mt-4 flex flex-wrap gap-1.5" aria-label="Technologies">
                   {p.tags.slice(0, 5).map((t) => (
-                    <li key={t} className="rounded-md bg-surface-2 px-2 py-0.5 font-mono text-xs text-muted">
+                    <li key={t} className="rounded-md border border-border bg-surface/80 px-2 py-0.5 font-mono text-xs text-muted">
                       {t}
                     </li>
                   ))}
@@ -110,14 +110,14 @@ export function Projects({ projects }: { projects: Project[] }) {
 
                 {p.highlights && (
                   <details className="group/d mt-4">
-                    <summary className="cursor-pointer list-none text-sm font-medium text-accent hover:text-accent-hover">
+                    <summary className="cursor-pointer list-none text-sm font-medium text-fg underline decoration-tape decoration-2 underline-offset-4 hover:text-tape-deep">
                       <span className="group-open/d:hidden">Read more</span>
                       <span className="hidden group-open/d:inline">Show less</span>
                     </summary>
                     <ul className="mt-3 space-y-1.5 text-sm text-muted">
                       {p.highlights.map((h) => (
                         <li key={h} className="flex gap-2.5">
-                          <span aria-hidden className="mt-2 size-1 shrink-0 rounded-full bg-subtle" />
+                          <span aria-hidden className="mt-2 size-1 shrink-0 rounded-full bg-tape" />
                           {h}
                         </li>
                       ))}
@@ -126,7 +126,7 @@ export function Projects({ projects }: { projects: Project[] }) {
                 )}
 
                 {live && (
-                  <div className="mt-auto flex flex-wrap gap-2 pt-6">
+                  <div className="mt-auto flex flex-wrap gap-2 pt-5">
                     {p.links!.map((l, li) => (
                       <a
                         key={l.href}
@@ -134,9 +134,7 @@ export function Projects({ projects }: { projects: Project[] }) {
                         target="_blank"
                         rel="noreferrer"
                         className={`inline-flex items-center gap-1.5 rounded-lg px-3.5 py-2 text-sm font-medium transition-colors ${
-                          li === 0
-                            ? "bg-fg text-bg hover:opacity-90"
-                            : "border border-border text-fg hover:bg-surface-2"
+                          li === 0 ? "bg-fg text-white hover:bg-fg/85" : "border border-border bg-surface/70 hover:bg-surface"
                         }`}
                       >
                         {l.label}

@@ -1,38 +1,18 @@
 @import "tailwindcss";
 
-/* Neutral professional palette with a single indigo accent; follows the OS theme */
+/* Jewel-case palette: frosted clear plastic, iridescent disc, red-orange tape */
 :root {
   color-scheme: light;
-  --bg: #fafaf9;
+  --bg: #eef0f0;
   --surface: #ffffff;
-  --surface-2: #f4f4f5;
-  --border: #e4e4e7;
-  --fg: #18181b;
-  --muted: #52525b;
-  --subtle: #71717a;
-  --accent: #4f46e5;
-  --accent-hover: #4338ca;
-  --accent-fg: #ffffff;
-  --accent-soft: #eef2ff;
-  --success: #16a34a;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    color-scheme: dark;
-    --bg: #09090b;
-    --surface: #111113;
-    --surface-2: #18181b;
-    --border: #27272a;
-    --fg: #fafafa;
-    --muted: #a1a1aa;
-    --subtle: #8b8b94;
-    --accent: #818cf8;
-    --accent-hover: #a5b4fc;
-    --accent-fg: #0b0b12;
-    --accent-soft: #1e1b4b;
-    --success: #4ade80;
-  }
+  --surface-2: #f5f6f6;
+  --border: #d3d9db;
+  --fg: #111213;
+  --muted: #464b4f;
+  --subtle: #676d72;
+  --tape: #ff3b1f;
+  --tape-deep: #d92a12;
+  --rim: #9fc4cc;
 }
 
 @theme inline {
@@ -43,13 +23,12 @@
   --color-fg: var(--fg);
   --color-muted: var(--muted);
   --color-subtle: var(--subtle);
-  --color-accent: var(--accent);
-  --color-accent-hover: var(--accent-hover);
-  --color-accent-fg: var(--accent-fg);
-  --color-accent-soft: var(--accent-soft);
-  --color-success: var(--success);
+  --color-tape: var(--tape);
+  --color-tape-deep: var(--tape-deep);
+  --color-rim: var(--rim);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-marker: var(--font-marker-pen);
 }
 
 html {
@@ -63,16 +42,75 @@ body {
 }
 
 :focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--tape);
   outline-offset: 3px;
   border-radius: 6px;
 }
 
-/* Faint dot grid behind the hero */
-.dot-grid {
-  background-image: radial-gradient(color-mix(in srgb, var(--fg) 9%, transparent) 1px, transparent 1px);
-  background-size: 22px 22px;
-  mask-image: radial-gradient(ellipse at 50% 30%, black 30%, transparent 75%);
+/* Frosted clear plastic, with the moulded inner edge of a CD case */
+.case {
+  background: linear-gradient(145deg, rgb(255 255 255 / 0.85), rgb(236 241 242 / 0.7));
+  border: 1px solid rgb(150 166 171 / 0.55);
+  border-radius: 14px;
+  box-shadow:
+    inset 0 1px 0 #fff,
+    inset 0 0 0 5px rgb(255 255 255 / 0.45),
+    inset 0 0 0 6px rgb(150 170 176 / 0.28),
+    0 22px 44px -28px rgb(20 30 35 / 0.35);
+  backdrop-filter: blur(6px);
+}
+
+/* Left hinge strip of the case */
+.case-hinge {
+  position: relative;
+}
+.case-hinge::before {
+  content: "";
+  position: absolute;
+  inset: 6px auto 6px 6px;
+  width: 22px;
+  border-right: 1px solid rgb(150 170 176 / 0.45);
+  background: repeating-linear-gradient(180deg, rgb(255 255 255 / 0.5) 0 2px, transparent 2px 9px);
+  border-radius: 8px 0 0 8px;
+}
+
+/* Iridescent compact-disc surface */
+.iridescent {
+  background:
+    radial-gradient(circle at 50% 50%, transparent 0 60%, rgb(255 255 255 / 0.25) 61%, transparent 70%),
+    conic-gradient(
+      from 15deg,
+      #1d1b24 0deg, #6a4a3a 22deg, #e8f9ff 52deg, #58e1ff 78deg, #fff2a6 106deg, #ffc9e6 138deg,
+      #2b2530 172deg, #1d1b24 186deg, #7a5a40 210deg, #eafbff 240deg, #5cf0d6 266deg,
+      #fff6c0 296deg, #ffd0f0 326deg, #1d1b24 360deg
+    );
+}
+
+/* Holographic sheen along a card's top edge */
+.sheen {
+  background: linear-gradient(90deg, #58e1ff, #fff2a6, #ffc9e6, #5cf0d6, #a7b8ff);
+}
+
+/* Red cloth tape with frayed ends */
+.tape {
+  background-color: var(--tape);
+  background-image:
+    repeating-linear-gradient(0deg, rgb(0 0 0 / 0.06) 0 1px, transparent 1px 3px),
+    repeating-linear-gradient(90deg, rgb(255 255 255 / 0.07) 0 1px, transparent 1px 3px);
+  clip-path: polygon(
+    0% 4%, 3% 0%, 6% 5%, 9% 1%, 12% 4%, 100% 2%, 97% 8%, 100% 14%, 97% 22%, 100% 30%, 97% 40%,
+    100% 50%, 97% 60%, 100% 70%, 97% 80%, 100% 90%, 98% 100%, 10% 97%, 7% 100%, 4% 96%, 0% 99%,
+    3% 88%, 0% 76%, 3% 64%, 0% 52%, 3% 40%, 0% 28%, 3% 16%
+  );
+  filter: drop-shadow(0 3px 3px rgb(0 0 0 / 0.18));
+  color: var(--fg);
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+.disc-spin {
+  animation: spin 40s linear infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
