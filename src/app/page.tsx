@@ -7,8 +7,8 @@ import {
   skills,
   spokenLanguages,
 } from "@/data/portfolio";
+import { asset } from "@/lib/asset";
 import { ArrowDown, ArrowUpRight, MailIcon, MapPin, socialIcon } from "@/components/icons";
-import { DiscCase, Tape } from "@/components/jewel";
 import { Nav } from "@/components/nav";
 import { Projects } from "@/components/projects";
 
@@ -24,39 +24,41 @@ const nav = [
 const mailTo = (email: string) =>
   `mailto:${email}?subject=${encodeURIComponent("Hello from your portfolio")}&body=${encodeURIComponent("Hi Min Khant Kyaw,\n\n")}`;
 
-const btnPrimary =
-  "inline-flex items-center gap-2 rounded-lg bg-fg px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-fg/85";
-const btnSecondary =
-  "inline-flex items-center gap-2 rounded-lg border border-border bg-surface/70 px-5 py-2.5 text-sm font-medium text-fg transition-colors hover:bg-surface";
+const btnDark =
+  "inline-flex items-center gap-2 bg-ink px-5 py-3 text-sm font-medium text-white transition-colors hover:bg-frame-2";
+const btnLine =
+  "inline-flex items-center gap-2 border border-line px-5 py-3 text-sm font-medium text-ink transition-colors hover:bg-panel-2";
 
-/* Section: tape label + mono index + heading */
+/* Section: wide-tracked title on the navy frame, content in white panels below */
 function Section({
   id,
-  index,
-  label,
   title,
   intro,
   children,
 }: {
   id: string;
-  index: string;
-  label: string;
   title: string;
   intro?: string;
   children: React.ReactNode;
 }) {
   return (
-    <section id={id} className="border-t border-border py-20 sm:py-24">
-      <div className="mb-10 max-w-2xl">
-        <div className="flex items-center gap-4">
-          <Tape className="-rotate-2 text-lg">{label}</Tape>
-          <span className="font-mono text-xs tracking-[0.2em] text-subtle uppercase">{index}</span>
-        </div>
-        <h2 className="mt-5 text-3xl font-semibold tracking-tight sm:text-4xl">{title}</h2>
-        {intro && <p className="mt-3 text-lg text-muted">{intro}</p>}
+    <section id={id} className="py-14 sm:py-20">
+      <div className="mb-8 text-center">
+        <h2 className="cover-title text-3xl text-on-frame sm:text-4xl">{title}</h2>
+        {intro && <p className="mx-auto mt-3 max-w-xl text-on-frame-muted">{intro}</p>}
       </div>
       {children}
     </section>
+  );
+}
+
+/* Small accent square + label used as a panel heading */
+function PanelLabel({ children, color, className = "" }: { children: React.ReactNode; color: string; className?: string }) {
+  return (
+    <p className={`cover-title flex items-center gap-2 text-xs text-ink-subtle ${className}`}>
+      <span aria-hidden className={`h-3 w-3 ${color}`} />
+      {children}
+    </p>
   );
 }
 
@@ -67,13 +69,12 @@ export default function Home() {
     { value: liveCount, label: "Live in production" },
     { value: certificates.length, label: "Certificates" },
   ];
-  const microprint = `${profile.name.toUpperCase()} · ${profile.title.toUpperCase()} · ${profile.location.toUpperCase()} · © ${new Date().getFullYear()} · ALL PROJECTS BUILT & SHIPPED · `;
 
   return (
     <div className="flex min-h-full flex-1 flex-col">
       <a
         href="#main"
-        className="sr-only z-50 rounded-md bg-fg px-4 py-2 text-sm font-medium text-white focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
+        className="sr-only z-50 bg-on-frame px-4 py-2 text-sm font-medium text-ink focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
       >
         Skip to content
       </a>
@@ -82,150 +83,167 @@ export default function Home() {
         name={profile.name}
         items={nav}
         cta={
-          <a href={mailTo(profile.email)} className={`${btnPrimary} px-4 py-2`}>
+          <a
+            href={mailTo(profile.email)}
+            className="inline-flex items-center gap-2 bg-on-frame px-4 py-2 text-sm font-medium text-ink transition-colors hover:bg-white"
+          >
             <MailIcon />
             Get in touch
           </a>
         }
       />
 
-      {/* ── Hero ─────────────────────────────── */}
-      <section id="top" className="relative overflow-hidden">
-        <div className="relative mx-auto grid max-w-6xl items-center gap-14 px-5 py-20 md:grid-cols-[1.2fr_1fr] md:py-24">
-          <div>
-            <p className="inline-flex items-center gap-2 rounded-full border border-border bg-surface/70 px-3 py-1 font-mono text-xs tracking-[0.12em] text-muted uppercase">
-              <span className="relative flex size-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-tape opacity-60" />
-                <span className="relative inline-flex size-2 rounded-full bg-tape" />
-              </span>
-              Available for work
+      {/* ── Hero: title above, 2×2 panel grid, subtitle below ── */}
+      <section id="top" className="mx-auto w-full max-w-6xl px-5 pt-12 pb-10 sm:pt-16">
+        <h1 className="cover-title text-center text-4xl text-on-frame sm:text-6xl">{profile.name}</h1>
+
+        <div className="mx-auto mt-8 grid max-w-4xl gap-4 sm:gap-5 md:grid-cols-2">
+          {/* 1 — portrait */}
+          <div className="panel relative aspect-square overflow-hidden">
+            {profile.avatar && (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={asset(profile.avatar)}
+                alt={profile.name}
+                className="absolute bottom-0 left-1/2 h-[90%] w-auto max-w-none -translate-x-1/2"
+              />
+            )}
+          </div>
+
+          {/* 2 — intro */}
+          <div className="panel flex aspect-auto flex-col justify-center p-7 sm:p-9 md:aspect-square">
+            <PanelLabel color="bg-plaid">Hello</PanelLabel>
+            <p className="mt-5 font-display text-3xl leading-tight font-medium tracking-tight">
+              {profile.tagline}
             </p>
-
-            <h1 className="mt-6 text-5xl font-semibold tracking-tight sm:text-7xl">{profile.name}</h1>
-            <div className="mt-4">
-              <Tape as="p" className="-rotate-2 px-5 py-2 text-2xl sm:text-3xl">
-                {profile.title.toLowerCase()}
-              </Tape>
-            </div>
-            <p className="mt-7 max-w-xl text-lg leading-relaxed text-muted">{profile.tagline}</p>
-
-            <p className="mt-4 inline-flex items-center gap-1.5 text-sm text-subtle">
+            <p className="mt-5 inline-flex items-center gap-1.5 text-sm text-ink-subtle">
               <MapPin />
               {profile.location}
             </p>
+            <p className="mt-2 inline-flex items-center gap-2 text-sm text-ink-muted">
+              <span className="relative flex size-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-army opacity-60" />
+                <span className="relative inline-flex size-2 rounded-full bg-army" />
+              </span>
+              Available for work
+            </p>
+          </div>
 
-            <div className="mt-8 flex flex-wrap items-center gap-3">
-              <a href="#projects" className={btnPrimary}>
-                View my work
-                <ArrowDown />
-              </a>
-              <a href={mailTo(profile.email)} className={btnSecondary}>
-                <MailIcon />
-                Get in touch
-              </a>
-              <div className="ml-1 flex items-center gap-1">
-                {profile.socials.map((s) => (
-                  <a
-                    key={s.href}
-                    href={s.href}
-                    target="_blank"
-                    rel="noreferrer"
-                    aria-label={s.label}
-                    className="grid size-10 place-items-center rounded-lg text-muted transition-colors hover:bg-surface hover:text-fg"
-                  >
-                    {socialIcon(s.label, "size-5")}
-                  </a>
-                ))}
-              </div>
-            </div>
-
-            <dl className="mt-12 grid max-w-lg grid-cols-3 divide-x divide-border border-y border-border">
+          {/* 3 — numbers (after the actions on phones) */}
+          <div className="panel order-last flex flex-col justify-center md:order-none p-7 sm:p-9 md:aspect-square">
+            <PanelLabel color="bg-army">In numbers</PanelLabel>
+            <dl className="mt-5 space-y-3">
               {stats.map((s) => (
-                <div key={s.label} className="flex flex-col-reverse px-4 py-4 first:pl-0">
-                  <dt className="mt-1 text-sm text-subtle">{s.label}</dt>
-                  <dd className="text-3xl font-semibold tracking-tight">{s.value}</dd>
+                <div key={s.label} className="flex flex-col-reverse border-b border-line pb-3 last:border-0">
+                  <dt className="text-sm text-ink-subtle">{s.label}</dt>
+                  <dd className="font-display text-5xl font-medium tracking-tight">{s.value}</dd>
                 </div>
               ))}
             </dl>
           </div>
 
-          <DiscCase photo={profile.avatar} alt={profile.name} microprint={microprint} />
+          {/* 4 — actions */}
+          <div className="panel flex flex-col justify-center p-7 sm:p-9 md:aspect-square">
+            <PanelLabel color="bg-mauve">Next</PanelLabel>
+            <p className="mt-5 font-display text-3xl leading-tight font-medium tracking-tight">
+              See what I&apos;ve built, or start a conversation.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <a href="#projects" className={btnDark}>
+                View my work
+                <ArrowDown />
+              </a>
+              <a href={mailTo(profile.email)} className={btnLine}>
+                <MailIcon />
+                Get in touch
+              </a>
+            </div>
+            <div className="mt-6 flex items-center gap-1">
+              {profile.socials.map((s) => (
+                <a
+                  key={s.href}
+                  href={s.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={s.label}
+                  className="grid size-10 place-items-center text-ink-muted transition-colors hover:bg-panel-2 hover:text-ink"
+                >
+                  {socialIcon(s.label, "size-5")}
+                </a>
+              ))}
+            </div>
+          </div>
         </div>
+
+        <p className="cover-title mt-8 text-center text-2xl text-on-frame sm:text-3xl">{profile.title}</p>
       </section>
 
       <main id="main" className="mx-auto w-full max-w-6xl flex-1 px-5">
-        <Section
-          id="projects"
-          index="01 / Work"
-          label="work"
-          title="Selected projects"
-          intro="Products I've designed, built, and shipped — from e-commerce to IoT dashboards."
-        >
+        <Section id="projects" title="Selected work" intro="Products I've designed, built, and shipped.">
           <Projects projects={projects} />
         </Section>
 
-        <Section id="about" index="02 / About" label="about" title="About me">
-          <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr]">
-            <div>
-              <div className="space-y-4 text-lg leading-relaxed text-muted">
+        <Section id="about" title="About">
+          <div className="grid gap-4 sm:gap-5 lg:grid-cols-[1.4fr_1fr]">
+            <div className="panel p-8 sm:p-10">
+              <PanelLabel color="bg-plum">Profile</PanelLabel>
+              <div className="mt-5 space-y-4 text-lg leading-relaxed text-ink-muted">
                 {profile.about.map((p, i) => (
                   <p key={i}>{p}</p>
                 ))}
               </div>
 
-              <h3 className="mt-12 font-mono text-xs tracking-[0.2em] text-subtle uppercase">Experience</h3>
-              <ol className="mt-5 space-y-8">
-                {experience.map((e) => (
-                  <li key={e.company + e.title} className="relative border-l border-border pl-6">
-                    <span aria-hidden className="absolute top-1.5 -left-1.25 size-2.5 rounded-full bg-tape" />
-                    <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-                      <h4 className="font-semibold">{e.title}</h4>
-                      <span className="font-mono text-xs text-subtle">{e.period}</span>
-                    </div>
-                    <p className="text-sm text-muted">{e.company}</p>
-                    {e.highlights && (
-                      <ul className="mt-3 space-y-1.5 text-muted">
-                        {e.highlights.map((h) => (
-                          <li key={h} className="flex gap-2.5">
-                            <span aria-hidden className="mt-2.5 size-1 shrink-0 rounded-full bg-subtle" />
-                            {h}
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-                  </li>
-                ))}
-              </ol>
+              <div className="mt-10">
+                <PanelLabel color="bg-plaid">Experience</PanelLabel>
+                <ol className="mt-5 space-y-6">
+                  {experience.map((e) => (
+                    <li key={e.company + e.title} className="border-l-2 border-plaid pl-5">
+                      <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+                        <h3 className="font-display text-xl font-medium">{e.title}</h3>
+                        <span className="text-xs text-ink-subtle">{e.period}</span>
+                      </div>
+                      <p className="text-sm text-ink-muted">{e.company}</p>
+                      {e.highlights && (
+                        <ul className="mt-3 space-y-1.5 text-ink-muted">
+                          {e.highlights.map((h) => (
+                            <li key={h} className="flex gap-2.5">
+                              <span aria-hidden className="mt-2.5 size-1.5 shrink-0 bg-plaid" />
+                              {h}
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </li>
+                  ))}
+                </ol>
+              </div>
             </div>
 
-            <div className="case h-fit overflow-hidden">
-              <div aria-hidden className="sheen h-1" />
-              <div className="p-6">
-                <h3 className="font-semibold">Skills</h3>
-                <div className="mt-5 space-y-5">
-                  {skills.map((s) => (
-                    <div key={s.group}>
-                      <p className="mb-2 font-mono text-[11px] tracking-[0.18em] text-subtle uppercase">{s.group}</p>
-                      <ul className="flex flex-wrap gap-1.5">
-                        {s.items.map((it) => (
-                          <li key={it} className="rounded-md border border-border bg-surface/80 px-2.5 py-1 text-sm text-muted">
-                            {it}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  ))}
-                  <div>
-                    <p className="mb-2 font-mono text-[11px] tracking-[0.18em] text-subtle uppercase">Languages spoken</p>
-                    <ul className="divide-y divide-border">
-                      {spokenLanguages.map((l) => (
-                        <li key={l.name} className="flex justify-between py-2 text-sm">
-                          <span>{l.name}</span>
-                          <span className="text-subtle">{l.level}</span>
+            <div className="panel h-fit p-8 sm:p-10">
+              <PanelLabel color="bg-army">Skills</PanelLabel>
+              <div className="mt-5 space-y-5">
+                {skills.map((s) => (
+                  <div key={s.group}>
+                    <p className="mb-2 text-xs font-medium text-ink-subtle">{s.group}</p>
+                    <ul className="flex flex-wrap gap-1.5">
+                      {s.items.map((it) => (
+                        <li key={it} className="bg-panel-2 px-2.5 py-1 text-sm text-ink-muted">
+                          {it}
                         </li>
                       ))}
                     </ul>
                   </div>
+                ))}
+                <div>
+                  <p className="mb-2 text-xs font-medium text-ink-subtle">Languages spoken</p>
+                  <ul className="divide-y divide-line">
+                    {spokenLanguages.map((l) => (
+                      <li key={l.name} className="flex justify-between py-2 text-sm">
+                        <span>{l.name}</span>
+                        <span className="text-ink-subtle">{l.level}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               </div>
             </div>
@@ -233,68 +251,61 @@ export default function Home() {
         </Section>
 
         {certificates.length > 0 && (
-          <Section id="certificates" index="03 / Certificates" label="certified" title="Certificates">
-            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {certificates.map((c) => (
-                <article key={c.name} className="case flex flex-col overflow-hidden">
-                  <div aria-hidden className="sheen h-1" />
-                  <div className="flex flex-1 flex-col p-6">
-                    <p className="font-mono text-[11px] tracking-[0.15em] text-subtle uppercase">{c.date ?? "Completed"}</p>
-                    <h3 className="mt-2 font-semibold leading-snug">{c.name}</h3>
-                    <p className="mt-1 text-sm text-muted">{c.issuer}</p>
-                    {c.url && (
-                      <a
-                        href={c.url}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="mt-auto inline-flex items-center gap-1 self-start pt-5 text-sm font-medium underline decoration-tape decoration-2 underline-offset-4 hover:text-tape-deep"
-                      >
-                        Verify credential
-                        <ArrowUpRight className="size-3.5" />
-                      </a>
-                    )}
-                  </div>
+          <Section id="certificates" title="Certificates">
+            <div className="grid gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
+              {certificates.map((c, i) => (
+                <article key={c.name} className="panel flex flex-col p-7">
+                  <PanelLabel color={["bg-plum", "bg-plaid", "bg-army", "bg-mauve"][i % 4]}>
+                    {c.date ?? "Completed"}
+                  </PanelLabel>
+                  <h3 className="mt-4 font-display text-xl leading-snug font-medium">{c.name}</h3>
+                  <p className="mt-1 text-sm text-ink-muted">{c.issuer}</p>
+                  {c.url && (
+                    <a
+                      href={c.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="mt-auto inline-flex items-center gap-1 self-start pt-5 text-sm font-medium underline underline-offset-4 hover:text-plaid"
+                    >
+                      Verify credential
+                      <ArrowUpRight className="size-3.5" />
+                    </a>
+                  )}
                 </article>
               ))}
             </div>
           </Section>
         )}
 
-        <Section id="education" index="04 / Education" label="school" title="Education">
-          <ol className="case divide-y divide-border">
-            {education.map((e) => (
-              <li key={e.school + e.degree} className="grid gap-1 p-6 sm:grid-cols-[1fr_auto] sm:items-baseline sm:gap-6">
-                <div>
-                  <h3 className="font-semibold">{e.degree}</h3>
-                  <p className="text-muted">{e.school}</p>
-                  {e.details && <p className="mt-1 text-sm text-subtle">{e.details.join(" · ")}</p>}
-                </div>
-                <p className="font-mono text-sm text-subtle">{e.period}</p>
-              </li>
+        <Section id="education" title="Education">
+          <div className="grid gap-4 sm:gap-5 md:grid-cols-2">
+            {education.map((e, i) => (
+              <article key={e.school + e.degree} className="panel p-7">
+                <PanelLabel color={i === 0 ? "bg-mauve" : "bg-plum"}>{e.period}</PanelLabel>
+                <h3 className="mt-4 font-display text-2xl font-medium">{e.degree}</h3>
+                <p className="text-ink-muted">{e.school}</p>
+                {e.details && <p className="mt-2 text-sm text-ink-subtle">{e.details.join(" · ")}</p>}
+              </article>
             ))}
-          </ol>
+          </div>
         </Section>
 
-        <section id="contact" className="border-t border-border py-20 sm:py-24">
-          <div className="case case-hinge relative overflow-hidden px-6 py-14 pl-14 text-center sm:px-12">
-            <div className="absolute top-6 -right-2 rotate-6">
-              <Tape className="text-xl">say hi</Tape>
-            </div>
-            <p className="font-mono text-xs tracking-[0.2em] text-subtle uppercase">05 / Contact</p>
-            <h2 className="mt-3 text-3xl font-semibold tracking-tight sm:text-5xl">Let&apos;s work together</h2>
-            <p className="mx-auto mt-4 max-w-lg text-lg text-muted">
+        <section id="contact" className="py-14 sm:py-20">
+          <div className="panel px-6 py-14 text-center sm:px-12">
+            <PanelLabel color="bg-plaid" className="justify-center">
+              Contact
+            </PanelLabel>
+            <h2 className="cover-title mt-5 text-3xl sm:text-5xl">Let&apos;s work together</h2>
+            <p className="mx-auto mt-4 max-w-lg text-lg text-ink-muted">
               Open to full-time full-stack developer roles and freelance projects. I usually reply within a day.
             </p>
-            <a
-              href={mailTo(profile.email)}
-              className="tape mt-8 inline-flex items-center gap-2.5 px-8 py-3.5 font-marker text-xl transition-transform hover:-rotate-1"
-            >
+            <a href={mailTo(profile.email)} className={`${btnDark} mt-8 px-7 py-3.5 text-base`}>
               <MailIcon className="size-5" />
-              get in touch
+              Get in touch
             </a>
             <div className="mt-8 flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm">
               {[profile.email, profile.workEmail].map((e) => (
-                <a key={e} href={mailTo(e)} className="text-muted underline-offset-4 hover:text-fg hover:underline">
+                <a key={e} href={mailTo(e)} className="text-ink-muted underline-offset-4 hover:text-ink hover:underline">
                   {e}
                 </a>
               ))}
@@ -304,7 +315,7 @@ export default function Home() {
                   href={s.href}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center gap-1.5 text-muted hover:text-fg"
+                  className="inline-flex items-center gap-1.5 text-ink-muted hover:text-ink"
                 >
                   {socialIcon(s.label)}
                   {s.label}
@@ -315,9 +326,9 @@ export default function Home() {
         </section>
       </main>
 
-      <footer className="border-t border-border">
-        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-2 px-5 py-6 font-mono text-[11px] tracking-[0.15em] text-subtle uppercase">
-          <p>© {new Date().getFullYear()} {profile.name} · All rights reserved</p>
+      <footer className="border-t border-white/10">
+        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-2 px-5 py-6 text-sm text-on-frame-muted">
+          <p className="cover-title text-xs">© {new Date().getFullYear()} {profile.name}</p>
           <p>Built with Next.js &amp; Tailwind CSS</p>
         </div>
       </footer>
