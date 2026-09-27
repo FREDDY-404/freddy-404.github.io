@@ -1,15 +1,15 @@
 import type { Metadata } from "next";
-import { Anton, Geist } from "next/font/google";
+import { Luckiest_Guy, Nunito } from "next/font/google";
 import { profile } from "@/data/portfolio";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const nunito = Nunito({
+  variable: "--font-nunito",
   subsets: ["latin"],
 });
 
-const anton = Anton({
-  variable: "--font-anton",
+const luckiest = Luckiest_Guy({
+  variable: "--font-luckiest",
   weight: "400",
   subsets: ["latin"],
 });
@@ -23,7 +23,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${anton.variable} h-full antialiased`}
+      className={`${nunito.variable} ${luckiest.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col font-sans">{children}</body>
     </html>

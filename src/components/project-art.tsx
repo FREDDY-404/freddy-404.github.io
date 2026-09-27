@@ -3,16 +3,16 @@ import type { ProjectArt } from "@/data/portfolio";
 /*
  * Original cover art for each project, drawn in the site palette:
  * a flat colour ground, the title in heavy yellow, and an illustration
- * of what the project is, lit in electric blue.
+ * of what the project is, with a hard ink shadow.
  */
 
 type Palette = { bg: string; dark: string; mid: string; light: string; accent: string };
 
-// Grounds cycle red → blue → navy so neighbouring cards differ
+// Grounds cycle sky → mustard → orange so neighbouring cards differ
 const PALETTES: Palette[] = [
-  { bg: "#d91a3c", dark: "#0a0a22", mid: "#3b4bff", light: "#8fa2ff", accent: "#f5c518" },
-  { bg: "#3b4bff", dark: "#0a0a22", mid: "#1b1b4d", light: "#c9d2ff", accent: "#f5c518" },
-  { bg: "#12123a", dark: "#0a0a22", mid: "#3b4bff", light: "#8fa2ff", accent: "#f5c518" },
+  { bg: "#86c5e6", dark: "#16130f", mid: "#ec5a2a", light: "#fbf7ec", accent: "#f2c53d" },
+  { bg: "#f2c53d", dark: "#16130f", mid: "#d8342a", light: "#fbf7ec", accent: "#86c5e6" },
+  { bg: "#ec5a2a", dark: "#16130f", mid: "#f2c53d", light: "#fbf7ec", accent: "#86c5e6" },
 ];
 
 function Illustration({ art, c }: { art: ProjectArt; c: Palette }) {
@@ -129,14 +129,8 @@ export function ProjectCover({
   const c = PALETTES[index % PALETTES.length];
   return (
     <div className="grain relative h-full w-full overflow-hidden" style={{ backgroundColor: c.bg }}>
-      {/* soft blue light behind the illustration */}
-      <div
-        aria-hidden
-        className="absolute inset-x-0 bottom-0 h-3/4"
-        style={{ background: `radial-gradient(ellipse at 50% 75%, ${c.mid}88, transparent 65%)` }}
-      />
       <div className="relative z-10 flex h-full flex-col p-5">
-        <div className="flex items-center justify-between text-[11px] font-semibold tracking-[0.2em] text-white/80 uppercase">
+        <div className="flex items-center justify-between text-[11px] font-extrabold tracking-[0.2em] text-ink uppercase">
           <span>No. {String(index + 1).padStart(2, "0")}</span>
           <span>{period}</span>
         </div>
@@ -146,7 +140,7 @@ export function ProjectCover({
         <svg
           aria-hidden
           viewBox="0 0 200 120"
-          className={`mx-auto mt-auto w-full drop-shadow-[0_10px_18px_rgba(10,10,34,0.45)] ${featured ? "max-w-[26rem]" : "max-w-[22rem]"}`}
+          className={`mx-auto mt-auto w-full drop-shadow-[4px_4px_0_#16130f] ${featured ? "max-w-[26rem]" : "max-w-[22rem]"}`}
         >
           <Illustration art={art} c={c} />
         </svg>

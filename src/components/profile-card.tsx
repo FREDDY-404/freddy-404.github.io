@@ -2,7 +2,7 @@ import { asset } from "@/lib/asset";
 import { MailIcon, MapPin, socialIcon } from "@/components/icons";
 import type { Link } from "@/data/portfolio";
 
-/* Profile card: photo, identity, core stack, and quick links */
+/* Profile card as a comic panel: photo, identity, core stack, and quick links */
 export function ProfileCard({
   photo,
   name,
@@ -21,9 +21,8 @@ export function ProfileCard({
   socials: Link[];
 }) {
   return (
-    <article className="mx-auto w-full max-w-[20rem] overflow-hidden rounded-3xl border border-white/10 bg-night-2 shadow-[0_30px_60px_-24px_rgb(0_0_0/0.7)] sm:max-w-sm">
-      {/* photo */}
-      <div className="relative aspect-[4/3.4] overflow-hidden bg-[radial-gradient(ellipse_at_50%_30%,#ffffff_0%,#e9eaef_55%,#c7cad6_100%)]">
+    <article className="panel mx-auto w-full max-w-[20rem] rotate-1 overflow-hidden sm:max-w-sm">
+      <div className="halftone relative aspect-[4/3.4] overflow-hidden border-b-3 border-ink bg-sky">
         {photo && (
           // eslint-disable-next-line @next/next/no-img-element
           <img
@@ -32,37 +31,35 @@ export function ProfileCard({
             className="absolute bottom-0 left-1/2 h-[92%] w-auto max-w-none -translate-x-1/2"
           />
         )}
-        <span className="absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-night/85 px-2.5 py-1 text-xs font-medium text-text backdrop-blur">
+        <span className="absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-full border-2 border-ink bg-paper px-2.5 py-1 text-xs font-extrabold">
           <span className="relative flex size-2">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#4ade80] opacity-70" />
-            <span className="relative inline-flex size-2 rounded-full bg-[#4ade80]" />
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-grass opacity-70" />
+            <span className="relative inline-flex size-2 rounded-full bg-grass" />
           </span>
           Available for work
         </span>
       </div>
 
-      {/* identity */}
       <div className="p-5 sm:p-6">
-        <p className="font-display text-3xl tracking-wide text-text uppercase">{name}</p>
-        <p className="mt-0.5 font-medium text-yellow">{title}</p>
-        <p className="mt-2 inline-flex items-center gap-1.5 text-sm text-subtle">
+        <p className="font-display text-3xl leading-none tracking-wide">{name}</p>
+        <p className="mt-1 font-extrabold text-boom">{title}</p>
+        <p className="mt-2 inline-flex items-center gap-1.5 text-sm font-semibold text-ink-muted">
           <MapPin />
           {location}
         </p>
 
         <ul className="mt-4 flex flex-wrap gap-1.5" aria-label="Core stack">
           {stack.map((s) => (
-            <li key={s} className="rounded-md bg-night-3 px-2 py-0.5 text-xs text-muted">
+            <li key={s} className="rounded border-2 border-ink bg-paper-2 px-2 py-0.5 text-xs font-bold">
               {s}
             </li>
           ))}
         </ul>
 
-        {/* quick links */}
-        <div className="mt-5 flex items-center gap-2 border-t border-line pt-4">
+        <div className="mt-5 flex items-center gap-2 border-t-2 border-dashed border-ink/25 pt-4">
           <a
             href={email}
-            className="inline-flex flex-1 items-center justify-center gap-2 rounded-lg bg-yellow px-3 py-2 text-sm font-semibold text-night transition-colors hover:bg-[#ffd84a]"
+            className="inline-flex flex-1 items-center justify-center gap-2 rounded-full border-3 border-ink bg-mustard px-3 py-2 text-sm font-extrabold shadow-[3px_3px_0_var(--ink)] transition-transform hover:-translate-y-0.5"
           >
             <MailIcon />
             Email me
@@ -74,7 +71,7 @@ export function ProfileCard({
               target="_blank"
               rel="noreferrer"
               aria-label={s.label}
-              className="grid size-9 place-items-center rounded-lg border border-line text-muted transition-colors hover:border-blue-soft hover:text-text"
+              className="grid size-10 place-items-center rounded-full border-3 border-ink bg-paper transition-colors hover:bg-mustard"
             >
               {socialIcon(s.label, "size-4")}
             </a>
