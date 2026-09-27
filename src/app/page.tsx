@@ -362,7 +362,7 @@ export default function Home() {
                   location={profile.location}
                   stack={["TypeScript", "Next.js", "React", "Node.js", "Supabase", "PostgreSQL"]}
                   training="BSc Computing · University of Sunderland"
-                  sideQuest="Running Keuri Digital Store since 2026"
+                  sideQuest="Keuri Digital Store · since 2026"
                 />
               </div>
             </div>
