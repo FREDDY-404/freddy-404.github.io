@@ -14,9 +14,10 @@ import { Projects } from "@/components/projects";
 
 const nav = [
   { id: "projects", label: "Work" },
-  { id: "about", label: "About" },
-  { id: "certificates", label: "Certificates" },
+  { id: "experience", label: "Experience" },
   { id: "education", label: "Education" },
+  { id: "skills", label: "Toolkit" },
+  { id: "certificates", label: "Certificates" },
   { id: "contact", label: "Contact" },
 ].filter((n) => n.id !== "certificates" || certificates.length > 0);
 
@@ -29,28 +30,43 @@ const btnYellow =
 const btnOutline =
   "inline-flex items-center gap-2 rounded-lg border border-white/40 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/10";
 
+/* Section: small label chip, a plain-language heading, then a rule */
 function Section({
   id,
-  no,
+  label,
   title,
   intro,
   children,
 }: {
   id: string;
-  no: string;
+  label: string;
   title: string;
   intro?: string;
   children: React.ReactNode;
 }) {
   return (
-    <section id={id} className="border-t border-line py-20 sm:py-24">
-      <div className="mb-10 max-w-2xl">
-        <p className="font-display text-lg tracking-widest text-red">{no}</p>
-        <h2 className="title-yellow mt-1 text-5xl sm:text-6xl">{title}</h2>
-        {intro && <p className="mt-4 text-lg text-muted">{intro}</p>}
+    <section id={id} aria-labelledby={`${id}-h`} className="py-16 sm:py-20">
+      <div className="mb-10 border-b border-line pb-6">
+        <span className="inline-block rounded bg-yellow px-2 py-0.5 text-[11px] font-bold tracking-[0.18em] text-night uppercase">
+          {label}
+        </span>
+        <h2 id={`${id}-h`} className="title-yellow mt-3 text-5xl sm:text-6xl">
+          {title}
+        </h2>
+        {intro && <p className="mt-3 max-w-2xl text-lg text-muted">{intro}</p>}
       </div>
       {children}
     </section>
+  );
+}
+
+/* Date on the left, the entry on the right */
+function DatedRow({ when, children }: { when: string; children: React.ReactNode }) {
+  return (
+    <li className="grid gap-1 border-b border-line py-6 last:border-0 sm:grid-cols-[11rem_1fr] sm:gap-8">
+      <p className="text-sm text-subtle tabular-nums sm:pt-1">{when}</p>
+      <div>{children}</div>
+    </li>
   );
 }
 
@@ -133,121 +149,144 @@ export default function Home() {
       </div>
 
       <main id="main" className="mx-auto w-full max-w-6xl flex-1 px-5">
-        <Section id="projects" no="01" title="Selected work" intro="Products I've designed, built, and shipped.">
+        <Section
+          id="projects"
+          label="Work"
+          title="What I've built"
+          intro="Real projects, newest first. Each card links to the live site or code where one exists."
+        >
           <Projects projects={projects} />
+          <div className="mt-6 flex flex-col items-start justify-between gap-4 rounded-2xl border border-dashed border-line p-6 sm:flex-row sm:items-center">
+            <div>
+              <p className="text-xs font-bold tracking-[0.18em] text-red uppercase">Up next</p>
+              <p className="mt-1 text-xl font-semibold">Your team&apos;s project?</p>
+            </div>
+            <a href={mailTo(profile.email)} className={btnYellow}>
+              <MailIcon />
+              Get in touch
+            </a>
+          </div>
         </Section>
 
-        <Section id="about" no="02" title="About me">
-          <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr]">
-            <div>
-              <div className="space-y-4 text-lg leading-relaxed text-muted">
-                {profile.about.map((p, i) => (
-                  <p key={i}>{p}</p>
-                ))}
-              </div>
-
-              <h3 className="mt-12 font-display text-2xl tracking-wide text-text uppercase">Experience</h3>
-              <ol className="mt-5 space-y-8">
-                {experience.map((e) => (
-                  <li key={e.company + e.title} className="border-l-2 border-blue pl-5">
-                    <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-                      <h4 className="text-lg font-semibold">{e.title}</h4>
-                      <span className="text-xs text-subtle">{e.period}</span>
-                    </div>
-                    <p className="text-sm text-yellow">{e.company}</p>
-                    {e.highlights && (
-                      <ul className="mt-3 space-y-1.5 text-muted">
-                        {e.highlights.map((h) => (
-                          <li key={h} className="flex gap-2.5">
-                            <Star className="mt-1.5 size-3 shrink-0 text-yellow" />
-                            {h}
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-                  </li>
-                ))}
-              </ol>
-            </div>
-
-            <div className="h-fit rounded-2xl border border-line bg-night-2 p-6">
-              <h3 className="font-display text-2xl tracking-wide uppercase">Skills</h3>
-              <div className="mt-5 space-y-5">
-                {skills.map((s) => (
-                  <div key={s.group}>
-                    <p className="mb-2 text-xs font-semibold tracking-widest text-red uppercase">{s.group}</p>
-                    <ul className="flex flex-wrap gap-1.5">
-                      {s.items.map((it) => (
-                        <li key={it} className="rounded-md bg-night-3 px-2.5 py-1 text-sm text-muted">
-                          {it}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
-                <div>
-                  <p className="mb-2 text-xs font-semibold tracking-widest text-red uppercase">Languages spoken</p>
-                  <ul className="divide-y divide-line">
-                    {spokenLanguages.map((l) => (
-                      <li key={l.name} className="flex justify-between py-2 text-sm">
-                        <span>{l.name}</span>
-                        <span className="text-subtle">{l.level}</span>
+        <Section id="experience" label="Experience" title="Where I've worked">
+          <ol>
+            {experience.map((e) => (
+              <DatedRow key={e.company + e.title} when={e.period}>
+                <h3 className="text-lg font-semibold">
+                  {e.title} <span className="text-yellow">· {e.company}</span>
+                </h3>
+                <p className="mt-1 text-muted">{e.summary}</p>
+                {e.highlights && (
+                  <ul className="mt-3 space-y-1.5 text-muted">
+                    {e.highlights.map((h) => (
+                      <li key={h} className="flex gap-2.5">
+                        <Star className="mt-1.5 size-3 shrink-0 text-yellow" />
+                        {h}
                       </li>
                     ))}
                   </ul>
-                </div>
+                )}
+              </DatedRow>
+            ))}
+          </ol>
+        </Section>
+
+        <Section id="education" label="Education" title="Where I study">
+          <ol>
+            {education.map((e) => (
+              <DatedRow key={e.school + e.degree} when={e.period}>
+                <h3 className="text-lg font-semibold">
+                  {e.degree} <span className="text-yellow">· {e.school}</span>
+                </h3>
+                {e.details && <p className="mt-1 text-muted">{e.details.join(" · ")}</p>}
+              </DatedRow>
+            ))}
+          </ol>
+        </Section>
+
+        <Section id="about" label="About" title="A bit about me">
+          <div className="max-w-3xl space-y-4 text-lg leading-relaxed text-muted">
+            {profile.about.map((p, i) => (
+              <p key={i}>{p}</p>
+            ))}
+          </div>
+        </Section>
+
+        <Section id="skills" label="Toolkit" title="What I work with">
+          <div className="grid gap-x-10 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
+            {skills.map((s) => (
+              <div key={s.group}>
+                <h3 className="text-sm font-bold tracking-[0.15em] text-red uppercase">{s.group}</h3>
+                <ul className="mt-3 flex flex-wrap gap-1.5">
+                  {s.items.map((it) => (
+                    <li key={it} className="rounded-md bg-night-2 px-2.5 py-1 text-sm text-muted ring-1 ring-line">
+                      {it}
+                    </li>
+                  ))}
+                </ul>
               </div>
+            ))}
+            <div>
+              <h3 className="text-sm font-bold tracking-[0.15em] text-red uppercase">Languages spoken</h3>
+              <ul className="mt-3 divide-y divide-line">
+                {spokenLanguages.map((l) => (
+                  <li key={l.name} className="flex justify-between py-1.5 text-sm">
+                    <span>{l.name}</span>
+                    <span className="text-subtle">{l.level}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         </Section>
 
         {certificates.length > 0 && (
-          <Section id="certificates" no="03" title="Certificates">
-            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {certificates.map((c) => (
-                <article key={c.name} className="glow flex flex-col rounded-2xl border border-line bg-night-2 p-6 transition-shadow">
-                  <Star className="size-5 text-yellow" />
-                  <p className="mt-4 text-xs text-subtle">{c.date ?? "Completed"}</p>
-                  <h3 className="mt-1 text-lg leading-snug font-semibold">{c.name}</h3>
-                  <p className="mt-1 text-sm text-muted">{c.issuer}</p>
-                  {c.url && (
-                    <a
-                      href={c.url}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="mt-auto inline-flex items-center gap-1 self-start pt-5 text-sm font-medium text-blue-soft hover:text-text"
-                    >
-                      Verify credential
-                      <ArrowUpRight className="size-3.5" />
-                    </a>
-                  )}
-                </article>
+          <Section id="certificates" label="Certificates" title="Courses I've finished">
+            <div className="grid gap-x-10 gap-y-8 md:grid-cols-2 lg:grid-cols-3">
+              {[...new Set(certificates.map((c) => c.group))].map((group) => (
+                <div key={group}>
+                  <h3 className="text-sm font-bold tracking-[0.15em] text-red uppercase">{group}</h3>
+                  <ul className="mt-3 space-y-3">
+                    {certificates
+                      .filter((c) => c.group === group)
+                      .map((c) => (
+                        <li key={c.name} className="leading-snug">
+                          <span className="font-medium text-text">{c.name}</span>
+                          <span className="text-muted">
+                            , {c.issuer}
+                            {c.date && ` (${c.date})`}
+                          </span>
+                          {c.url && (
+                            <>
+                              {" · "}
+                              <a
+                                href={c.url}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="inline-flex items-center gap-0.5 font-medium text-blue-soft underline-offset-4 hover:text-text hover:underline"
+                              >
+                                verify
+                                <ArrowUpRight className="size-3" />
+                              </a>
+                            </>
+                          )}
+                        </li>
+                      ))}
+                  </ul>
+                </div>
               ))}
             </div>
           </Section>
         )}
-
-        <Section id="education" no="04" title="Education">
-          <ol className="divide-y divide-line rounded-2xl border border-line bg-night-2">
-            {education.map((e) => (
-              <li key={e.school + e.degree} className="grid gap-1 p-6 sm:grid-cols-[1fr_auto] sm:items-baseline sm:gap-6">
-                <div>
-                  <h3 className="text-lg font-semibold">{e.degree}</h3>
-                  <p className="text-yellow">{e.school}</p>
-                  {e.details && <p className="mt-1 text-sm text-subtle">{e.details.join(" · ")}</p>}
-                </div>
-                <p className="text-sm text-subtle tabular-nums">{e.period}</p>
-              </li>
-            ))}
-          </ol>
-        </Section>
       </main>
 
       {/* ── Contact: back to the red ── */}
       <section id="contact" className="grain bg-red">
         <div className="relative z-10 mx-auto max-w-4xl px-5 py-20 text-center sm:py-24">
-          <p className="font-display text-lg tracking-widest text-night">05</p>
-          <h2 className="title-yellow mt-1 text-6xl sm:text-8xl">Let&apos;s work together</h2>
+          <span className="inline-block rounded bg-night px-2 py-0.5 text-[11px] font-bold tracking-[0.18em] text-yellow uppercase">
+            Contact
+          </span>
+          <h2 className="title-yellow mt-3 text-5xl sm:text-7xl">Hiring a full-stack developer? Let&apos;s talk.</h2>
           <p className="mx-auto mt-5 max-w-lg text-lg text-white">
             Open to full-time full-stack developer roles and freelance projects. I usually reply within a day.
           </p>

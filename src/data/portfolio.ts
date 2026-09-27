@@ -20,6 +20,7 @@ export type Project = {
 export type ProjectArt = "store" | "lock" | "coffee" | "shield" | "plant";
 
 export type Certificate = {
+  group: string; // certificates are listed under these headings
   name: string;
   issuer: string;
   date?: string;
@@ -192,6 +193,7 @@ export const projects: Project[] = [
 
 export const certificates: Certificate[] = [
   {
+    group: "Data & databases",
     name: "Graph Data Modeling Fundamentals",
     issuer: "Neo4j GraphAcademy",
     date: "Sep 2026",
@@ -199,11 +201,13 @@ export const certificates: Certificate[] = [
     url: "https://graphacademy.neo4j.com/c/4a74ccb1-6dab-4cd8-aa84-f6fd24e730d3/",
   },
   {
+    group: "Design",
     name: "UX/UI Basic to Advanced Course",
     issuer: "Technortal School of IT",
     // date: "Mon YYYY", // TODO: add when you completed it
   },
   {
+    group: "Language",
     name: "General English — Level 6 (CEFR B1)",
     issuer: "International House Yangon–Mandalay",
     date: "Aug 2025",
