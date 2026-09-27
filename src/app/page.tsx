@@ -329,8 +329,6 @@ export default function Home() {
                   title={profile.title}
                   location={profile.location}
                   stack={["TypeScript", "Next.js", "React", "Node.js", "Supabase", "PostgreSQL"]}
-                  email={mailTo(profile.email)}
-                  socials={profile.socials}
                 />
               </div>
             </div>

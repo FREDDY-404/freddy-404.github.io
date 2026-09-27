@@ -1,28 +1,23 @@
 import { asset } from "@/lib/asset";
-import { MailIcon, MapPin, socialIcon } from "@/components/icons";
-import type { Link } from "@/data/portfolio";
+import { MapPin } from "@/components/icons";
 
-/* Profile card as a comic panel: photo, identity, core stack, and quick links */
+/* Profile card as a comic panel: photo, identity, and core stack */
 export function ProfileCard({
   photo,
   name,
   title,
   location,
   stack,
-  email,
-  socials,
 }: {
   photo?: string;
   name: string;
   title: string;
   location: string;
   stack: string[];
-  email: string;
-  socials: Link[];
 }) {
   return (
     <article className="panel mx-auto w-full max-w-[20rem] rotate-1 overflow-hidden sm:max-w-sm">
-      <div className="halftone relative aspect-[4/3.4] overflow-hidden border-b-3 border-ink bg-sky">
+      <div className="halftone relative aspect-[4/3.4] overflow-hidden border-b-3 border-ink bg-mustard">
         {photo && (
           // eslint-disable-next-line @next/next/no-img-element
           <img
@@ -55,28 +50,6 @@ export function ProfileCard({
             </li>
           ))}
         </ul>
-
-        <div className="mt-5 flex items-center gap-2 border-t-2 border-dashed border-ink/25 pt-4">
-          <a
-            href={email}
-            className="inline-flex flex-1 items-center justify-center gap-2 rounded-full border-3 border-ink bg-mustard px-3 py-2 text-sm font-extrabold shadow-[3px_3px_0_var(--ink)] transition-transform hover:-translate-y-0.5"
-          >
-            <MailIcon />
-            Email me
-          </a>
-          {socials.map((s) => (
-            <a
-              key={s.href}
-              href={s.href}
-              target="_blank"
-              rel="noreferrer"
-              aria-label={s.label}
-              className="grid size-10 place-items-center rounded-full border-3 border-ink bg-paper transition-colors hover:bg-mustard"
-            >
-              {socialIcon(s.label, "size-4")}
-            </a>
-          ))}
-        </div>
       </div>
     </article>
   );
