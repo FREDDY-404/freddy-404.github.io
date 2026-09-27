@@ -15,10 +15,10 @@ import { Projects } from "@/components/projects";
 import { Reveal } from "@/components/reveal";
 
 const nav = [
-  { id: "projects", label: "Work" },
+  { id: "projects", label: "Projects" },
   { id: "experience", label: "Experience" },
   { id: "education", label: "Education" },
-  { id: "skills", label: "Toolkit" },
+  { id: "skills", label: "Skills" },
   { id: "certificates", label: "Certificates" },
   { id: "contact", label: "Contact" },
 ].filter((n) => n.id !== "certificates" || certificates.length > 0);
@@ -30,16 +30,14 @@ const mailTo = (email: string) =>
 const btn =
   "inline-flex items-center gap-2 rounded-full border-3 border-ink px-6 py-3 font-extrabold shadow-[4px_4px_0_var(--ink)] transition-transform hover:-translate-y-0.5 active:translate-y-0.5 active:shadow-[1px_1px_0_var(--ink)]";
 
-/* Section: label chip, a plain-language heading in a tilted caption box */
+/* Section: heading in a tilted caption box */
 function Section({
   id,
-  label,
   title,
   intro,
   children,
 }: {
   id: string;
-  label: string;
   title: string;
   intro?: string;
   children: React.ReactNode;
@@ -47,12 +45,9 @@ function Section({
   return (
     <section id={id} aria-labelledby={`${id}-h`} className="py-12 sm:py-16">
       <Reveal className="mb-8">
-        <span className="inline-block rounded border-2 border-ink bg-paper px-2 py-0.5 text-[11px] font-extrabold tracking-[0.18em] uppercase">
-          {label}
-        </span>
         <h2
           id={`${id}-h`}
-          className="mt-3 block w-fit -rotate-1 rounded-md border-3 border-ink bg-mustard px-4 py-1.5 font-display text-4xl leading-none tracking-wide shadow-[5px_5px_0_var(--ink)] sm:text-5xl"
+          className="block w-fit -rotate-1 rounded-md border-3 border-ink bg-mustard px-4 py-1.5 font-display text-4xl leading-none tracking-wide shadow-[5px_5px_0_var(--ink)] sm:text-5xl"
         >
           {title}
         </h2>
@@ -156,24 +151,13 @@ export default function Home() {
         <div className="mx-auto max-w-6xl px-5">
           <Section
             id="projects"
-            label="Work"
-            title="What I've built"
-            intro="Swipe or use the arrows to flip through. Each card links to the live site or code where one exists."
+            title="Projects"
+            intro="Swipe or use the arrows to see more."
           >
             <Projects projects={projects} />
-            <div className="panel mt-7 flex flex-col items-start justify-between gap-4 p-6 sm:flex-row sm:items-center">
-              <div>
-                <p className="text-xs font-extrabold tracking-[0.18em] text-boom uppercase">To be continued…</p>
-                <p className="mt-1 font-display text-2xl tracking-wide">Next project: your team&apos;s?</p>
-              </div>
-              <a href={mailTo(profile.email)} className={`${btn} bg-mustard`}>
-                <MailIcon />
-                Get in touch
-              </a>
-            </div>
           </Section>
 
-          <Section id="experience" label="Experience" title="Where I've worked">
+          <Section id="experience" title="Experience">
             <ol className="panel px-6 sm:px-8">
               {experience.map((e) => (
                 <DatedRow key={e.company + e.title} when={e.period}>
@@ -190,12 +174,28 @@ export default function Home() {
                       ))}
                     </ul>
                   )}
+                  {e.links && e.links.length > 0 && (
+                    <div className="mt-4 flex flex-wrap gap-2">
+                      {e.links.map((l) => (
+                        <a
+                          key={l.href}
+                          href={l.href}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="inline-flex items-center gap-1.5 rounded-full border-2 border-ink bg-paper-2 px-3 py-1 text-sm font-extrabold transition-colors hover:bg-mustard"
+                        >
+                          {socialIcon(l.label, "size-3.5")}
+                          {l.label}
+                        </a>
+                      ))}
+                    </div>
+                  )}
                 </DatedRow>
               ))}
             </ol>
           </Section>
 
-          <Section id="education" label="Education" title="Where I study">
+          <Section id="education" title="Education">
             <ol className="panel px-6 sm:px-8">
               {education.map((e) => (
                 <DatedRow key={e.school + e.degree} when={e.period}>
@@ -207,7 +207,7 @@ export default function Home() {
             </ol>
           </Section>
 
-          <Section id="about" label="About" title="A bit about me">
+          <Section id="about" title="About">
             <div className="panel max-w-3xl space-y-4 p-6 text-lg leading-relaxed sm:p-8">
               {profile.about.map((p, i) => (
                 <p key={i}>{p}</p>
@@ -215,7 +215,7 @@ export default function Home() {
             </div>
           </Section>
 
-          <Section id="skills" label="Toolkit" title="What I work with">
+          <Section id="skills" title="Skills">
             <div className="panel grid gap-x-10 gap-y-8 p-6 sm:grid-cols-2 sm:p-8 lg:grid-cols-3">
               {skills.map((s) => (
                 <div key={s.group}>
@@ -244,7 +244,7 @@ export default function Home() {
           </Section>
 
           {certificates.length > 0 && (
-            <Section id="certificates" label="Certificates" title="Courses I've finished">
+            <Section id="certificates" title="Certificates">
               <div className="panel grid gap-x-10 gap-y-8 p-6 sm:p-8 md:grid-cols-2 lg:grid-cols-3">
                 {[...new Set(certificates.map((c) => c.group))].map((group) => (
                   <div key={group}>
@@ -289,11 +289,8 @@ export default function Home() {
             <div className="grid items-center gap-12 lg:grid-cols-[1.25fr_1fr]">
             <div className="panel relative px-6 py-12 text-center sm:px-12">
               <Burst className="absolute -top-14 -left-10 size-28 rotate-12 sm:size-36" />
-              <span className="relative inline-block rounded border-2 border-ink bg-paper-2 px-2 py-0.5 text-[11px] font-extrabold tracking-[0.18em] uppercase">
-                To be continued…
-              </span>
-              <h2 id="contact-h" className="cartoon-title relative mt-4 font-display text-5xl leading-none sm:text-6xl">
-                Hiring a full-stack developer? Let&apos;s talk!
+              <h2 id="contact-h" className="cartoon-title relative font-display text-5xl leading-none sm:text-6xl">
+                Let&apos;s work together
               </h2>
               <p className="relative mx-auto mt-5 max-w-lg text-lg font-semibold">
                 Open to full-time full-stack developer roles and freelance projects. I usually reply within a day.
@@ -337,7 +334,7 @@ export default function Home() {
       </main>
 
       <footer className="border-t-3 border-ink bg-ink py-6 text-center text-sm font-bold text-paper/80">
-        © {new Date().getFullYear()} {profile.name} · Illustrations are original, inspired by comic art.
+        © {new Date().getFullYear()} {profile.name} · Designed &amp; built by {profile.name}
       </footer>
     </div>
   );

@@ -48,14 +48,35 @@ export const LinkedInIcon = ({ className = "size-4" }: P) => (
   </svg>
 );
 
-export const socialIcon = (label: string, className?: string) =>
-  label.toLowerCase().includes("github") ? (
-    <GitHubIcon className={className} />
-  ) : label.toLowerCase().includes("linkedin") ? (
-    <LinkedInIcon className={className} />
-  ) : (
-    <ArrowUpRight className={className} />
-  );
+export const FacebookIcon = ({ className = "size-4" }: P) => (
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden className={className}>
+    <path d="M24 12a12 12 0 1 0-13.9 11.9v-8.4H7.1V12h3V9.4c0-3 1.8-4.7 4.5-4.7 1.3 0 2.7.2 2.7.2v3h-1.5c-1.5 0-2 .9-2 1.9V12h3.4l-.5 3.5h-2.9v8.4A12 12 0 0 0 24 12Z" />
+  </svg>
+);
+
+export const InstagramIcon = ({ className = "size-4" }: P) => (
+  <svg {...base} className={className}>
+    <rect x="3" y="3" width="18" height="18" rx="5" />
+    <circle cx="12" cy="12" r="4" />
+    <circle cx="17.5" cy="6.5" r="0.6" fill="currentColor" />
+  </svg>
+);
+
+export const TikTokIcon = ({ className = "size-4" }: P) => (
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden className={className}>
+    <path d="M16.6 3c.4 2.2 1.9 3.8 4.2 4v3.2c-1.5 0-2.9-.4-4.2-1.2v6.5a6 6 0 1 1-6-6c.3 0 .6 0 .9.1v3.3a2.8 2.8 0 1 0 2 2.7V3h3.1Z" />
+  </svg>
+);
+
+export const socialIcon = (label: string, className?: string) => {
+  const l = label.toLowerCase();
+  if (l.includes("github")) return <GitHubIcon className={className} />;
+  if (l.includes("linkedin")) return <LinkedInIcon className={className} />;
+  if (l.includes("facebook")) return <FacebookIcon className={className} />;
+  if (l.includes("instagram")) return <InstagramIcon className={className} />;
+  if (l.includes("tiktok")) return <TikTokIcon className={className} />;
+  return <ArrowUpRight className={className} />;
+};
 
 export const Star = ({ className = "size-4" }: P) => (
   <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden className={className}>

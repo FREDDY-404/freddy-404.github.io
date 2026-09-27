@@ -42,6 +42,7 @@ export type Experience = {
   period: string;
   summary: string;
   highlights?: string[];
+  links?: Link[]; // website and social media for the company
 };
 
 export const profile = {
@@ -51,7 +52,7 @@ export const profile = {
   tagline:
     "I build full-stack web apps end to end — from the database and API to the interface people use.",
   about: [
-    "I'm a full-stack developer and a Software Engineering student pursuing a BSc in Computing at the University of Sunderland. During my internship at Tamarind Community, I worked on frontend components, databases, and integration between application parts inside a real development team.",
+    "I'm a full-stack developer and a Software Engineering student pursuing a BSc in Computing at the University of Sunderland. I'm also the founder of Keuri Digital Store, a digital products business I started in early 2026. During my internship at Tamarind Community, I worked on frontend components, databases, and integration between application parts inside a real development team.",
     "I work end to end with TypeScript, JavaScript, Python, SQL, Node.js, React, Next.js, Supabase, and PostgreSQL — shipping live products like an e-commerce store and an IoT security dashboard. I care about web applications that are reliable, well-structured, and easy to use.",
   ],
   email: "min778128572@gmail.com",
@@ -96,6 +97,21 @@ export const spokenLanguages: { name: string; level: string }[] = [
 
 export const experience: Experience[] = [
   {
+    company: "Keuri Digital Store",
+    title: "Founder",
+    period: "2026 — Present",
+    summary:
+      "Founded and run a digital products store in early 2026, and designed and built its e-commerce site end to end.",
+    highlights: [
+      "Launched keuri.online: a bilingual (Burmese / English) storefront with local bank-transfer ordering",
+      "Built the full stack myself with Next.js, TypeScript, and Supabase",
+      "Handle the business side too: products, customers, and social media",
+    ],
+    links: [{ label: "keuri.online", href: "https://keuri.online" }],
+    // Social media: add the store's pages here, e.g.
+    // { label: "Facebook", href: "https://facebook.com/..." },
+  },
+  {
     company: "Tamarind Community",
     title: "Junior AI Developer Intern",
     period: "2026 · 7 months",
@@ -112,10 +128,10 @@ export const experience: Experience[] = [
 export const projects: Project[] = [
   {
     title: "Keuri Digital Store",
-    role: "Full-Stack Developer · Business project",
-    period: "3 months",
+    role: "Founder & Full-Stack Developer · My own business",
+    period: "Since 2026",
     summary:
-      "An e-commerce website for a digital products business, built around practical business requirements and a smooth shopping experience.",
+      "My own digital products business, founded in early 2026. I built its e-commerce site end to end around real customers and a smooth shopping experience.",
     highlights: [
       "Built application features with TypeScript, React, and Next.js",
       "Worked across both frontend and backend functionality",
