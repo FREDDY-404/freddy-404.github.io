@@ -12,6 +12,7 @@ import { Burst, ComicSky } from "@/components/comic";
 import { Nav } from "@/components/nav";
 import { ProfileCard } from "@/components/profile-card";
 import { Projects } from "@/components/projects";
+import { Reveal } from "@/components/reveal";
 
 const nav = [
   { id: "projects", label: "Work" },
@@ -45,7 +46,7 @@ function Section({
 }) {
   return (
     <section id={id} aria-labelledby={`${id}-h`} className="py-12 sm:py-16">
-      <div className="mb-8">
+      <Reveal className="mb-8">
         <span className="inline-block rounded border-2 border-ink bg-paper px-2 py-0.5 text-[11px] font-extrabold tracking-[0.18em] uppercase">
           {label}
         </span>
@@ -56,8 +57,8 @@ function Section({
           {title}
         </h2>
         {intro && <p className="mt-5 max-w-2xl text-lg font-semibold">{intro}</p>}
-      </div>
-      {children}
+      </Reveal>
+      {id === "projects" ? children : <Reveal delay={120}>{children}</Reveal>}
     </section>
   );
 }
@@ -165,7 +166,7 @@ export default function Home() {
             id="projects"
             label="Work"
             title="What I've built"
-            intro="Real projects, newest first. Each card links to the live site or code where one exists."
+            intro="Swipe or use the arrows to flip through. Each card links to the live site or code where one exists."
           >
             <Projects projects={projects} />
             <div className="panel mt-7 flex flex-col items-start justify-between gap-4 p-6 sm:flex-row sm:items-center">

@@ -127,3 +127,21 @@ body {
   background-image: radial-gradient(rgb(22 19 15 / 0.16) 1.2px, transparent 1.5px);
   background-size: 10px 10px;
 }
+
+/* Scroll reveal: slide up + fade in when entering the viewport */
+.reveal {
+  opacity: 0;
+  transform: translateY(36px) scale(0.97);
+  transition: opacity 0.6s ease-out, transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1.2);
+}
+.reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+.no-scrollbar { scrollbar-width: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; }
+}

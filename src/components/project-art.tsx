@@ -134,13 +134,13 @@ export function ProjectCover({
           <span>No. {String(index + 1).padStart(2, "0")}</span>
           <span>{period}</span>
         </div>
-        <p className={`title-yellow mt-2 text-center ${featured ? "text-5xl sm:text-6xl" : "text-4xl sm:text-5xl"}`}>
+        <p className={`title-yellow mt-2 text-center ${featured ? "text-5xl sm:text-6xl" : "text-4xl"}`}>
           {title}
         </p>
         <svg
           aria-hidden
           viewBox="0 0 200 120"
-          className={`mx-auto mt-auto w-full drop-shadow-[4px_4px_0_#16130f] ${featured ? "max-w-[26rem]" : "max-w-[22rem]"}`}
+          className={`mx-auto mt-auto w-full drop-shadow-[4px_4px_0_#16130f] ${featured ? "max-w-[26rem]" : "max-w-[17rem]"}`}
         >
           <Illustration art={art} c={c} />
         </svg>
