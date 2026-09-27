@@ -31,6 +31,7 @@ export type Certificate = {
 
 export type Education = {
   school: string;
+  url?: string; // school website
   degree: string;
   period: string;
   details?: string[];
@@ -247,12 +248,14 @@ export const certificates: Certificate[] = [
 export const education: Education[] = [
   {
     school: "University of Sunderland",
+    url: "https://www.sunderland.ac.uk",
     degree: "BSc in Computing",
     period: "2026 — 2027",
     details: ["Currently studying · Expected graduation 2027"],
   },
   {
     school: "Info Myanmar College",
+    url: "http://imu.edu.mm", // now Info Myanmar University; its https certificate is broken
     degree: "HND in Software Engineering",
     period: "2024 — 2026",
     details: ["Higher National Diploma"],

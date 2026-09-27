@@ -211,7 +211,19 @@ export default function Home() {
               {education.map((e) => (
                 <DatedRow key={e.school + e.degree} when={e.period}>
                   <h3 className="font-display text-2xl leading-tight tracking-wide">{e.degree}</h3>
-                  <p className="font-extrabold text-boom">{e.school}</p>
+                  {e.url ? (
+                    <a
+                      href={e.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-1 font-extrabold text-boom underline decoration-2 underline-offset-4 hover:text-ink"
+                    >
+                      {e.school}
+                      <ArrowUpRight className="size-3.5" />
+                    </a>
+                  ) : (
+                    <p className="font-extrabold text-boom">{e.school}</p>
+                  )}
                   {e.details && <p className="mt-2 text-ink/85">{e.details.join(" · ")}</p>}
                 </DatedRow>
               ))}
