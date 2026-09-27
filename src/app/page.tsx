@@ -10,6 +10,7 @@ import {
 import { ArrowDown, ArrowUpRight, Download, MailIcon, Star, socialIcon } from "@/components/icons";
 import { asset } from "@/lib/asset";
 import { Burst, ComicSky } from "@/components/comic";
+import { About } from "@/components/about";
 import { Nav } from "@/components/nav";
 import { ProfileCard } from "@/components/profile-card";
 import { Projects } from "@/components/projects";
@@ -231,11 +232,16 @@ export default function Home() {
           </Section>
 
           <Section id="about" title="About">
-            <div className="panel max-w-3xl space-y-4 p-6 text-lg leading-relaxed sm:p-8">
-              {profile.about.map((p, i) => (
-                <p key={i}>{p}</p>
-              ))}
-            </div>
+            <About
+              paragraphs={profile.about}
+              facts={[
+                { icon: "pin", label: "Based in", value: profile.location, color: "bg-sky" },
+                { icon: "store", label: "Founder", value: "Keuri Digital Store · since 2026", color: "bg-mustard" },
+                { icon: "cap", label: "Studying", value: "BSc Computing · University of Sunderland", color: "bg-boom" },
+                { icon: "chat", label: "Speaks", value: spokenLanguages.map((l) => l.name).join(" · "), color: "bg-grass" },
+                { icon: "bolt", label: "Right now", value: "Open to full-stack developer roles", color: "bg-sky" },
+              ]}
+            />
           </Section>
 
           <Section id="skills" title="Skills">
