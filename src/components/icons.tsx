@@ -29,6 +29,12 @@ export const ArrowDown = ({ className = "size-4" }: P) => (
   </svg>
 );
 
+export const Download = ({ className = "size-4" }: P) => (
+  <svg {...base} className={className}>
+    <path d="M12 4v11M7 10l5 5 5-5M5 20h14" />
+  </svg>
+);
+
 export const MapPin = ({ className = "size-4" }: P) => (
   <svg {...base} className={className}>
     <path d="M12 21s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12Z" />

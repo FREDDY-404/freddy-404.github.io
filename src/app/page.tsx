@@ -7,7 +7,8 @@ import {
   skills,
   spokenLanguages,
 } from "@/data/portfolio";
-import { ArrowDown, ArrowUpRight, MailIcon, Star, socialIcon } from "@/components/icons";
+import { ArrowDown, ArrowUpRight, Download, MailIcon, Star, socialIcon } from "@/components/icons";
+import { asset } from "@/lib/asset";
 import { Burst, ComicSky } from "@/components/comic";
 import { Nav } from "@/components/nav";
 import { ProfileCard } from "@/components/profile-card";
@@ -92,10 +93,16 @@ export default function Home() {
         name={profile.name}
         items={nav}
         cta={
-          <a href={mailTo(profile.email)} className={`${btn} bg-mustard px-4 py-2 text-sm shadow-[3px_3px_0_var(--ink)]`}>
-            <MailIcon />
-            Get in touch
-          </a>
+          <div className="flex gap-2">
+            <a href={asset(profile.resumeUrl)} download className={`${btn} bg-paper px-4 py-2 text-sm shadow-[3px_3px_0_var(--ink)]`}>
+              <Download />
+              CV
+            </a>
+            <a href={mailTo(profile.email)} className={`${btn} bg-mustard px-4 py-2 text-sm shadow-[3px_3px_0_var(--ink)]`}>
+              <MailIcon />
+              Get in touch
+            </a>
+          </div>
         }
       />
 
@@ -125,6 +132,10 @@ export default function Home() {
               <a href={mailTo(profile.email)} className={`${btn} bg-paper`}>
                 <MailIcon />
                 Get in touch
+              </a>
+              <a href={asset(profile.resumeUrl)} download className={`${btn} bg-paper`}>
+                <Download />
+                Download CV
               </a>
             </div>
           </div>
@@ -295,10 +306,16 @@ export default function Home() {
               <p className="relative mx-auto mt-5 max-w-lg text-lg font-semibold">
                 Open to full-time full-stack developer roles and freelance projects. I usually reply within a day.
               </p>
-              <a href={mailTo(profile.email)} className={`${btn} relative mt-8 bg-mustard px-9 py-4 text-xl`}>
-                <MailIcon className="size-6" />
-                Get in touch
-              </a>
+              <div className="relative mt-8 flex flex-wrap justify-center gap-4">
+                <a href={mailTo(profile.email)} className={`${btn} bg-mustard px-9 py-4 text-xl`}>
+                  <MailIcon className="size-6" />
+                  Get in touch
+                </a>
+                <a href={asset(profile.resumeUrl)} download className={`${btn} bg-paper px-7 py-4 text-xl`}>
+                  <Download className="size-6" />
+                  Download CV
+                </a>
+              </div>
               <div className="mt-7 flex flex-wrap justify-center gap-3">
                 {[profile.email, profile.workEmail].map((e) => (
                   <a key={e} href={mailTo(e)} className="rounded-full border-2 border-ink bg-paper-2 px-4 py-2 font-bold break-all hover:bg-mustard">

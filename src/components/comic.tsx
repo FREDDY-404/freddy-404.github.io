@@ -75,7 +75,7 @@ export function ComicSky() {
   const clouds = [
     { left: 42, top: 10, w: 130, dur: 18, delay: -6 },
     { left: 86, top: 8, w: 150, dur: 14, delay: 0 },
-    { left: 44, top: 78, w: 120, dur: 16, delay: -3 },
+    { left: 52, top: 86, w: 110, dur: 16, delay: -3 },
   ];
   return (
     <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">

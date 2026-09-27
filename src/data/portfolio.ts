@@ -58,7 +58,7 @@ export const profile = {
   email: "min778128572@gmail.com",
   workEmail: "freddy@tamarind.tech",
   avatar: "/avatar.webp", // background removed
-  resumeUrl: "", // e.g. "/resume.pdf" (put the file in /public)
+  resumeUrl: "/Min_Khant_Kyaw_CV.pdf", // public copy, no phone number (source: cv/cv.html)
   socials: [
     { label: "GitHub", href: "https://github.com/FREDDY-404" },
     {
