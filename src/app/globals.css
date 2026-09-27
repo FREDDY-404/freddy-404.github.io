@@ -37,7 +37,7 @@ html {
 }
 
 body {
-  background-color: var(--sky);
+  background-color: #fbf7ec;
   color: var(--ink);
 }
 
@@ -144,4 +144,28 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
   .reveal { opacity: 1; transform: none; }
+}
+
+/* Developer's notebook: cream graph paper with a major grid every 5 squares */
+.graph-paper {
+  background-color: #fbf7ec;
+  background-image:
+    linear-gradient(rgb(90 150 200 / 0.28) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(90 150 200 / 0.28) 1px, transparent 1px),
+    linear-gradient(rgb(90 150 200 / 0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(90 150 200 / 0.12) 1px, transparent 1px);
+  background-size: 120px 120px, 120px 120px, 24px 24px, 24px 24px;
+}
+
+/* ID badge swinging gently on its lanyard */
+@keyframes badge-swing {
+  0%, 100% { transform: rotate(-2.5deg); }
+  50% { transform: rotate(2.5deg); }
+}
+.badge-swing {
+  transform-origin: 50% 0;
+  animation: badge-swing 5s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .badge-swing { animation: none; }
 }

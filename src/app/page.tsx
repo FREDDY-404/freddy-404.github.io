@@ -11,6 +11,7 @@ import { ArrowDown, ArrowUpRight, Download, MailIcon, Star, socialIcon } from "@
 import { asset } from "@/lib/asset";
 import { Burst, ComicSky } from "@/components/comic";
 import { About } from "@/components/about";
+import { Doodles } from "@/components/doodles";
 import { Nav } from "@/components/nav";
 import { ProfileCard } from "@/components/profile-card";
 import { Projects } from "@/components/projects";
@@ -108,7 +109,7 @@ export default function Home() {
       />
 
       {/* ── Hero: cartoon sky, bubbly name, numbers on a burst ── */}
-      <section id="top" className="relative overflow-hidden border-b-3 border-ink bg-sky">
+      <section id="top" className="graph-paper relative overflow-hidden border-b-3 border-ink">
         <ComicSky />
         <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-5 pt-24 pb-16 md:grid-cols-[1.15fr_1fr] md:pt-28 md:pb-20">
           <div>
@@ -159,8 +160,9 @@ export default function Home() {
         </div>
       </section>
 
-      <main id="main" className="halftone flex-1 bg-sky">
-        <div className="mx-auto max-w-6xl px-5">
+      <main id="main" className="graph-paper relative flex-1">
+        <Doodles />
+        <div className="relative mx-auto max-w-6xl px-5">
           <Section
             id="projects"
             title="Projects"
