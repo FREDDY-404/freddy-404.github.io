@@ -104,7 +104,7 @@ export default function Home() {
         }
       />
 
-      {/* ── Hero: cartoon sky, bubbly name, profile card on a burst ── */}
+      {/* ── Hero: cartoon sky, bubbly name, numbers on a burst ── */}
       <section id="top" className="relative overflow-hidden border-b-3 border-ink bg-sky">
         <ComicSky />
         <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-5 pt-24 pb-16 md:grid-cols-[1.15fr_1fr] md:pt-28 md:pb-20">
@@ -132,30 +132,22 @@ export default function Home() {
                 Get in touch
               </a>
             </div>
+          </div>
 
-            <dl className="mt-9 grid max-w-md grid-cols-3 gap-3">
-              {stats.map((s) => (
-                <div key={s.label} className="panel flex flex-col-reverse px-3 py-2.5 text-center shadow-[4px_4px_0_var(--ink)]">
-                  <dt className="mt-1 text-xs font-extrabold tracking-wide text-ink-muted uppercase">{s.label}</dt>
-                  <dd className="font-display text-4xl leading-none">{s.value}</dd>
+          {/* Numbers on the explosion burst */}
+          <div className="relative mx-auto w-full max-w-xs py-10">
+            <Burst className="burst-spin absolute top-1/2 left-1/2 size-[150%] max-w-none -translate-x-1/2 -translate-y-1/2" />
+            <dl className="relative space-y-4">
+              {stats.map((s, i) => (
+                <div
+                  key={s.label}
+                  className={`panel flex flex-col-reverse items-center px-5 py-4 text-center ${i % 2 ? "rotate-2" : "-rotate-2"}`}
+                >
+                  <dt className="mt-1 text-xs font-extrabold tracking-[0.18em] text-ink-muted uppercase">{s.label}</dt>
+                  <dd className="font-display text-5xl leading-none">{s.value}</dd>
                 </div>
               ))}
             </dl>
-          </div>
-
-          <div className="relative">
-            <Burst className="burst-spin absolute top-1/2 left-1/2 size-[130%] max-w-none -translate-x-1/2 -translate-y-1/2" />
-            <div className="relative">
-              <ProfileCard
-                photo={profile.avatar}
-                name={profile.name}
-                title={profile.title}
-                location={profile.location}
-                stack={["TypeScript", "Next.js", "React", "Node.js", "Supabase", "PostgreSQL"]}
-                email={mailTo(profile.email)}
-                socials={profile.socials}
-              />
-            </div>
           </div>
         </div>
       </section>
@@ -294,7 +286,8 @@ export default function Home() {
           )}
 
           <section id="contact" aria-labelledby="contact-h" className="py-14 sm:py-20">
-            <div className="panel relative mx-auto max-w-3xl px-6 py-12 text-center sm:px-12">
+            <div className="grid items-center gap-12 lg:grid-cols-[1.25fr_1fr]">
+            <div className="panel relative px-6 py-12 text-center sm:px-12">
               <Burst className="absolute -top-14 -left-10 size-28 rotate-12 sm:size-36" />
               <span className="relative inline-block rounded border-2 border-ink bg-paper-2 px-2 py-0.5 text-[11px] font-extrabold tracking-[0.18em] uppercase">
                 To be continued…
@@ -327,6 +320,18 @@ export default function Home() {
                     {s.label}
                   </a>
                 ))}
+              </div>
+            </div>
+              <div>
+                <ProfileCard
+                  photo={profile.avatar}
+                  name={profile.name}
+                  title={profile.title}
+                  location={profile.location}
+                  stack={["TypeScript", "Next.js", "React", "Node.js", "Supabase", "PostgreSQL"]}
+                  email={mailTo(profile.email)}
+                  socials={profile.socials}
+                />
               </div>
             </div>
           </section>
