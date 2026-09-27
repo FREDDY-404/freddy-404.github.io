@@ -134,16 +134,17 @@ export function ProjectCover({
           <span>No. {String(index + 1).padStart(2, "0")}</span>
           <span>{period}</span>
         </div>
-        <p className={`title-yellow mt-2 text-center ${featured ? "text-5xl sm:text-6xl" : "text-4xl"}`}>
-          {title}
-        </p>
-        <svg
-          aria-hidden
-          viewBox="0 0 200 120"
-          className={`mx-auto mt-auto w-full drop-shadow-[4px_4px_0_#16130f] ${featured ? "max-w-[26rem]" : "max-w-[17rem]"}`}
-        >
-          <Illustration art={art} c={c} />
-        </svg>
+        {/* title and illustration kept together, centred in the cover */}
+        <div className="flex flex-1 flex-col items-center justify-center gap-4">
+          <p className={`title-yellow text-center ${featured ? "text-5xl sm:text-6xl" : "text-4xl"}`}>{title}</p>
+          <svg
+            aria-hidden
+            viewBox="0 0 200 120"
+            className={`w-full drop-shadow-[4px_4px_0_#16130f] ${featured ? "max-w-[26rem]" : "max-w-[17rem]"}`}
+          >
+            <Illustration art={art} c={c} />
+          </svg>
+        </div>
       </div>
     </div>
   );
