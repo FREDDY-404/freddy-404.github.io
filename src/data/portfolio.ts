@@ -209,6 +209,20 @@ export const projects: Project[] = [
 
 export const certificates: Certificate[] = [
   {
+    group: "Developer tools",
+    name: "Claude Code in Action",
+    issuer: "Anthropic",
+    date: "Mar 2026",
+    url: "https://verify.skilljar.com/c/ep7z8odgxpdk",
+  },
+  {
+    group: "Developer tools",
+    name: "Claude 101",
+    issuer: "Anthropic",
+    date: "Mar 2026",
+    url: "https://verify.skilljar.com/c/m3cu2whyuunj",
+  },
+  {
     group: "Data & databases",
     name: "Graph Data Modeling Fundamentals",
     issuer: "Neo4j GraphAcademy",
