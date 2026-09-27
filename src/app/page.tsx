@@ -9,6 +9,7 @@ import {
 } from "@/data/portfolio";
 import { ArrowDown, ArrowUpRight, Download, MailIcon, Star, socialIcon } from "@/components/icons";
 import { asset } from "@/lib/asset";
+import { TechChip, TechIcon } from "@/components/tech-icon";
 import { Burst, ComicSky } from "@/components/comic";
 import { About } from "@/components/about";
 import { Doodles } from "@/components/doodles";
@@ -253,9 +254,7 @@ export default function Home() {
                   <h3 className="text-sm font-extrabold tracking-[0.15em] text-boom uppercase">{s.group}</h3>
                   <ul className="mt-3 flex flex-wrap gap-1.5">
                     {s.items.map((it) => (
-                      <li key={it} className="rounded-full border-2 border-ink bg-paper-2 px-3 py-1 text-sm font-bold">
-                        {it}
-                      </li>
+                      <TechChip key={it} name={it} className="rounded-full px-3 py-1 text-sm" />
                     ))}
                   </ul>
                 </div>
@@ -285,7 +284,11 @@ export default function Home() {
                         .filter((c) => c.group === group)
                         .map((c) => (
                           <li key={c.name} className="flex gap-2.5 leading-snug">
-                            <Star className="mt-1 size-3.5 shrink-0 text-boom" />
+                            {c.issuer === "Anthropic" || c.issuer === "Neo4j GraphAcademy" ? (
+                              <TechIcon name={c.issuer} className="mt-0.5 size-4" />
+                            ) : (
+                              <Star className="mt-1 size-3.5 shrink-0 text-boom" />
+                            )}
                             <span>
                               <span className="font-extrabold">{c.name}</span>
                               <span className="text-ink-muted">

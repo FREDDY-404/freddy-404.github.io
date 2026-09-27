@@ -1,4 +1,5 @@
 import { asset } from "@/lib/asset";
+import { TechChip } from "@/components/tech-icon";
 
 /*
  * Profile as a developer ID badge on a lanyard: strap and clip at the top,
@@ -94,9 +95,7 @@ export function ProfileCard({
 
           <ul className="mt-4 flex flex-wrap gap-1.5" aria-label="Core stack">
             {stack.map((s) => (
-              <li key={s} className="rounded border-2 border-ink bg-paper-2 px-2 py-0.5 text-[11px] font-bold">
-                {s}
-              </li>
+              <TechChip key={s} name={s} className="text-[11px]" />
             ))}
           </ul>
 

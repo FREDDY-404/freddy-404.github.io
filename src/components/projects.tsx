@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { TechChip } from "@/components/tech-icon";
 import { ProjectCover } from "@/components/project-art";
 import { Reveal } from "@/components/reveal";
 import { ArrowUpRight, Star } from "@/components/icons";
@@ -122,9 +123,7 @@ export function Projects({ projects }: { projects: Project[] }) {
 
                   <ul className="mt-4 flex flex-wrap gap-1.5" aria-label="Technologies">
                     {p.tags.slice(0, 4).map((t) => (
-                      <li key={t} className="rounded border-2 border-ink bg-paper-2 px-2 py-0.5 text-xs font-bold">
-                        {t}
-                      </li>
+                      <TechChip key={t} name={t} />
                     ))}
                     {p.tags.length > 4 && <li className="px-1 py-0.5 text-xs font-bold text-ink-muted">+{p.tags.length - 4}</li>}
                   </ul>
