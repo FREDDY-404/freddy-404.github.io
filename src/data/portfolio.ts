@@ -211,6 +211,13 @@ export const projects: Project[] = [
 export const certificates: Certificate[] = [
   {
     group: "Developer tools",
+    name: "Claude Code 101",
+    issuer: "Anthropic",
+    date: "Sep 2026",
+    url: "https://verify.skilljar.com/c/vda96arsbnwd",
+  },
+  {
+    group: "Developer tools",
     name: "Claude Code in Action",
     issuer: "Anthropic",
     date: "Mar 2026",
