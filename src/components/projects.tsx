@@ -128,20 +128,45 @@ export function Projects({ projects }: { projects: Project[] }) {
                     {p.tags.length > 4 && <li className="px-1 py-0.5 text-xs font-bold text-ink-muted">+{p.tags.length - 4}</li>}
                   </ul>
 
-                  {p.highlights && (
+                  {(p.highlights || p.challenge) && (
                     <details className="group/d mt-4">
                       <summary className="cursor-pointer list-none text-sm font-extrabold underline decoration-2 underline-offset-4 hover:text-boom">
-                        <span className="group-open/d:hidden">Read more</span>
+                        <span className="group-open/d:hidden">How I built it</span>
                         <span className="hidden group-open/d:inline">Show less</span>
                       </summary>
-                      <ul className="mt-3 space-y-1.5 text-sm text-ink/85">
-                        {p.highlights.map((h) => (
-                          <li key={h} className="flex gap-2.5">
-                            <Star className="mt-1 size-3 shrink-0 text-boom" />
-                            {h}
-                          </li>
-                        ))}
-                      </ul>
+                      <div className="mt-3 space-y-3 text-sm text-ink/85">
+                        {[
+                          { label: "The problem", text: p.challenge, color: "bg-boom text-paper" },
+                          { label: "How I solved it", text: p.solution, color: "bg-mustard" },
+                        ].map(
+                          (b) =>
+                            b.text && (
+                              <div key={b.label}>
+                                <p className={`mb-1 w-fit rounded border-2 border-ink px-1.5 text-[11px] font-extrabold tracking-wider uppercase ${b.color}`}>{b.label}</p>
+                                <p>{b.text}</p>
+                              </div>
+                            ),
+                        )}
+                        {p.highlights && (
+                          <div>
+                            <p className="mb-1 w-fit rounded border-2 border-ink bg-sky px-1.5 text-[11px] font-extrabold tracking-wider uppercase">What I built</p>
+                            <ul className="space-y-1.5">
+                              {p.highlights.map((h) => (
+                                <li key={h} className="flex gap-2.5">
+                                  <Star className="mt-1 size-3 shrink-0 text-boom" />
+                                  {h}
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+                        {p.growth && (
+                          <div className="rounded-md border-2 border-dashed border-ink/40 bg-paper-2 p-2.5">
+                            <p className="mb-1 w-fit rounded border-2 border-ink bg-grass px-1.5 text-[11px] font-extrabold tracking-wider uppercase">Getting better</p>
+                            <p>{p.growth}</p>
+                          </div>
+                        )}
+                      </div>
                     </details>
                   )}
 

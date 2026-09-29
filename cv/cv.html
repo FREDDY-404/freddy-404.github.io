@@ -9,16 +9,16 @@
 <meta charset="utf-8">
 <title>Min Khant Kyaw — CV</title>
 <style>
-  @page { size: A4; margin: 16mm 16mm 18mm; }
+  @page { size: A4; margin: 14mm 16mm 15mm; }
   * { box-sizing: border-box; }
-  body { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; color: #1f2328; font-size: 10pt; line-height: 1.42; margin: 0; }
+  body { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; color: #1f2328; font-size: 10pt; line-height: 1.38; margin: 0; }
   a { color: #1f4e8c; text-decoration: none; }
   header { display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; }
   h1 { font-size: 25pt; letter-spacing: 0.5px; margin: 0; line-height: 1.05; }
   .role { font-size: 12pt; color: #444; letter-spacing: 1px; margin: 4px 0 10px; text-transform: uppercase; }
   .contact { font-size: 9.3pt; color: #333; line-height: 1.55; }
   .photo { width: 30mm; height: 30mm; object-fit: cover; object-position: center 30%; flex-shrink: 0; }
-  h2 { color: #1f4e8c; font-size: 12.5pt; margin: 16px 0 6px; padding-bottom: 3px; border-bottom: 1px solid #c9d6ea; }
+  h2 { color: #1f4e8c; font-size: 12.5pt; margin: 13px 0 5px; padding-bottom: 3px; border-bottom: 1px solid #c9d6ea; }
   .item { margin-bottom: 9px; break-inside: avoid; }
   .item-head { display: flex; justify-content: space-between; gap: 12px; font-weight: bold; }
   .item-head .when { font-weight: normal; color: #555; font-style: italic; white-space: nowrap; }
@@ -29,6 +29,10 @@
   table.skills { border-collapse: collapse; width: 100%; }
   table.skills td { padding: 2.5px 0; vertical-align: top; }
   table.skills td:first-child { font-weight: bold; width: 40mm; }
+  table.skills .tools { color: #555; font-size: 9.2pt; }
+  .steps { margin: 0; }
+  .steps b { color: #1f4e8c; }
+  .lbl { font-weight: bold; }
   .certs li { margin: 3px 0; }
 </style>
 </head>
@@ -51,18 +55,23 @@
 <p style="margin:0">
   Full-stack developer, founder of Keuri Digital Store, and Software Engineering student pursuing a BSc in Computing at the
   University of Sunderland. Founded and built a live digital products business in early 2026, and gained internship experience at
-  Tamarind Community working on frontend components, databases, and integration in a team. Builds end to end with TypeScript,
+  Tamarind Community, a humanitarian tech initiative supporting Myanmar, working on frontend components, databases, and integration in a team. Builds end to end with TypeScript,
   JavaScript, Python, SQL, Node.js, React, Next.js, Supabase, and PostgreSQL. Seeking a full-stack developer role building reliable,
   well-structured web applications.
 </p>
 
-<h2>Technical Skills</h2>
+<h2>How I Work</h2>
+<p class="steps">
+  <b>1. Understand</b> the real problem and who has it → <b>2. Plan &amp; design</b> the screens and data model before coding →
+  <b>3. Build small</b>, working pieces in TypeScript, testing as I go → <b>4. Improve</b> from real feedback, fixing what slows people down first.
+</p>
+
+<h2>Technical Skills — and How I Use Them</h2>
 <table class="skills">
-  <tr><td>Languages</td><td>TypeScript, JavaScript, Python, Java, SQL, HTML, CSS</td></tr>
-  <tr><td>Backend &amp; Database</td><td>Node.js, PostgreSQL, Supabase, Redis, REST APIs, database management, Graph Data Modeling (Neo4j)</td></tr>
-  <tr><td>Frontend</td><td>React, Next.js, Tailwind CSS</td></tr>
-  <tr><td>Tools</td><td>Claude Code, Git, Vercel</td></tr>
-  <tr><td>Other</td><td>UI/UX Design, Software Development Lifecycle (SDLC), Microsoft Office, Meta Business Suite</td></tr>
+  <tr><td>Frontend</td><td>Build interfaces mobile first, one reusable component at a time, and check them on real phones before shipping.<br><span class="tools">React, Next.js, Tailwind CSS, HTML, CSS</span></td></tr>
+  <tr><td>Backend &amp; Database</td><td>Design the data model first, then build the API around it; Node.js services and Redis when a system has more moving parts.<br><span class="tools">Node.js, Supabase, PostgreSQL, Redis, REST APIs, Graph Data Modeling (Neo4j)</span></td></tr>
+  <tr><td>Languages</td><td>TypeScript by default so mistakes surface in the editor, not in front of users; JavaScript for quick tools and games; Python, Java and SQL for university and data work.<br><span class="tools">TypeScript, JavaScript, Python, Java, SQL</span></td></tr>
+  <tr><td>Design &amp; Process</td><td>Sketch the UI/UX before coding, follow the SDLC from requirements to testing, and use AI tools to move faster while reviewing every change.<br><span class="tools">UI/UX Design, SDLC, Claude Code, Git, Vercel, Meta Business Suite</span></td></tr>
 </table>
 
 <h2>Experience</h2>
@@ -71,17 +80,17 @@
   <ul>
     <li>Founded and run a digital products store, launched in early 2026.</li>
     <li>Designed and built the e-commerce site end to end with Next.js, TypeScript, and Supabase.</li>
-    <li>Delivered a bilingual (Burmese / English) storefront with local bank-transfer ordering.</li>
+    <li><span class="lbl">Problem:</span> many customers can't pay by card and prefer Burmese. <span class="lbl">Solution:</span> built ordering around local bank transfers and a fully bilingual (Burmese / English) storefront.</li>
+    <li>Improve the store by watching where customers get stuck or ask questions, and fixing that step first.</li>
   </ul>
   <p class="links">Live: <a href="https://keuri.online">keuri.online</a></p>
 </div>
 <div class="item">
   <div class="item-head"><span>Junior AI Developer Intern — Tamarind Community</span><span class="when">2026 · 7 months</span></div>
   <ul>
-    <li>Contributed to software development across frontend and database tasks within a development team.</li>
-    <li>Developed and maintained frontend components for community projects.</li>
-    <li>Worked with databases and supported data-related development tasks.</li>
-    <li>Contributed to technical implementation and integration between application components.</li>
+    <li>Tamarind is a humanitarian tech initiative supporting Myanmar with tech-powered solutions after the 2025 earthquake, helping communities recover and rebuild.</li>
+    <li>Developed and maintained frontend components for community projects within a development team.</li>
+    <li>Worked with databases and on integration between application components.</li>
   </ul>
 </div>
 
@@ -90,8 +99,9 @@
   <div class="item-head"><span>Two-Factor Authentication Smart Door Lock — University Project</span><span class="when">6 months</span></div>
   <p class="sub">IoT Developer · Next.js, TypeScript, Supabase, PostgreSQL, Tailwind CSS, RFID</p>
   <ul>
-    <li>Developed an IoT smart door lock secured with two-factor authentication and access control.</li>
-    <li>Built an admin dashboard for RFID access, live device events, security alarms, and access logs.</li>
+    <li><span class="lbl">Problem:</span> a lock that only checks an RFID card can be opened by anyone who finds or copies it.</li>
+    <li><span class="lbl">Solution:</span> added a second authentication factor, logged every access attempt, and built an admin dashboard for RFID access, live device events, and security alarms.</li>
+    <li><span class="lbl">Learned:</span> real hardware means planning for dropped connections and edge cases, not just the happy path.</li>
   </ul>
   <p class="links">Live: <a href="https://smartdoor-mmcom.online">smartdoor-mmcom.online</a> • Code: <a href="https://github.com/FREDDY-404/smartdoor">github.com/FREDDY-404/smartdoor</a></p>
 </div>
@@ -99,24 +109,19 @@
   <div class="item-head"><span>Code &amp; Coffee Game — Workshop Game</span><span class="when"></span></div>
   <p class="sub">Developer · JavaScript, HTML, CSS, Vercel</p>
   <ul>
-    <li>Built a browser game for coding classes and workshops with Programming Charades and Team Debug Wars modes and a live scoreboard.</li>
+    <li><span class="lbl">Problem:</span> a workshop game must run on one projector with whatever devices people bring — no installs, no sign-ups.</li>
+    <li><span class="lbl">Solution:</span> plain HTML, CSS, and JavaScript on Vercel with Programming Charades, Team Debug Wars, and a shared live scoreboard.</li>
+    <li><span class="lbl">Improving:</span> after each session, simplify the rounds that drag or confuse players.</li>
   </ul>
   <p class="links">Live: <a href="https://code-coffee-game.vercel.app">code-coffee-game.vercel.app</a></p>
-</div>
-<div class="item">
-  <div class="item-head"><span>Myan Shield — Team Project</span><span class="when"></span></div>
-  <p class="sub">Backend &amp; Frontend Developer · React, TypeScript, Node.js, PostgreSQL, Redis 7, MinIO, Mailpit, Nginx</p>
-  <ul>
-    <li>Contributed to a smoke detection system as part of a team.</li>
-    <li>Built the user-facing application with React, TypeScript, and Tailwind CSS.</li>
-    <li>Implemented API calls and backend communication with Node.js services.</li>
-  </ul>
 </div>
 <div class="item">
   <div class="item-head"><span>Uri Plant Shop — University Project</span><span class="when">2 months</span></div>
   <p class="sub">Full-Stack Developer</p>
   <ul>
-    <li>Developed a plant-shop e-commerce website with frontend, backend, and database functionality, following the SDLC.</li>
+    <li><span class="lbl">Problem:</span> first full-stack project — connecting interface, server logic, and database without a tangle.</li>
+    <li><span class="lbl">Solution:</span> followed the SDLC (requirements, design, build, test) and kept frontend, backend, and data layers separate.</li>
+    <li><span class="lbl">Learned:</span> plan before coding — a habit used in every project since.</li>
   </ul>
 </div>
 

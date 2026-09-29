@@ -12,6 +12,9 @@ export type Project = {
   period: string;
   summary: string;
   highlights?: string[];
+  challenge?: string; // the problem the project had to solve
+  solution?: string; // how I solved it
+  growth?: string; // what I learned / how I keep making it better
   tags: string[];
   links?: Link[];
   art: ProjectArt; // which illustration the project card uses
@@ -44,6 +47,7 @@ export type Experience = {
   summary: string;
   highlights?: string[];
   links?: Link[]; // website and social media for the company
+  about?: string[]; // what the company is — shown in a pop-up from Quick facts
 };
 
 export const profile = {
@@ -69,25 +73,37 @@ export const profile = {
   ] as Link[],
 };
 
-export const skills: { group: string; items: string[] }[] = [
+// Each group says HOW I use the tools, not just which ones.
+// The site links each group to the projects whose tags match its items.
+export const skills: { group: string; how: string; items: string[] }[] = [
   {
-    group: "Languages",
-    items: ["TypeScript", "JavaScript", "Python", "Java", "SQL", "HTML", "CSS"],
+    group: "Frontend",
+    how: "I build interfaces in React and Next.js, styled with Tailwind — mobile first, one reusable component at a time, and checked on real phones before I ship.",
+    items: ["React", "Next.js", "Tailwind CSS", "HTML", "CSS"],
   },
   {
     group: "Backend & Database",
-    items: ["Node.js", "PostgreSQL", "Supabase", "Redis", "REST APIs", "Database Management", "Graph Data Modeling"],
+    how: "I design the data model first, then build the API around it. Supabase and PostgreSQL for most projects, Node.js services and Redis when a system has more moving parts.",
+    items: ["Node.js", "Supabase", "PostgreSQL", "Redis", "REST APIs", "Graph Data Modeling"],
   },
-  { group: "Frontend", items: ["React", "Next.js", "Tailwind CSS"] },
   {
-    group: "Other",
-    items: [
-      "UI/UX Design",
-      "SDLC",
-      "Microsoft Office",
-      "Meta Business Suite",
-    ],
+    group: "Languages",
+    how: "TypeScript by default, so mistakes show up in my editor instead of in front of users. JavaScript for quick tools and games, Python, Java and SQL for university and data work.",
+    items: ["TypeScript", "JavaScript", "Python", "Java", "SQL"],
   },
+  {
+    group: "Design & process",
+    how: "I sketch the UI/UX before coding, follow the SDLC from requirements to testing, and use AI tools like Claude Code to move faster — while still reading and reviewing every change.",
+    items: ["UI/UX Design", "SDLC", "Claude Code", "Meta Business Suite"],
+  },
+];
+
+// How I work, step by step (shown above the skills)
+export const workflow: { step: string; detail: string }[] = [
+  { step: "Understand", detail: "Start from the real problem and who has it — customers, users, or the team." },
+  { step: "Plan & design", detail: "Sketch the screens and the data model before writing code." },
+  { step: "Build small", detail: "Ship in small working pieces with TypeScript, testing as I go." },
+  { step: "Improve", detail: "Put it in front of people, listen to feedback, and fix what slows them down." },
 ];
 
 export const spokenLanguages: { name: string; level: string }[] = [
@@ -117,11 +133,16 @@ export const experience: Experience[] = [
     title: "Junior AI Developer Intern",
     period: "2026 · 7 months",
     summary:
-      "Contributed to software development across frontend and database work within a development team.",
+      "Contributed to software development across frontend and database work within a development team at Tamarind Tech, a tech initiative supporting communities in Myanmar.",
     highlights: [
       "Developed and maintained frontend components for community projects",
       "Worked with databases and supported data-related development tasks",
       "Contributed to technical implementation and integration between application components",
+    ],
+    about: [
+      "Tamarind is a humanitarian tech initiative supporting Myanmar with tech-powered solutions, started after the 2025 earthquake.",
+      "Its mission is to help communities recover, rebuild, and rise stronger — together.",
+      "As a Junior AI Developer intern for 7 months, I built frontend components, worked on databases, and helped connect the parts of our apps inside a real development team.",
     ],
   },
 ];
@@ -139,6 +160,12 @@ export const projects: Project[] = [
       "Implemented the database layer with Supabase",
       "Bilingual storefront (Burmese / English) with dark mode and local bank-transfer ordering",
     ],
+      challenge:
+      "Many of my customers can't pay by card and prefer to read in Burmese, so a standard online checkout didn't fit them.",
+    solution:
+      "I built ordering around local bank transfers and made the whole storefront bilingual, with Supabase holding products and orders.",
+    growth:
+      "I watch where customers get stuck or message me with questions, then fix that step first — small updates, often.",
     tags: ["TypeScript", "Next.js", "React", "Supabase"],
     links: [{ label: "Visit site", href: "https://keuri.online" }],
     art: "store",
@@ -154,6 +181,12 @@ export const projects: Project[] = [
       "Built tracking logs to record system and access activity",
       "Built an admin dashboard for RFID access, live device events, and security alarms",
     ],
+      challenge:
+      "A lock that only checks an RFID card can be opened by anyone who finds or copies the card.",
+    solution:
+      "I added a second authentication factor on top of RFID, logged every access attempt, and built a dashboard that shows live events and raises alarms.",
+    growth:
+      "Working with real hardware taught me to plan for dropped connections and odd edge cases, not just the happy path.",
     tags: ["IoT", "RFID", "Next.js", "TypeScript", "Supabase", "PostgreSQL", "Tailwind CSS"],
     links: [
       { label: "Visit site", href: "https://smartdoor-mmcom.online" },
@@ -172,24 +205,15 @@ export const projects: Project[] = [
       "Team Debug Wars: teams solve random debugging questions one round at a time",
       "Live scoreboard tracking charades score, rounds played, accuracy, and answers",
     ],
+      challenge:
+      "A workshop game has to run on one projector with whatever devices people bring — no installs, no sign-ups.",
+    solution:
+      "I kept it to plain HTML, CSS, and JavaScript on Vercel, so it opens instantly in any browser, with one shared live scoreboard.",
+    growth:
+      "Each time it's played I note which rounds drag or confuse people, and simplify them for next time.",
     tags: ["JavaScript", "HTML", "CSS", "Game", "Vercel"],
     links: [{ label: "Play game", href: "https://code-coffee-game.vercel.app" }],
     art: "coffee",
-  },
-  {
-    title: "Myan Shield",
-    role: "Backend & Frontend Developer · Team project",
-    period: "Team",
-    summary:
-      "A smoke detection system built as a team. I developed the user-facing application and the communication between it and the backend services.",
-    highlights: [
-      "Built the user interface with React, TypeScript, and Tailwind CSS",
-      "Implemented API calls and backend communication with Node.js services",
-      "Worked in a stack of PostgreSQL, Redis 7, MinIO, Mailpit, and Nginx",
-    ],
-    tags: ["React", "TypeScript", "Node.js", "PostgreSQL", "Redis 7", "MinIO", "Mailpit", "Nginx", "Tailwind CSS"],
-    links: [],
-    art: "shield",
   },
   {
     title: "Uri Plant Shop",
@@ -202,6 +226,12 @@ export const projects: Project[] = [
       "Worked with databases and application logic",
       "Applied software development lifecycle practices throughout",
     ],
+      challenge:
+      "My first full-stack project: connecting the interface, server logic, and database without it turning into a tangle.",
+    solution:
+      "I followed the SDLC — requirements, design, build, test — and kept the frontend, backend, and data layers separate.",
+    growth:
+      "It's where I learned to plan before I code, a habit I've used in every project since.",
     tags: ["Full-Stack", "Database", "SDLC"],
     links: [],
     art: "plant",

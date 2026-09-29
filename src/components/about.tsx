@@ -1,3 +1,5 @@
+import { asset } from "@/lib/asset";
+
 /* About: bio in a speech-bubble panel with a cartoon laptop, plus quick-fact cards */
 
 function Laptop({ className = "" }: { className?: string }) {
@@ -37,9 +39,17 @@ const icons: Record<string, React.ReactNode> = {
   cap: <path d="M2 9l10-5 10 5-10 5zM6 11v5c3 2.5 9 2.5 12 0v-5" />,
   chat: <path d="M4 5h16v11H9l-5 4z" />,
   bolt: <path d="M13 2 4 14h7l-1 8 9-12h-7z" />,
+  team: <path d="M9 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M16 5.5a3 3 0 0 1 0 5.5M18 14.5c1.8.8 3 2.9 3 5.5" />,
 };
 
-export type Fact = { icon: keyof typeof icons; label: string; value: string; color: string };
+export type Fact = {
+  icon: keyof typeof icons;
+  label: string;
+  value: string;
+  color: string;
+  logo?: string; // image from /public, shown instead of the icon
+  popup?: { title: string; body: string[] }; // opens a comic pop-up panel
+};
 
 export function About({ paragraphs, facts }: { paragraphs: string[]; facts: Fact[] }) {
   return (
@@ -70,14 +80,63 @@ export function About({ paragraphs, facts }: { paragraphs: string[]; facts: Fact
               key={f.label}
               className={`panel flex items-center gap-4 p-4 transition-transform hover:rotate-0 ${i % 2 ? "rotate-1" : "-rotate-1"}`}
             >
-              <span className={`grid size-12 shrink-0 place-items-center rounded-full border-3 border-ink ${f.color}`}>
-                <svg viewBox="0 0 24 24" className="size-6" fill="none" stroke="#16130f" strokeWidth="2.2" strokeLinejoin="round" strokeLinecap="round" aria-hidden>
-                  {icons[f.icon]}
-                </svg>
-              </span>
+              {f.logo ? (
+                <span className="grid size-12 shrink-0 place-items-center overflow-hidden rounded-full border-3 border-ink bg-black">
+                  {/* eslint-disable-next-line @next/next/no-img-element -- static export, no image optimizer */}
+                  <img src={asset(f.logo)} alt="" className="w-[86%]" />
+                </span>
+              ) : (
+                <span className={`grid size-12 shrink-0 place-items-center rounded-full border-3 border-ink ${f.color}`}>
+                  <svg viewBox="0 0 24 24" className="size-6" fill="none" stroke="#16130f" strokeWidth="2.2" strokeLinejoin="round" strokeLinecap="round" aria-hidden>
+                    {icons[f.icon]}
+                  </svg>
+                </span>
+              )}
               <div>
                 <p className="text-xs font-extrabold tracking-[0.15em] text-ink-muted uppercase">{f.label}</p>
                 <p className="font-extrabold leading-snug">{f.value}</p>
+                {f.popup && (
+                  <>
+                    <button
+                      type="button"
+                      popoverTarget={`fact-${i}`}
+                      className="mt-1.5 cursor-pointer rounded-full border-2 border-ink bg-mustard px-2.5 py-0.5 text-xs font-extrabold transition-transform hover:-translate-y-0.5"
+                    >
+                      {f.popup.title} →
+                    </button>
+                    <div
+                      id={`fact-${i}`}
+                      popover="auto"
+                      className="fact-pop panel m-auto w-[min(32rem,calc(100%-2rem))] p-0"
+                    >
+                      <div className="flex items-center justify-between gap-4 border-b-3 border-ink bg-grass px-5 py-3">
+                        <div className="flex items-center gap-3">
+                          {f.logo && (
+                            <span className="grid h-12 w-18 shrink-0 place-items-center rounded-md border-3 border-ink bg-black p-1 shadow-[3px_3px_0_var(--ink)]">
+                              {/* eslint-disable-next-line @next/next/no-img-element -- static export, no image optimizer */}
+                              <img src={asset(f.logo)} alt={`${f.value.split(" · ")[0]} logo`} className="max-h-full" />
+                            </span>
+                          )}
+                          <h3 className="font-display text-2xl tracking-wide">{f.popup.title}</h3>
+                        </div>
+                        <button
+                          type="button"
+                          popoverTarget={`fact-${i}`}
+                          popoverTargetAction="hide"
+                          aria-label="Close"
+                          className="grid size-9 shrink-0 cursor-pointer place-items-center rounded-full border-3 border-ink bg-paper font-extrabold hover:bg-mustard"
+                        >
+                          ✕
+                        </button>
+                      </div>
+                      <div className="space-y-3 p-5 leading-relaxed">
+                        {f.popup.body.map((p) => (
+                          <p key={p}>{p}</p>
+                        ))}
+                      </div>
+                    </div>
+                  </>
+                )}
               </div>
             </li>
           ))}

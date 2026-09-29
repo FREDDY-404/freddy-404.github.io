@@ -6,6 +6,7 @@ import {
   projects,
   skills,
   spokenLanguages,
+  workflow,
 } from "@/data/portfolio";
 import { ArrowDown, ArrowUpRight, Download, MailIcon, Star, socialIcon } from "@/components/icons";
 import { asset } from "@/lib/asset";
@@ -22,7 +23,7 @@ const nav = [
   { id: "projects", label: "Projects" },
   { id: "experience", label: "Experience" },
   { id: "education", label: "Education" },
-  { id: "skills", label: "Skills" },
+  { id: "skills", label: "How I work" },
   { id: "certificates", label: "Certificates" },
   { id: "contact", label: "Contact" },
 ].filter((n) => n.id !== "certificates" || certificates.length > 0);
@@ -240,28 +241,62 @@ export default function Home() {
               facts={[
                 { icon: "pin", label: "Based in", value: profile.location, color: "bg-sky" },
                 { icon: "store", label: "Founder", value: "Keuri Digital Store · since 2026", color: "bg-mustard" },
+                {
+                  icon: "team",
+                  label: "Interned at",
+                  value: "Tamarind Community · Junior AI Developer, 2026",
+                  color: "bg-grass",
+                  logo: "/logos/tamarind.png",
+                  popup: {
+                    title: "What is Tamarind?",
+                    body: experience.find((e) => e.company === "Tamarind Community")?.about ?? [],
+                  },
+                },
                 { icon: "cap", label: "Studying", value: "BSc Computing · University of Sunderland", color: "bg-boom" },
-                { icon: "chat", label: "Speaks", value: spokenLanguages.map((l) => l.name).join(" · "), color: "bg-grass" },
+                { icon: "chat", label: "Speaks", value: spokenLanguages.map((l) => l.name).join(" · "), color: "bg-mustard" },
                 { icon: "bolt", label: "Right now", value: "Open to full-stack developer roles", color: "bg-sky" },
               ]}
             />
           </Section>
 
-          <Section id="skills" title="Skills">
-            <div className="panel grid gap-x-10 gap-y-8 p-6 sm:grid-cols-2 sm:p-8 lg:grid-cols-3">
-              {skills.map((s) => (
-                <div key={s.group}>
-                  <h3 className="text-sm font-extrabold tracking-[0.15em] text-boom uppercase">{s.group}</h3>
-                  <ul className="mt-3 flex flex-wrap gap-1.5">
-                    {s.items.map((it) => (
-                      <TechChip key={it} name={it} className="rounded-full px-3 py-1 text-sm" />
-                    ))}
-                  </ul>
-                </div>
+          <Section id="skills" title="How I work" intro="Not just a list of tools — here's how I actually use them, and the steps I follow on every project.">
+            {/* the process */}
+            <ol className="mb-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              {workflow.map((w, i) => (
+                <li key={w.step} className={`panel relative p-5 pt-6 ${i % 2 ? "rotate-1" : "-rotate-1"}`}>
+                  <span className="absolute -top-4 left-4 grid size-9 place-items-center rounded-full border-3 border-ink bg-boom font-display text-lg text-paper">
+                    {i + 1}
+                  </span>
+                  <h3 className="font-display text-xl tracking-wide">{w.step}</h3>
+                  <p className="mt-1 text-sm text-ink/85">{w.detail}</p>
+                </li>
               ))}
-              <div>
+            </ol>
+
+            {/* each skill group: how I use it, the tools, and where it shows up */}
+            <div className="grid gap-6 md:grid-cols-2">
+              {skills.map((s) => {
+                const usedIn = projects.filter((p) => p.tags.some((t) => s.items.includes(t))).map((p) => p.title);
+                return (
+                  <div key={s.group} className="panel flex flex-col p-6">
+                    <h3 className="text-sm font-extrabold tracking-[0.15em] text-boom uppercase">{s.group}</h3>
+                    <p className="mt-2 leading-relaxed">{s.how}</p>
+                    <ul className="mt-4 flex flex-wrap gap-1.5">
+                      {s.items.map((it) => (
+                        <TechChip key={it} name={it} className="rounded-full px-3 py-1 text-sm" />
+                      ))}
+                    </ul>
+                    {usedIn.length > 0 && (
+                      <p className="mt-auto pt-4 text-sm text-ink-muted">
+                        <span className="font-extrabold text-ink">Used in:</span> {usedIn.join(" · ")}
+                      </p>
+                    )}
+                  </div>
+                );
+              })}
+              <div className="panel p-6 md:col-span-2">
                 <h3 className="text-sm font-extrabold tracking-[0.15em] text-boom uppercase">Languages spoken</h3>
-                <ul className="mt-3 space-y-1.5">
+                <ul className="mt-3 grid gap-x-8 gap-y-1.5 sm:grid-cols-3">
                   {spokenLanguages.map((l) => (
                     <li key={l.name} className="flex justify-between border-b-2 border-dashed border-ink/20 pb-1.5 text-sm">
                       <span className="font-extrabold">{l.name}</span>
