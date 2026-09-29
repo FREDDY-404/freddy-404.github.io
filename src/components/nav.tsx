@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { asset } from "@/lib/asset";
 
 // Sticky nav: inline links on large screens, a hamburger menu below that.
 // Highlights the section currently in view.
@@ -56,7 +57,9 @@ export function Nav({
   return (
     <header className="sticky top-0 z-40 border-b-3 border-ink bg-paper">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-2.5">
-        <a href="#top" className="shrink-0 font-display text-xl leading-none tracking-wide text-ink sm:text-2xl">
+        <a href="#top" className="group flex shrink-0 items-center gap-2 font-display text-xl leading-none tracking-wide text-ink sm:text-2xl">
+          {/* eslint-disable-next-line @next/next/no-img-element -- static export, no image optimizer */}
+          <img src={asset("/logo.svg")} alt="" className="size-9 transition-transform duration-500 group-hover:rotate-[30deg]" />
           {name}
         </a>
 
